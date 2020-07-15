@@ -1,0 +1,12 @@
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\bin\Debug\netstandard2.1\SK.Application.deps.json
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\bin\Debug\netstandard2.1\SK.Application.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\bin\Debug\netstandard2.1\SK.Application.pdb
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\bin\Debug\netstandard2.1\SK.Domain.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\bin\Debug\netstandard2.1\SK.Domain.pdb
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.csprojAssemblyReference.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.AssemblyInfoInputs.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.AssemblyInfo.cs
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.csproj.CoreCompileInputs.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.csproj.CopyComplete
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Application\obj\Debug\netstandard2.1\SK.Application.pdb

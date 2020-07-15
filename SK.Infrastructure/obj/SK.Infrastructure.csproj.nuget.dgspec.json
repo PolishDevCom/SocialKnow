@@ -1,0 +1,203 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Infrastructure\\SK.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\SK.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\SK.Application.csproj",
+        "projectName": "SK.Application",
+        "projectPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\SK.Application.csproj",
+        "packagesPath": "C:\\Users\\Matis\\.nuget\\packages\\",
+        "outputPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\SK.Domain.csproj": {
+                "projectPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\SK.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[8.6.2, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\SK.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\SK.Domain.csproj",
+        "projectName": "SK.Domain",
+        "projectPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\SK.Domain.csproj",
+        "packagesPath": "C:\\Users\\Matis\\.nuget\\packages\\",
+        "outputPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Infrastructure\\SK.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Infrastructure\\SK.Infrastructure.csproj",
+        "projectName": "SK.Infrastructure",
+        "projectPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Infrastructure\\SK.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Matis\\.nuget\\packages\\",
+        "outputPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Matis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\SK.Application.csproj": {
+                "projectPath": "D:\\Websites\\SocialKnow_BDSM\\Shared\\SocialKnow\\SK.Application\\SK.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
