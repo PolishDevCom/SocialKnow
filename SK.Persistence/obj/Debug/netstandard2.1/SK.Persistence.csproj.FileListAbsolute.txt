@@ -1,0 +1,14 @@
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Persistence.deps.json
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Persistence.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Persistence.pdb
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Application.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Domain.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Application.pdb
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\bin\Debug\netstandard2.1\SK.Domain.pdb
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.csprojAssemblyReference.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.AssemblyInfoInputs.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.AssemblyInfo.cs
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.csproj.CoreCompileInputs.cache
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.csproj.CopyComplete
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.dll
+D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Persistence\obj\Debug\netstandard2.1\SK.Persistence.pdb
