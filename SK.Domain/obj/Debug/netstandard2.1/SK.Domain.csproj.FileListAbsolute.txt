@@ -1,8 +1,0 @@
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\bin\Debug\netstandard2.1\SK.Domain.deps.json
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\bin\Debug\netstandard2.1\SK.Domain.dll
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\bin\Debug\netstandard2.1\SK.Domain.pdb
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\obj\Debug\netstandard2.1\SK.Domain.AssemblyInfoInputs.cache
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\obj\Debug\netstandard2.1\SK.Domain.AssemblyInfo.cs
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\obj\Debug\netstandard2.1\SK.Domain.csproj.CoreCompileInputs.cache
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\obj\Debug\netstandard2.1\SK.Domain.dll
-D:\Websites\SocialKnow_BDSM\Shared\SocialKnow\SK.Domain\obj\Debug\netstandard2.1\SK.Domain.pdb
