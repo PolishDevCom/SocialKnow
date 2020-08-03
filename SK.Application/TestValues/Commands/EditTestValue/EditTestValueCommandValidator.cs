@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using SK.Application.Common.Interfaces;
 
-namespace SK.Application.TestValues.Commands.Edit
+namespace SK.Application.TestValues.Commands.EditTestValue
 {
-    public class EditTestValueCommandValidator : AbstractValidator<EditTestValueCommand.Command>
+    public class EditTestValueCommandValidator : AbstractValidator<EditTestValueCommand>
     {
         private readonly IApplicationDbContext _context;
 

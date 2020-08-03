@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using SK.Application.Common.Exceptions;
-using SK.Application.TestValues.Commands.Create;
-using SK.Application.TestValues.Commands.Delete;
+using SK.Application.TestValues.Commands.CreateTestValue;
+using SK.Application.TestValues.Commands.DeleteTestValue;
 using SK.Domain.Entities;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public void ShouldRequireValidTodoListId()
         {
             //arrange
-            var command = new DeleteTestValueCommand.Command { Id = 99 };
+            var command = new DeleteTestValueCommand { Id = 99 };
 
             //assert
             FluentActions.Invoking(() =>
@@ -28,14 +28,14 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldDeleteTodoList()
         {
             //arrange
-            var createdTestValueId = await SendAsync(new CreateTestValueCommand.Command
+            var createdTestValueId = await SendAsync(new CreateTestValueCommand
             {
                 Id = 1,
                 Name = "New value"
             });
 
             //act
-            await SendAsync(new DeleteTestValueCommand.Command
+            await SendAsync(new DeleteTestValueCommand
             {
                 Id = createdTestValueId
             });

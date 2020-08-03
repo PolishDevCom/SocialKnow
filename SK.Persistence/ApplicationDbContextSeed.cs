@@ -1,4 +1,5 @@
-﻿using SK.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using SK.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,16 @@ namespace SK.Persistence
                 };
                 context.TestValues.AddRange(testValues);
                 await context.SaveChangesAsync();
+            }
+        }
+
+        public static async Task SeedDefaultUserAsync(UserManager<AppUser> userManager)
+        {
+            var defaultUser = new AppUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+
+            if (userManager.Users.All(u => u.UserName != defaultUser.UserName))
+            {
+                await userManager.CreateAsync(defaultUser, "Administrator1!");
             }
         }
     }

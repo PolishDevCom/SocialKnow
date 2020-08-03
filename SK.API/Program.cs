@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SK.Domain.Entities;
 using SK.Persistence;
 using System;
 using System.Threading.Tasks;
@@ -22,12 +24,12 @@ namespace SK.API
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     if (context.Database.IsNpgsql())
                     {
                         context.Database.Migrate();
                     }
-
+                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager);
                     await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }
                 catch (Exception ex)
