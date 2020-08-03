@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
+using SK.Domain.Entities;
 using SK.Persistence;
 using System.IO;
 using System.Linq;
@@ -73,25 +75,25 @@ public class Testing
         return await mediator.Send(request);
     }
 
-    //public static async Task<string> RunAsDefaultUserAsync()
-    //{
-    //    return await RunAsUserAsync("test@local", "Testing1234!");
-    //}
+    public static async Task<string> RunAsDefaultUserAsync()
+    {
+        return await RunAsUserAsync("test@local", "Testing1234!");
+    }
 
-    //public static async Task<string> RunAsUserAsync(string userName, string password)
-    //{
-    //    using var scope = _scopeFactory.CreateScope();
+    public static async Task<string> RunAsUserAsync(string userName, string password)
+    {
+        using var scope = _scopeFactory.CreateScope();
 
-    //    var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+        var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
 
-    //    var user = new ApplicationUser { UserName = userName, Email = userName };
+        var user = new AppUser { UserName = userName, Email = userName };
 
-    //    var result = await userManager.CreateAsync(user, password);
+        var result = await userManager.CreateAsync(user, password);
 
-    //    _currentUserId = user.Id;
+        _currentUserId = user.Id;
 
-    //    return _currentUserId;
-    //}
+        return _currentUserId;
+    }
 
     public static async Task ResetState()
     {

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using SK.Application.Common.Interfaces;
 
-namespace SK.Application.TestValues.Commands.Create
+namespace SK.Application.TestValues.Commands.CreateTestValue
 {
-    public class CreateTestValueCommandValidator : AbstractValidator<CreateTestValueCommand.Command>
+    public class CreateTestValueCommandValidator : AbstractValidator<CreateTestValueCommand>
     {
         private readonly IApplicationDbContext _context;
 

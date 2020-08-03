@@ -2,14 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <UserSecretsId>89e3b1df-3fb4-4947-8463-699a1fe9657a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Middleware\" />
+    <Compile Remove="Middleware\**" />
+    <Content Remove="Middleware\**" />
+    <EmbeddedResource Remove="Middleware\**" />
+    <None Remove="Middleware\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

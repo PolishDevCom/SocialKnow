@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using SK.Application.Common.Exceptions;
-using SK.Application.TestValues.Commands.Create;
+using SK.Application.TestValues.Commands.CreateTestValue;
 using SK.Domain.Entities;
 using System;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldCreateTestValue()
         {
             //arrange
-            var command = new CreateTestValueCommand.Command()
+            var command = new CreateTestValueCommand()
             {
                 Id = 1,
                 Name = "Test"
@@ -31,7 +31,6 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
             createdTestValue.Should().NotBeNull();
             createdTestValue.Id.Should().Be(command.Id);
             createdTestValue.Name.Should().Be(command.Name);
-            createdTestValue.CreatedBy.Should().Be("MADO");
             createdTestValue.Created.Should().BeCloseTo(DateTime.Now, 10000);
         }
 
@@ -39,7 +38,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public void ShouldRequireMinimumFields()
         {
             //arrange
-            var command = new CreateTestValueCommand.Command();
+            var command = new CreateTestValueCommand();
 
             //act
 

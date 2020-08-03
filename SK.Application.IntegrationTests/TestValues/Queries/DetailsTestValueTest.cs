@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SK.Application.TestValues.Queries.Details;
+using SK.Application.TestValues.Queries.DetailsTestValue;
 using SK.Domain.Entities;
 using System.Threading.Tasks;
 
@@ -31,7 +31,7 @@ namespace SK.Application.IntegrationTests.TestValues.Queries
 
             int expectedId = 2;
 
-            var query = new DetailsTestValueQuery.Query() { Id = expectedId };
+            var query = new DetailsTestValueQuery() { Id = expectedId };
 
             //act
             var result = await SendAsync(query);

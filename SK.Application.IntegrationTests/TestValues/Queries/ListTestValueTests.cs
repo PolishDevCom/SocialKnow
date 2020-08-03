@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using SK.Application.TestValues.Queries.List;
+using SK.Application.TestValues.Queries.ListTestValue;
 using SK.Domain.Entities;
 using System.Threading.Tasks;
 
@@ -31,7 +31,7 @@ namespace SK.Application.IntegrationTests.TestValues.Queries
                 Name = "Test3"
             });
 
-            var query = new ListTestValueQuery.Query();
+            var query = new ListTestValueQuery();
 
             //act
             var result = await SendAsync(query);
