@@ -25,6 +25,7 @@ namespace SK.Persistence
         }
 
         public DbSet<TestValue> TestValues { get; set; }
+        public DbSet<AdditionalUserContent> AdditionalUserContents { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
