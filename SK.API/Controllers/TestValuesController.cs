@@ -25,15 +25,15 @@ namespace SK.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] CreateTestValueCommand command)
+        public async Task<ActionResult<int>> Create([FromBody] TestValueDto request)
         {
-            return await Mediator.Send(command);
+            return await Mediator.Send(new CreateTestValueCommand(request.Id, request.Name));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update([FromBody] TestValueDto testValue)
+        public async Task<ActionResult> Update([FromBody] TestValueDto request)
         {
-            await Mediator.Send(new EditTestValueCommand { Id = testValue.Id, Name = testValue.Name});
+            await Mediator.Send(new EditTestValueCommand(request.Id, request.Name));
 
             return NoContent();
         }
