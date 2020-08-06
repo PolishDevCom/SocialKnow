@@ -17,11 +17,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldCreateTestValue()
         {
             //arrange
-            var command = new CreateTestValueCommand()
-            {
-                Id = 1,
-                Name = "Test"
-            };
+            var command = new CreateTestValueCommand(1, "Test");
 
             //actual
             var createdId = await SendAsync(command);

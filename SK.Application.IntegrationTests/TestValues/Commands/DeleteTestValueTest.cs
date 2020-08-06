@@ -28,11 +28,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldDeleteTodoList()
         {
             //arrange
-            var createdTestValueId = await SendAsync(new CreateTestValueCommand
-            {
-                Id = 1,
-                Name = "New value"
-            });
+            var createdTestValueId = await SendAsync(new CreateTestValueCommand(1, "New value"));
 
             //act
             await SendAsync(new DeleteTestValueCommand

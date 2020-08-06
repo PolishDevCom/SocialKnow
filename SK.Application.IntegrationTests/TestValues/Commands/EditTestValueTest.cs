@@ -18,18 +18,10 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldUpdateTestValue()
         {
             //arrange
-            var testValueId = await SendAsync(new CreateTestValueCommand
-            {
-                Id = 1,
-                Name = "New Value"
-            });
+            var testValueId = await SendAsync(new CreateTestValueCommand(1, "New Value"));
 
             //act
-            var command = new EditTestValueCommand
-            {
-                Id = testValueId,
-                Name = "Updated Value"
-            };
+            var command = new EditTestValueCommand(testValueId, "Updated Value");
             await SendAsync(command);
             var actualTestValue = await FindAsync<TestValue>(testValueId);
 
@@ -44,11 +36,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public void ShouldRequireValidTestValue()
         {
             //arrange
-            var command = new EditTestValueCommand
-            {
-                Id = 99,
-                Name = "New Title"
-            };
+            var command = new EditTestValueCommand(99, "New Title");
 
             //assert
             FluentActions.Invoking(() =>
@@ -60,16 +48,9 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         {
 
             //arrange
-            var testValueId = await SendAsync(new CreateTestValueCommand
-            {
-                Id = 1,
-                Name = "New Value"
-            });
+            var testValueId = await SendAsync(new CreateTestValueCommand(1, "New Value"));
 
-            var command = new EditTestValueCommand
-            {
-                Id = 1
-            };
+            var command = new EditTestValueCommand(1, null);
 
             //assert
             FluentActions.Invoking(() =>
