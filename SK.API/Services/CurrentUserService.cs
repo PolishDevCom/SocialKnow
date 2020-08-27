@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SK.Application.Common.Interfaces;
+using System.Linq;
 using System.Security.Claims;
 
 namespace SK.API.Services
@@ -13,6 +14,6 @@ namespace SK.API.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId { get { return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier); } }
+        public string Username { get { return _httpContextAccessor.HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value; } }
     }
 }

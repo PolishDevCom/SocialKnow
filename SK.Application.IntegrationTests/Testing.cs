@@ -52,7 +52,7 @@ public class Testing
 
         // Register testing version
         services.AddTransient(provider =>
-            Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
+            Mock.Of<ICurrentUserService>(s => s.Username == _currentUserId));
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
