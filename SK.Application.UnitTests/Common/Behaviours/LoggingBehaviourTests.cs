@@ -41,7 +41,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldCallGetUserNameAsyncOnceIfAuthenticated()
         {
-            _currentUserService.Setup(x => x.UserId).Returns("Administrator");
+            _currentUserService.Setup(x => x.Username).Returns("Administrator");
 
             var requestLogger = new LoggingBehaviour<CreateTestValueCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 

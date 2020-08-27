@@ -49,6 +49,12 @@ namespace SK.Infrastructure.Security
             return result.ToApplicationResult();
         }
 
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            return user;
+        }
+
         public async Task<string> GetUserNameAsync(string userId)
         {
             var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
