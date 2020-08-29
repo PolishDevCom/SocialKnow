@@ -7,6 +7,7 @@ namespace SK.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
+        DbSet<AppUser> Users { get; set; }
         DbSet<TestValue> TestValues { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -17,16 +17,9 @@ namespace SK.Infrastructure.Security
             _userManager = userManager;
         }
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(Result Result, string UserId)> CreateUserAsync(AppUser user, string password)
         {
-            var user = new AppUser
-            {
-                UserName = userName,
-                Email = userName,
-            };
-
             var result = await _userManager.CreateAsync(user, password);
-
             return (result.ToApplicationResult(), user.Id);
         }
 
@@ -55,10 +48,18 @@ namespace SK.Infrastructure.Security
             return user;
         }
 
+        public async Task<AppUser> GetUserByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user;
+        }
+
         public async Task<string> GetUserNameAsync(string userId)
         {
             var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
             return user.UserName;
         }
+
+
     }
 }

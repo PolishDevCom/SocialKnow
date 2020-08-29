@@ -3,7 +3,7 @@ using SK.Application.Common.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.User.Queries
+namespace SK.Application.User.Queries.GetCurrentUser
 {
     public class GetCurrentUserQueryHandler : IRequestHandler<GetCurrentUserQuery, User>
     {
