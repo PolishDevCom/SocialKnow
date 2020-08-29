@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
 using SK.Application.Common.Interfaces;
 using SK.Domain.Common;
 using SK.Domain.Entities;
