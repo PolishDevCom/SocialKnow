@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SK.Application.TestValues.Commands.CreateTestValue;
 using SK.Application.TestValues.Commands.DeleteTestValue;
 using SK.Application.TestValues.Commands.EditTestValue;
@@ -12,6 +13,7 @@ namespace SK.API.Controllers
 {
     public class TestValuesController : ApiController
     {
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<TestValueDto>>> List()
         {

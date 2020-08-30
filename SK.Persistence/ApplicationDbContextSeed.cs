@@ -28,11 +28,17 @@ namespace SK.Persistence
 
         public static async Task SeedDefaultUserAsync(UserManager<AppUser> userManager)
         {
-            var defaultUser = new AppUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+            var defaultUser = new AppUser { UserName = "administrator", Email = "administrator@localhost" };
+            var bobUser = new AppUser { UserName = "bob", Email = "bob@localhost" };
+            var tomUser = new AppUser { UserName = "tom", Email = "tom@localhost" };
+            var janeUser = new AppUser { UserName = "jane", Email = "jane@localhost" };
 
             if (userManager.Users.All(u => u.UserName != defaultUser.UserName))
             {
                 await userManager.CreateAsync(defaultUser, "Administrator1!");
+                await userManager.CreateAsync(bobUser, "Pa$$w0rd!");
+                await userManager.CreateAsync(tomUser, "Pa$$w0rd!");
+                await userManager.CreateAsync(janeUser, "Pa$$w0rd!");
             }
         }
     }

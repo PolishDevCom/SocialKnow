@@ -6,8 +6,6 @@ namespace SK.Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<string> GetUserNameAsync(string userId);
-
         Task<AppUser> GetUserByUsernameAsync(string username);
         Task<AppUser> GetUserByEmailAsync(string email);
 

@@ -37,15 +37,16 @@ namespace SK.Application.Common.Behaviours
             {
                 var requestName = typeof(TRequest).Name;
 
-                var userId = _currentUserService.Username ?? string.Empty;
+                var username = _currentUserService.Username ?? string.Empty;
                 var userName = string.Empty;
 
-                if (!string.IsNullOrEmpty(userId))
+                if (!string.IsNullOrEmpty(username))
                 {
-                    userName = await _identityService.GetUserNameAsync(userId);
+                    var user = await _identityService.GetUserByUsernameAsync(username);
+                    userName = user.UserName;
                 }
 
-                _logger.LogWarning("SocialKnow Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}", requestName, elapsedMilliseconds, userId, userName, request);
+                _logger.LogWarning("SocialKnow Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}", requestName, elapsedMilliseconds, username, userName, request);
             }
 
             return response;
