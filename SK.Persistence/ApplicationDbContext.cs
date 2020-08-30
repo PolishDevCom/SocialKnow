@@ -34,11 +34,11 @@ namespace SK.Persistence
                 {
                     case EntityState.Modified:
                         entry.Entity.LastModified = _dateTime.Now;
-                        entry.Entity.LastModifiedBy = _currentUserService.Username;
+                        entry.Entity.LastModifiedBy = _currentUserService.Username ?? string.Empty;
                         break;
                     case EntityState.Added:
                         entry.Entity.Created = _dateTime.Now;
-                        entry.Entity.CreatedBy = _currentUserService.Username;
+                        entry.Entity.CreatedBy = _currentUserService.Username ?? string.Empty;
                         break;
                 }
             }

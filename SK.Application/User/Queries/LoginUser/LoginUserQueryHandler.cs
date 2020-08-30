@@ -25,7 +25,7 @@ namespace SK.Application.User.Queries.LoginUser
 
         public async Task<User> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _identityService.GetUserByEmailAsync(request.Email) ?? throw new RestException(HttpStatusCode.Unauthorized);
+            var user = await _identityService.GetUserByEmailAsync(request.Email) ?? throw new RestException(HttpStatusCode.Unauthorized, new { Email = "Not correct email." });
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
@@ -38,7 +38,7 @@ namespace SK.Application.User.Queries.LoginUser
                     Image = null
                 };
             }
-            throw new RestException(HttpStatusCode.Unauthorized);
+            throw new RestException(HttpStatusCode.Unauthorized, "Not correct password.");
         }
     }
 }

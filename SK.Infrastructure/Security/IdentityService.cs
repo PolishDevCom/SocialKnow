@@ -53,13 +53,5 @@ namespace SK.Infrastructure.Security
             var user = await _userManager.FindByEmailAsync(email);
             return user;
         }
-
-        public async Task<string> GetUserNameAsync(string userId)
-        {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-            return user.UserName;
-        }
-
-
     }
 }

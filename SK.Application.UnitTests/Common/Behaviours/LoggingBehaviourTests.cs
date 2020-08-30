@@ -47,7 +47,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
 
             await requestLogger.Process(new CreateTestValueCommand { Id = 123, Name = "test" }, new CancellationToken());
 
-            _identityService.Verify(i => i.GetUserNameAsync(It.IsAny<string>()), Times.Once);
+            _identityService.Verify(i => i.GetUserByUsernameAsync(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
 
             await requestLogger.Process(new CreateTestValueCommand { Id = 123, Name = "test" }, new CancellationToken());
 
-            _identityService.Verify(i => i.GetUserNameAsync(null), Times.Never);
+            _identityService.Verify(i => i.GetUserByUsernameAsync(null), Times.Never);
         }
     }
 }
