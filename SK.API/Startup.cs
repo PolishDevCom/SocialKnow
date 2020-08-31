@@ -36,10 +36,9 @@ namespace SK.API
             services.AddPersistence(Configuration);
             services.AddInfrastructure(Configuration);
             
-
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-
             services.AddHttpContextAccessor();
+
 
             services.AddControllers(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
