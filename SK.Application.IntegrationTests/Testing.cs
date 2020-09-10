@@ -9,10 +9,12 @@ using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
+using SK.Infrastructure.Security;
 using SK.Persistence;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 [SetUpFixture]
 public class Testing
@@ -27,6 +29,7 @@ public class Testing
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true)
+            .AddUserSecrets("89e3b1df-3fb4-4947-8463-699a1fe9657a")
             .AddEnvironmentVariables();
 
         _configuration = builder.Build();
@@ -53,6 +56,8 @@ public class Testing
         // Register testing version
         services.AddTransient(provider =>
             Mock.Of<ICurrentUserService>(s => s.Username == _currentUserId));
+        services.AddTransient(provider =>
+            Mock.Of<IJwtGenerator>());
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -101,9 +106,11 @@ public class Testing
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        var all = from c in context.TestValues select c;
+        var allTestValues = from c in context.TestValues select c;
+        var allUsers = from c in context.Users select c;
 
-        context.TestValues.RemoveRange(all);
+        context.TestValues.RemoveRange(allTestValues);
+        context.Users.RemoveRange(allUsers);
 
         await context.SaveChangesAsync();
 

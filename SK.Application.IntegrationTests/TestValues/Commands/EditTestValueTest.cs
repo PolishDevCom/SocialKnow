@@ -27,9 +27,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
 
             //assert
             actualTestValue.Name.Should().Be(command.Name);
-            actualTestValue.LastModifiedBy.Should().NotBeNull();
-            actualTestValue.LastModified.Should().NotBeNull();
-            actualTestValue.LastModified.Should().BeCloseTo(DateTime.Now, 1000);
+            actualTestValue.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
         }
 
         [Test]
