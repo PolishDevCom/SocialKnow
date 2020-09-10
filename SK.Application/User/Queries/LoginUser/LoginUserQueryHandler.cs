@@ -38,7 +38,7 @@ namespace SK.Application.User.Queries.LoginUser
                     Image = null
                 };
             }
-            throw new RestException(HttpStatusCode.Unauthorized, "Not correct password.");
+            throw new RestException(HttpStatusCode.Unauthorized, new { Password = "Not correct password." });
         }
     }
 }
