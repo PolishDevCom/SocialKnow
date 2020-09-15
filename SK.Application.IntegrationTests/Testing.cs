@@ -9,7 +9,6 @@ using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
-using SK.Infrastructure.Security;
 using SK.Persistence;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,7 @@ public class Testing
 {
     private static IConfigurationRoot _configuration;
     private static IServiceScopeFactory _scopeFactory;
-    private static string _currentUserId;
+    private static string _currentUserName;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -55,7 +54,7 @@ public class Testing
 
         // Register testing version
         services.AddTransient(provider =>
-            Mock.Of<ICurrentUserService>(s => s.Username == _currentUserId));
+            Mock.Of<ICurrentUserService>(s => s.Username == _currentUserName));
         services.AddTransient(provider =>
             Mock.Of<IJwtGenerator>());
 
@@ -95,9 +94,9 @@ public class Testing
 
         var result = await userManager.CreateAsync(user, password);
 
-        _currentUserId = user.Id;
+        _currentUserName = user.UserName;
 
-        return _currentUserId;
+        return _currentUserName;
     }
 
     public static async Task ResetState()
@@ -114,7 +113,7 @@ public class Testing
 
         await context.SaveChangesAsync();
 
-        _currentUserId = null;
+        _currentUserName = null;
     }
 
     public static async Task<TEntity> FindAsync<TEntity>(int id)

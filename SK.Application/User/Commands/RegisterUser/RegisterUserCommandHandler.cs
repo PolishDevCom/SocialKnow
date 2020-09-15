@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net;
 using SK.Domain.Entities;
 using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SK.Application.User.Commands.RegisterUser
 {

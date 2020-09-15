@@ -22,7 +22,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Email = "scott@localhost",
                 Password = "Pa$$w0rd!"
             };
-            var registeredUser = await SendAsync(command);
+            await SendAsync(command);
 
             var query = new LoginUserQuery()
             {

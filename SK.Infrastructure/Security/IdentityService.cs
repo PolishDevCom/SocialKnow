@@ -23,9 +23,9 @@ namespace SK.Infrastructure.Security
             return (result.ToApplicationResult(), user.Id);
         }
 
-        public async Task<Result> DeleteUserAsync(string userId)
+        public async Task<Result> DeleteUserAsync(string username)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+            var user = _userManager.Users.SingleOrDefault(u => u.UserName == username);
 
             if (user != null)
             {

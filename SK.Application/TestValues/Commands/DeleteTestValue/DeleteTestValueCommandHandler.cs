@@ -17,7 +17,7 @@ namespace SK.Application.TestValues.Commands.DeleteTestValue
 
             public async Task<Unit> Handle(DeleteTestValueCommand request, CancellationToken cancellationToken)
             {
-                var testValue = await _context.TestValues.FindAsync(request.Id) ?? throw new NotFoundException(nameof(TestValue), request.Id); ;
+                var testValue = await _context.TestValues.FindAsync(request.Id) ?? throw new NotFoundException(nameof(TestValue), request.Id);
 
                 _context.TestValues.Remove(testValue);
                 await _context.SaveChangesAsync(cancellationToken);
