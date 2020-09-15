@@ -4,6 +4,7 @@ using NUnit.Framework;
 using SK.Application.Common.Behaviours;
 using SK.Application.Common.Interfaces;
 using SK.Application.TestValues.Commands.CreateTestValue;
+using SK.Domain.Entities;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,7 +42,8 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldCallGetUserNameAsyncOnceIfAuthenticated()
         {
-            _currentUserService.Setup(x => x.Username).Returns("Administrator");
+            _currentUserService.Setup(x => x.Username).Returns("bob101@localhost");
+            _identityService.Setup(i => i.GetUserByUsernameAsync("bob101@localhost")).Returns(Task.FromResult(new AppUser { UserName = "bob101@localhost" }));
 
             var requestLogger = new LoggingBehaviour<CreateTestValueCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 

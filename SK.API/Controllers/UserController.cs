@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Common.Models;
 using SK.Application.User;
+using SK.Application.User.Commands.DeleteUser;
 using SK.Application.User.Commands.RegisterUser;
 using SK.Application.User.Queries.GetCurrentUser;
 using SK.Application.User.Queries.LoginUser;
@@ -28,6 +30,13 @@ namespace SK.API.Controllers
         public async Task<ActionResult<User>> Login(LoginUserQuery query)
         {
             return await Mediator.Send(query);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task<ActionResult<Result>> DeleteUser(DeleteUserCommand command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }

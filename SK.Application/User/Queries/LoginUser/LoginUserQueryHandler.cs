@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
-using SK.Application.Common.Models;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
