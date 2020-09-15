@@ -22,15 +22,16 @@ namespace SK.Application.Common.Behaviours
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId ?? string.Empty;
+            var username = _currentUserService.Username ?? string.Empty;
             string userName = string.Empty;
 
-            if (!string.IsNullOrEmpty(userId))
+            if (!string.IsNullOrEmpty(username))
             {
-                userName = await _identityService.GetUserNameAsync(userId);
+                var user = await _identityService.GetUserByUsernameAsync(username);
+                userName = user.UserName;
             }
 
-            _logger.LogInformation("SocialKnow Request: {Name} {@UserId} {@UserName} {@Request}", requestName, userId, userName, request);
+            _logger.LogInformation("SocialKnow Request: {Name} {@UserId} {@UserName} {@Request}", requestName, username, userName, request);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace SK.API.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(RestException), HandleRestException }
             };
         }
 
@@ -46,7 +47,8 @@ namespace SK.API.Filters
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An error occurred while processing your request.",
-                Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+                Detail = "MESSAGE: " +  context.Exception.Message + " STACK TRACE: " + context.Exception.StackTrace + " SOURCE: " + context.Exception.Source
             };
 
             context.Result = new ObjectResult(details)
@@ -83,6 +85,25 @@ namespace SK.API.Filters
             };
 
             context.Result = new NotFoundObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleRestException(ExceptionContext context)
+        {
+            var exception = context.Exception as RestException;
+
+            var details = new ProblemDetails()
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                Title = "An error occurred while processing your request.",
+                Detail = exception.Errors.ToString()
+            };
+
+            context.Result = new ObjectResult(details)
+            {
+                StatusCode = (int)exception.Code,
+            };
 
             context.ExceptionHandled = true;
         }

@@ -17,22 +17,15 @@ namespace SK.Infrastructure.Security
             _userManager = userManager;
         }
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(Result Result, string UserId)> CreateUserAsync(AppUser user, string password)
         {
-            var user = new AppUser
-            {
-                UserName = userName,
-                Email = userName,
-            };
-
             var result = await _userManager.CreateAsync(user, password);
-
             return (result.ToApplicationResult(), user.Id);
         }
 
-        public async Task<Result> DeleteUserAsync(string userId)
+        public async Task<Result> DeleteUserAsync(string username)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+            var user = _userManager.Users.SingleOrDefault(u => u.UserName == username);
 
             if (user != null)
             {
@@ -49,10 +42,16 @@ namespace SK.Infrastructure.Security
             return result.ToApplicationResult();
         }
 
-        public async Task<string> GetUserNameAsync(string userId)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-            return user.UserName;
+            var user = await _userManager.FindByNameAsync(username);
+            return user;
+        }
+
+        public async Task<AppUser> GetUserByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user;
         }
     }
 }
