@@ -14,12 +14,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 [SetUpFixture]
 public class Testing
 {
     private static IConfigurationRoot _configuration;
     private static IServiceScopeFactory _scopeFactory;
-    private static string _currentUserId;
+    private static string _currentUserName;
 
     [OneTimeSetUp]
     public void RunBeforeAnyTests()
@@ -27,6 +28,7 @@ public class Testing
         var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", true, true)
+            .AddUserSecrets("89e3b1df-3fb4-4947-8463-699a1fe9657a")
             .AddEnvironmentVariables();
 
         _configuration = builder.Build();
@@ -52,7 +54,9 @@ public class Testing
 
         // Register testing version
         services.AddTransient(provider =>
-            Mock.Of<ICurrentUserService>(s => s.UserId == _currentUserId));
+            Mock.Of<ICurrentUserService>(s => s.Username == _currentUserName));
+        services.AddTransient(provider =>
+            Mock.Of<IJwtGenerator>());
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
 
@@ -90,9 +94,9 @@ public class Testing
 
         var result = await userManager.CreateAsync(user, password);
 
-        _currentUserId = user.Id;
+        _currentUserName = user.UserName;
 
-        return _currentUserId;
+        return _currentUserName;
     }
 
     public static async Task ResetState()
@@ -101,13 +105,15 @@ public class Testing
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        var all = from c in context.TestValues select c;
+        var allTestValues = from c in context.TestValues select c;
+        var allUsers = from c in context.Users select c;
 
-        context.TestValues.RemoveRange(all);
+        context.TestValues.RemoveRange(allTestValues);
+        context.Users.RemoveRange(allUsers);
 
         await context.SaveChangesAsync();
 
-        _currentUserId = null;
+        _currentUserName = null;
     }
 
     public static async Task<TEntity> FindAsync<TEntity>(int id)

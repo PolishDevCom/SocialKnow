@@ -19,15 +19,15 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
             //arrange
             var command = new CreateTestValueCommand(1, "Test");
 
-            //actual
+            //act
             var createdId = await SendAsync(command);
             var createdTestValue = await FindAsync<TestValue>(createdId);
 
-            //arrange
+            //assert
             createdTestValue.Should().NotBeNull();
             createdTestValue.Id.Should().Be(command.Id);
             createdTestValue.Name.Should().Be(command.Name);
-            createdTestValue.Created.Should().BeCloseTo(DateTime.Now, 10000);
+            createdTestValue.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
         }
 
         [Test]
