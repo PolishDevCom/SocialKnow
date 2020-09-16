@@ -16,4 +16,11 @@
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\Commands\CreateEvent\" />
+    <Folder Include="Events\Commands\EditEvent\" />
+    <Folder Include="Events\Commands\DeleteEvent\" />
+    <Folder Include="Events\Queries\DetailsEvent\" />
+  </ItemGroup>
+
 </Project>
