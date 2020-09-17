@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using SK.Application.Events.Commands.CreateEvent;
 using SK.Application.Events.Commands.DeleteEvent;
 using SK.Application.Events.Commands.EditEvent;
+using SK.Application.Events.Commands.SubscribeEvent;
+using SK.Application.Events.Commands.UnsubscribeEvent;
 using SK.Application.Events.Queries;
 using SK.Application.Events.Queries.DetailsEvent;
 using SK.Application.Events.Queries.ListEvent;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
+    [Authorize]
     public class EventsController : ApiController
     {
         [HttpGet]
@@ -46,6 +49,18 @@ namespace SK.API.Controllers
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
             return await Mediator.Send(new DeleteEventCommand { Id = id });
+        }
+
+        [HttpPost("{id}/subscribe")]
+        public async Task<ActionResult<Unit>> Subscribe(Guid id)
+        {
+            return await Mediator.Send(new SubscribeEventCommand { Id = id });
+        }
+
+        [HttpDelete("{id}/subscribe")]
+        public async Task<ActionResult<Unit>> Unsubscribe(Guid id)
+        {
+            return await Mediator.Send(new UnsubscribeEventCommand { Id = id });
         }
     }
 }
