@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using NUnit.Framework;
 using SK.Application.Common.Mapping;
+using SK.Application.Events.Queries;
 using SK.Application.TestValues.Queries;
 using SK.Domain.Entities;
 using System;
@@ -30,6 +31,8 @@ namespace SK.Application.UnitTests.Common.Mapping
 
         [Test]
         [TestCase(typeof(TestValue), typeof(TestValueDto))]
+        [TestCase(typeof(Event), typeof(EventDto))]
+        [TestCase(typeof(UserEvent), typeof(AttendeeDto))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
             var instance = Activator.CreateInstance(source);

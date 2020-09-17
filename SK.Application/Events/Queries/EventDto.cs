@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SK.Application.Common.Mapping;
+using SK.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace SK.Application.Events.Queries
 {
-    public class EventDto
+    public class EventDto : IMapFrom<Event>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
