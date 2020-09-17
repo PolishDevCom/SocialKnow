@@ -14,14 +14,12 @@ namespace SK.Application.Events.Commands.CreateEvent
     {
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUser;
-        private readonly IIdentityService _identityService;
         private readonly IDateTime _dateTime;
 
-        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IIdentityService identityService, IDateTime dateTime)
+        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IDateTime dateTime)
         {
             _context = context;
             _currentUser = currentUser;
-            _identityService = identityService;
             _dateTime = dateTime;
         }
 
