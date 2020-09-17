@@ -16,9 +16,4 @@
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Events\Commands\UnattendEvent\" />
-    <Folder Include="Events\Commands\AttendEvent\" />
-  </ItemGroup>
-
 </Project>
