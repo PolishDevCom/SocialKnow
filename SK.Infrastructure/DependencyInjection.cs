@@ -13,6 +13,14 @@ namespace SK.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsEventHost", policy =>
+                {
+                    policy.Requirements.Add(new IsEventHostRequirement());
+                });
+            });
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>

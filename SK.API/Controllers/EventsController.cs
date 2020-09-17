@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SK.Application.Events.Commands.CreateEvent;
+using SK.Application.Events.Commands.DeleteEvent;
+using SK.Application.Events.Commands.EditEvent;
 using SK.Application.Events.Queries;
 using SK.Application.Events.Queries.DetailsEvent;
 using SK.Application.Events.Queries.ListEvent;
@@ -27,6 +31,21 @@ namespace SK.API.Controllers
         public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand command)
         {
             return await Mediator.Send(command);
+        }
+
+        [HttpPut("{id}")]
+        [Authorize(Policy = "IsEventHost")]
+        public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditEventCommand command)
+        {
+            command.Id = id;
+            return await Mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Policy = "IsEventHost")]
+        public async Task<ActionResult<Unit>> Delete(Guid id)
+        {
+            return await Mediator.Send(new DeleteEventCommand { Id = id });
         }
     }
 }
