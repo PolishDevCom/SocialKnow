@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SK.Application.Events.Commands.CreateEvent;
 using SK.Application.Events.Queries;
 using SK.Application.Events.Queries.DetailsEvent;
 using SK.Application.Events.Queries.ListEvent;
@@ -20,6 +21,12 @@ namespace SK.API.Controllers
         public async Task<ActionResult<EventDto>> Details(Guid id)
         {
             return await Mediator.Send(new DetailsEventQuery { Id = id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }
