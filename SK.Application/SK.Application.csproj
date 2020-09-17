@@ -20,7 +20,6 @@
     <Folder Include="Events\Commands\CreateEvent\" />
     <Folder Include="Events\Commands\EditEvent\" />
     <Folder Include="Events\Commands\DeleteEvent\" />
-    <Folder Include="Events\Queries\DetailsEvent\" />
   </ItemGroup>
 
 </Project>
