@@ -50,7 +50,7 @@ namespace SK.API
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Please insert JWT with Bearer into field. Example: \"Authorization: Bearer {token}\"",
+                    Description = "Please insert JWT with Bearer into field. Example: \"Bearer {token}\"",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
