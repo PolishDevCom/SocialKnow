@@ -10,6 +10,7 @@ using SK.API;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Persistence;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -118,6 +119,16 @@ public class Testing
 
     public static async Task<TEntity> FindAsync<TEntity>(int id)
         where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task<TEntity> FindByGuidAsync<TEntity>(Guid id)
+    where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
 

@@ -2,7 +2,6 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Interfaces;
 using SK.Application.Events.Queries;
