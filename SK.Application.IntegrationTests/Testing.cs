@@ -108,9 +108,11 @@ public class Testing
 
         var allTestValues = from c in context.TestValues select c;
         var allUsers = from c in context.Users select c;
+        var allEvents = from c in context.Events select c;
 
         context.TestValues.RemoveRange(allTestValues);
         context.Users.RemoveRange(allUsers);
+        context.Events.RemoveRange(allEvents);
 
         await context.SaveChangesAsync();
 
