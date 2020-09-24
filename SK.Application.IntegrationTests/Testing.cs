@@ -11,6 +11,7 @@ using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Persistence;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -137,6 +138,22 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(id);
+    }
+
+    public static List<UserEvent> FindUserEventsByEventGuidAsync(Guid id)
+    {
+        List<UserEvent> userEventsList = new List<UserEvent>();
+
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        foreach (var userEvent in context.UserEvents.Select(ue => ue).Where(ue => ue.EventId == id).Include(a => a.AppUser))
+        {
+            userEventsList.Add(userEvent);
+        }
+
+        return userEventsList;
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
