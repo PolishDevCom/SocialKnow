@@ -14,7 +14,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
     public class DeleteTestValueTest : TestBase
     {
         [Test]
-        public void ShouldRequireValidTodoListId()
+        public void ShouldRequireValidTestValueId()
         {
             //arrange
             var command = new DeleteTestValueCommand { Id = 99 };
@@ -25,7 +25,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         }
 
         [Test]
-        public async Task ShouldDeleteTodoList()
+        public async Task ShouldDeleteTestValue()
         {
             //arrange
             var createdTestValueId = await SendAsync(new CreateTestValueCommand(1, "New value"));

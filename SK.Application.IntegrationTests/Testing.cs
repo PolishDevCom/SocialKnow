@@ -10,6 +10,8 @@ using SK.API;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Persistence;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -107,9 +109,11 @@ public class Testing
 
         var allTestValues = from c in context.TestValues select c;
         var allUsers = from c in context.Users select c;
+        var allEvents = from c in context.Events select c;
 
         context.TestValues.RemoveRange(allTestValues);
         context.Users.RemoveRange(allUsers);
+        context.Events.RemoveRange(allEvents);
 
         await context.SaveChangesAsync();
 
@@ -124,6 +128,32 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task<TEntity> FindByGuidAsync<TEntity>(Guid id)
+    where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.FindAsync<TEntity>(id);
+    }
+
+    public static List<UserEvent> FindUserEventsByEventGuidAsync(Guid id)
+    {
+        List<UserEvent> userEventsList = new List<UserEvent>();
+
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        foreach (var userEvent in context.UserEvents.Select(ue => ue).Where(ue => ue.EventId == id).Include(a => a.AppUser))
+        {
+            userEventsList.Add(userEvent);
+        }
+
+        return userEventsList;
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)
