@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +22,7 @@ namespace SK.Application.User.Queries.GetCurrentUser
 
         public async Task<User> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
-            var username = await _identityService.GetUserByUsernameAsync(_currentUserService.Username);
+            var username = await _identityService.GetUserByUsernameAsync(_currentUserService.Username) ?? throw new NotFoundException(nameof(AppUser), _currentUserService.Username);
 
             return new User
             {

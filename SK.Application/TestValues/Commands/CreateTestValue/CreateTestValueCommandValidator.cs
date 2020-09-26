@@ -5,11 +5,8 @@ namespace SK.Application.TestValues.Commands.CreateTestValue
 {
     public class CreateTestValueCommandValidator : AbstractValidator<CreateTestValueCommand>
     {
-        private readonly IApplicationDbContext _context;
-
-        public CreateTestValueCommandValidator(IApplicationDbContext context)
+        public CreateTestValueCommandValidator()
         {
-            _context = context;
 
             RuleFor(v => v.Id).NotEmpty().WithMessage("Id is required.");
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name is required.")

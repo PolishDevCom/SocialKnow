@@ -16,10 +16,11 @@ namespace SK.Application.TestValues.Commands.CreateTestValue
         }
         public async Task<int> Handle(CreateTestValueCommand request, CancellationToken cancellationToken)
         {
-            var testValue = new TestValue();
-
-            testValue.Id = request.Id;
-            testValue.Name = request.Name;
+            var testValue = new TestValue
+            {
+                Id = request.Id,
+                Name = request.Name
+            };
 
             _context.TestValues.Add(testValue);
             await _context.SaveChangesAsync(cancellationToken);

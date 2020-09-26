@@ -6,6 +6,7 @@ using SK.Persistence.Services;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SK.Infrastructure
 {
@@ -13,6 +14,16 @@ namespace SK.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsEventHost", policy =>
+                {
+                    policy.Requirements.Add(new IsEventHostRequirement());
+                });
+            });
+            services.AddTransient<IAuthorizationHandler, IsEventHostRequirementHandler>();
+
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
