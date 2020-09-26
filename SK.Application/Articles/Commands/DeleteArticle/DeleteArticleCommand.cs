@@ -2,7 +2,7 @@
 
 namespace SK.Application.TestValues.Commands.DeleteTestValue
 {
-    public class DeleteTestValueCommand : IRequest
+    public class DeleteArticleCommand : IRequest
     {
         public int Id { get; set; }
     }

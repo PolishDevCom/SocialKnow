@@ -1,12 +1,15 @@
 ﻿using FluentValidation;
 using SK.Application.Common.Interfaces;
 
-namespace SK.Application.TestValues.Commands.CreateTestValue
+namespace SK.Application.TestValues.Commands.EditTestValue
 {
-    public class CreateTestValueCommandValidator : AbstractValidator<CreateTestValueCommand>
+    public class EditArticleCommandValidator : AbstractValidator<EditArticleCommand>
     {
-        public CreateTestValueCommandValidator()
+        private readonly IApplicationDbContext _context;
+
+        public EditArticleCommandValidator(IApplicationDbContext context)
         {
+            _context = context;
 
             RuleFor(v => v.Id).NotEmpty().WithMessage("Id is required.");
             RuleFor(v => v.Name).NotEmpty().WithMessage("Name is required.")

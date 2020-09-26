@@ -23,7 +23,7 @@ namespace SK.Persistence
             _dateTime = dateTime;
         }
 
-        public DbSet<TestValue> TestValues { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<UserEvent> UserEvents { get; set; }
         public DbSet<AdditionalUserContent> AdditionalUserContents { get; set; }

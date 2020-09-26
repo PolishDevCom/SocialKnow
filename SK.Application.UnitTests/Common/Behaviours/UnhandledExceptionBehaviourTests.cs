@@ -12,24 +12,24 @@ namespace SK.Application.UnitTests.Common.Behaviours
 {
     public class UnhandledExceptionBehaviourTests
     {
-        private readonly Mock<ILogger<CreateTestValueCommand>> _logger;
-        private readonly Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>> _response;
+        private readonly Mock<ILogger<CreateArticleCommand>> _logger;
+        private readonly Mock<RequestHandlerDelegate<CreateArticleCommandHandler>> _response;
 
 
         public UnhandledExceptionBehaviourTests()
         {
-            _logger = new Mock<ILogger<CreateTestValueCommand>>();
-            _response = new Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>>();
+            _logger = new Mock<ILogger<CreateArticleCommand>>();
+            _response = new Mock<RequestHandlerDelegate<CreateArticleCommandHandler>>();
             _response.Setup(r => r.Invoke()).Callback(() => throw new Exception());
         }
 
         [Test]
         public async Task ShouldLogError()
         {
-            var requestLogger = new UnhandledExceptionBehaviour<CreateTestValueCommand, CreateTestValueCommandHandler>(_logger.Object);
+            var requestLogger = new UnhandledExceptionBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object);
             try
             {
-                await requestLogger.Handle(new CreateTestValueCommand { Id = 123, Name = "Test" }, new CancellationToken(), _response.Object);
+                await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _response.Object);
             }
             catch (Exception)
             {

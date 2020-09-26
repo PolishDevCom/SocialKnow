@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace SK.Application.TestValues.Commands.DeleteTestValue
 {
-    public class DeleteTestValueCommandHandler : IRequestHandler<DeleteTestValueCommand>
+    public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand>
     {
             private readonly IApplicationDbContext _context;
-            public DeleteTestValueCommandHandler(IApplicationDbContext context)
+            public DeleteArticleCommandHandler(IApplicationDbContext context)
             {
                 _context = context;
             }
 
-            public async Task<Unit> Handle(DeleteTestValueCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
             {
-                var testValue = await _context.TestValues.FindAsync(request.Id) ?? throw new NotFoundException(nameof(TestValue), request.Id);
+                var testValue = await _context.TestValues.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Article), request.Id);
 
                 _context.TestValues.Remove(testValue);
                 await _context.SaveChangesAsync(cancellationToken);

@@ -13,17 +13,17 @@ namespace SK.Application.IntegrationTests.TestValues.Queries
         public async Task ShouldReturnDetailsOfObject()
         {
             //arrange
-            await AddAsync(new TestValue
+            await AddAsync(new Article
             {
                 Id = 1,
                 Name = "Test1"
             });
-            await AddAsync(new TestValue
+            await AddAsync(new Article
             {
                 Id = 2,
                 Name = "Test2"
             });
-            await AddAsync(new TestValue
+            await AddAsync(new Article
             {
                 Id = 3,
                 Name = "Test3"
@@ -31,7 +31,7 @@ namespace SK.Application.IntegrationTests.TestValues.Queries
 
             int expectedId = 2;
 
-            var query = new DetailsTestValueQuery() { Id = expectedId };
+            var query = new DetailsArticleQuery() { Id = expectedId };
 
             //act
             var result = await SendAsync(query);
