@@ -13,13 +13,13 @@ namespace SK.Application.UnitTests.Common.Behaviours
 {
     public class LoggingBehaviourTests
     {
-        private readonly Mock<ILogger<CreateTestValueCommand>> _logger;
+        private readonly Mock<ILogger<CreateArticleCommand>> _logger;
         private readonly Mock<ICurrentUserService> _currentUserService;
         private readonly Mock<IIdentityService> _identityService;
 
         public LoggingBehaviourTests()
         {
-            _logger = new Mock<ILogger<CreateTestValueCommand>>();
+            _logger = new Mock<ILogger<CreateArticleCommand>>();
             _currentUserService = new Mock<ICurrentUserService>();
             _identityService = new Mock<IIdentityService>();
         }
@@ -27,8 +27,8 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldLogRequest()
         {
-            var requestlogger = new LoggingBehaviour<CreateTestValueCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestlogger.Process(new CreateTestValueCommand { Id = 123, Name = "test" }, new CancellationToken());
+            var requestlogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            await requestlogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
             _logger.Verify(
                 l => l.Log(
                         LogLevel.Information,
@@ -45,9 +45,9 @@ namespace SK.Application.UnitTests.Common.Behaviours
             _currentUserService.Setup(x => x.Username).Returns("bob101@localhost");
             _identityService.Setup(i => i.GetUserByUsernameAsync("bob101@localhost")).Returns(Task.FromResult(new AppUser { UserName = "bob101@localhost" }));
 
-            var requestLogger = new LoggingBehaviour<CreateTestValueCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            var requestLogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateTestValueCommand { Id = 123, Name = "test" }, new CancellationToken());
+            await requestLogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(It.IsAny<string>()), Times.Once);
         }
@@ -55,9 +55,9 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
         {
-            var requestLogger = new LoggingBehaviour<CreateTestValueCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            var requestLogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateTestValueCommand { Id = 123, Name = "test" }, new CancellationToken());
+            await requestLogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(null), Times.Never);
         }

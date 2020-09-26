@@ -14,18 +14,18 @@ namespace SK.Application.UnitTests.Common.Behaviours
 {
     public class PerformanceBehaviourTests
     {
-        private readonly Mock<ILogger<CreateTestValueCommand>> _logger;
-        private readonly Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>> _responseLong;
-        private readonly Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>> _responseShort;
+        private readonly Mock<ILogger<CreateArticleCommand>> _logger;
+        private readonly Mock<RequestHandlerDelegate<CreateArticleCommandHandler>> _responseLong;
+        private readonly Mock<RequestHandlerDelegate<CreateArticleCommandHandler>> _responseShort;
         private readonly Mock<ICurrentUserService> _currentUserService;
         private readonly Mock<IIdentityService> _identityService;
 
         public PerformanceBehaviourTests()
         {
-            _logger = new Mock<ILogger<CreateTestValueCommand>>();
-            _responseLong = new Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>>();
+            _logger = new Mock<ILogger<CreateArticleCommand>>();
+            _responseLong = new Mock<RequestHandlerDelegate<CreateArticleCommandHandler>>();
             _responseLong.Setup(r => r.Invoke()).Callback(() => Thread.Sleep(1000));
-            _responseShort = new Mock<RequestHandlerDelegate<CreateTestValueCommandHandler>>();
+            _responseShort = new Mock<RequestHandlerDelegate<CreateArticleCommandHandler>>();
             _responseShort.Setup(r => r.Invoke()).Callback(() => Thread.Sleep(100));
             _currentUserService = new Mock<ICurrentUserService>();
             _identityService = new Mock<IIdentityService>();
@@ -34,8 +34,8 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldLogWarning()
         {
-            var requestLogger = new PerformanceBehaviour<CreateTestValueCommand, CreateTestValueCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestLogger.Handle(new CreateTestValueCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseLong.Object);
+            var requestLogger = new PerformanceBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseLong.Object);
             _logger.Verify(
             l => l.Log(
                 LogLevel.Warning,
@@ -50,8 +50,8 @@ namespace SK.Application.UnitTests.Common.Behaviours
         [Test]
         public async Task ShouldNotLogWarning()
         {
-            var requestLogger = new PerformanceBehaviour<CreateTestValueCommand, CreateTestValueCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestLogger.Handle(new CreateTestValueCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseShort.Object);
+            var requestLogger = new PerformanceBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
+            await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseShort.Object);
             _logger.Object.IsSameOrEqualTo(null);
         }
     }

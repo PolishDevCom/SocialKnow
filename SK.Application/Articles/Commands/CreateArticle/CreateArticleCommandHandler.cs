@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace SK.Application.TestValues.Commands.CreateTestValue
 {
-    public class CreateTestValueCommandHandler : IRequestHandler<CreateTestValueCommand, int>
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, int>
     {
         private readonly IApplicationDbContext _context;
 
-        public CreateTestValueCommandHandler(IApplicationDbContext context)
+        public CreateArticleCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
-        public async Task<int> Handle(CreateTestValueCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
-            var testValue = new TestValue
+            var testValue = new Article
             {
                 Id = request.Id,
                 Name = request.Name

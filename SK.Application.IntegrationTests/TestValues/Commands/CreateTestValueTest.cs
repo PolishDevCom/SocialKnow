@@ -17,11 +17,11 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldCreateTestValue()
         {
             //arrange
-            var command = new CreateTestValueCommand(1, "Test");
+            var command = new CreateArticleCommand(1, "Test");
 
             //act
             var createdId = await SendAsync(command);
-            var createdTestValue = await FindAsync<TestValue>(createdId);
+            var createdTestValue = await FindAsync<Article>(createdId);
 
             //assert
             createdTestValue.Should().NotBeNull();
@@ -34,7 +34,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public void ShouldRequireMinimumFields()
         {
             //arrange
-            var command = new CreateTestValueCommand();
+            var command = new CreateArticleCommand();
 
             //act
 

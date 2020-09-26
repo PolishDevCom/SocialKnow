@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace SK.Application.TestValues.Queries.DetailsTestValue
 {
-    public class DetailsTestValueQueryHandler : IRequestHandler<DetailsTestValueQuery, TestValueDto>
+    public class DetailsArticleQueryHandler : IRequestHandler<DetailsArticleQuery, ArticleDto>
     {
 
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public DetailsTestValueQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public DetailsArticleQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<TestValueDto> Handle(DetailsTestValueQuery request, CancellationToken cancellationToken)
+        public async Task<ArticleDto> Handle(DetailsArticleQuery request, CancellationToken cancellationToken)
         {
             return await _context.TestValues
-                .ProjectTo<TestValueDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(tv => tv.Id == request.Id);
         }
     }

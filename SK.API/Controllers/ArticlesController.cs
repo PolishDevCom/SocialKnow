@@ -11,31 +11,31 @@ using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
-    public class TestValuesController : ApiController
+    public class ArticlesController : ApiController
     {
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<List<TestValueDto>>> List()
+        public async Task<ActionResult<List<ArticleDto>>> List()
         {
-            return await Mediator.Send(new ListTestValueQuery());
+            return await Mediator.Send(new ListArticleQuery());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TestValueDto>> Details(int id)
+        public async Task<ActionResult<ArticleDto>> Details(int id)
         {
-            return await Mediator.Send(new DetailsTestValueQuery { Id = id });
+            return await Mediator.Send(new DetailsArticleQuery { Id = id });
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] TestValueDto request)
+        public async Task<ActionResult<int>> Create([FromBody] ArticleDto request)
         {
-            return await Mediator.Send(new CreateTestValueCommand(request.Id, request.Name));
+            return await Mediator.Send(new CreateArticleCommand(request.Id, request.Name));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update([FromBody] TestValueDto request)
+        public async Task<ActionResult> Update([FromBody] ArticleDto request)
         {
-            await Mediator.Send(new EditTestValueCommand(request.Id, request.Name));
+            await Mediator.Send(new EditArticleCommand(request.Id, request.Name));
 
             return NoContent();
         }
@@ -43,7 +43,7 @@ namespace SK.API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            await Mediator.Send(new DeleteTestValueCommand { Id = id });
+            await Mediator.Send(new DeleteArticleCommand { Id = id });
 
             return NoContent();
         }

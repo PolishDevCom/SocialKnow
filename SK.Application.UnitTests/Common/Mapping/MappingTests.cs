@@ -30,7 +30,7 @@ namespace SK.Application.UnitTests.Common.Mapping
         }
 
         [Test]
-        [TestCase(typeof(TestValue), typeof(TestValueDto))]
+        [TestCase(typeof(Article), typeof(ArticleDto))]
         [TestCase(typeof(Event), typeof(EventDto))]
         [TestCase(typeof(UserEvent), typeof(AttendeeDto))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)

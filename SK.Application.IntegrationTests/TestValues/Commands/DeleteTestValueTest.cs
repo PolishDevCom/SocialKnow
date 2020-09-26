@@ -17,7 +17,7 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public void ShouldRequireValidTestValueId()
         {
             //arrange
-            var command = new DeleteTestValueCommand { Id = 99 };
+            var command = new DeleteArticleCommand { Id = 99 };
 
             //assert
             FluentActions.Invoking(() =>
@@ -28,15 +28,15 @@ namespace SK.Application.IntegrationTests.TestValues.Commands
         public async Task ShouldDeleteTestValue()
         {
             //arrange
-            var createdTestValueId = await SendAsync(new CreateTestValueCommand(1, "New value"));
+            var createdTestValueId = await SendAsync(new CreateArticleCommand(1, "New value"));
 
             //act
-            await SendAsync(new DeleteTestValueCommand
+            await SendAsync(new DeleteArticleCommand
             {
                 Id = createdTestValueId
             });
 
-            var actualTestValue = await FindAsync<TestValue>(createdTestValueId);
+            var actualTestValue = await FindAsync<Article>(createdTestValueId);
 
             //assert
             actualTestValue.Should().BeNull();
