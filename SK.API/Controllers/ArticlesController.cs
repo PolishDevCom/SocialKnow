@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SK.Application.TestValues.Commands.CreateTestValue;
+using SK.Application.Articles.Commands.CreateArticle;
+using SK.Application.Articles.Queries;
+using SK.Application.Articles.Queries.DetailsArticle;
+using SK.Application.Articles.Queries.ListArticle;
 using SK.Application.TestValues.Commands.DeleteTestValue;
 using SK.Application.TestValues.Commands.EditTestValue;
-using SK.Application.TestValues.Queries;
-using SK.Application.TestValues.Queries.DetailsTestValue;
-using SK.Application.TestValues.Queries.ListTestValue;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,15 +22,15 @@ namespace SK.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ArticleDto>> Details(int id)
+        public async Task<ActionResult<ArticleDto>> Details(Guid id)
         {
             return await Mediator.Send(new DetailsArticleQuery { Id = id });
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] ArticleDto request)
+        public async Task<ActionResult<Guid>> Create([FromBody] ArticleDto request)
         {
-            return await Mediator.Send(new CreateArticleCommand(request.Id, request.Name));
+            return await Mediator.Send(new CreateArticleCommand(request));
         }
 
         [HttpPut("{id}")]

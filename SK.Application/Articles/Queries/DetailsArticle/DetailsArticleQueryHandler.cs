@@ -6,8 +6,8 @@ using SK.Application.Common.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.TestValues.Queries.DetailsTestValue
-{
+namespace SK.Application.Articles.Queries.DetailsArticle
+{ 
     public class DetailsArticleQueryHandler : IRequestHandler<DetailsArticleQuery, ArticleDto>
     {
 
@@ -22,9 +22,9 @@ namespace SK.Application.TestValues.Queries.DetailsTestValue
 
         public async Task<ArticleDto> Handle(DetailsArticleQuery request, CancellationToken cancellationToken)
         {
-            return await _context.TestValues
+            return await _context.Articles
                 .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(tv => tv.Id == request.Id);
+                .FirstOrDefaultAsync(a => a.Id == request.Id);
         }
     }
 }

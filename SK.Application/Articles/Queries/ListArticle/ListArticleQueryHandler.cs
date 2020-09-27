@@ -8,8 +8,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.TestValues.Queries.ListTestValue
-{
+namespace SK.Application.Articles.Queries.ListArticle
+{ 
     public class ListArticleQueryHandler : IRequestHandler<ListArticleQuery, List<ArticleDto>>
     {
         private readonly IApplicationDbContext _context;
@@ -23,9 +23,9 @@ namespace SK.Application.TestValues.Queries.ListTestValue
 
         public async Task<List<ArticleDto>> Handle(ListArticleQuery request, CancellationToken cancellationToken)
         {
-            return await _context.TestValues
+            return await _context.Articles
                 .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
-                .OrderBy(tv => tv.Id)
+                .OrderByDescending(a => a.Created)
                 .ToListAsync(cancellationToken);
         }
     }
