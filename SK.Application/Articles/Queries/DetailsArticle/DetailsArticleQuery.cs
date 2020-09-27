@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using System;
 
-namespace SK.Application.TestValues.Queries.DetailsTestValue
+namespace SK.Application.Articles.Queries.DetailsArticle
 {
     public class DetailsArticleQuery : IRequest<ArticleDto>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

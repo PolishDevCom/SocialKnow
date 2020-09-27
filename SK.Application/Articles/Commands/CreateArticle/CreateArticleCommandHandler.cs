@@ -1,12 +1,15 @@
 ﻿using MediatR;
+using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
+using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.TestValues.Commands.CreateTestValue
-{
-    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, int>
+namespace SK.Application.Articles.Commands.CreateArticle
+{ 
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
 
@@ -14,18 +17,24 @@ namespace SK.Application.TestValues.Commands.CreateTestValue
         {
             _context = context;
         }
-        public async Task<int> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
-            var testValue = new Article
+            var article = new Article
             {
                 Id = request.Id,
-                Name = request.Name
+                Title = request.Title,
+                Abstract = request.Abstract,
+                Content = request.Content,
+                Image = request.Image
             };
 
-            _context.TestValues.Add(testValue);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return testValue.Id;
+            _context.Articles.Add(article);
+            var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
+            if (succes)
+            {
+                return article.Id;
+            }
+            throw new RestException(HttpStatusCode.BadRequest, new { Article = "Problem saving changes" });
         }
     }
 }

@@ -2,7 +2,7 @@
 using SK.Domain.Entities;
 using System;
 
-namespace SK.Application.TestValues.Queries
+namespace SK.Application.Articles.Queries
 {
     public class ArticleDto : IMapFrom<Article>
     {
@@ -11,5 +11,7 @@ namespace SK.Application.TestValues.Queries
         public string Image { get; set; }
         public string Abstract { get; set; }
         public string Content { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime Created { get; set; }
     }
 }
