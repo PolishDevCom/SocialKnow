@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Common.Behaviours;
 using SK.Application.Common.Interfaces;
-using SK.Application.TestValues.Commands.CreateTestValue;
 using SK.Domain.Entities;
 using System;
 using System.Threading;
@@ -28,7 +28,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
         public async Task ShouldLogRequest()
         {
             var requestlogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestlogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
+            await requestlogger.Process(new CreateArticleCommand 
+            {
+                Id = Guid.NewGuid(),
+                Title = "Article Title",
+                Abstract = "Article Abstract",
+                Image = null,
+                Content = "Article Content"
+            }, 
+            new CancellationToken());
             _logger.Verify(
                 l => l.Log(
                         LogLevel.Information,
@@ -47,7 +55,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
 
             var requestLogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
+            await requestLogger.Process(new CreateArticleCommand
+            {
+                Id = Guid.NewGuid(),
+                Title = "Article Title",
+                Abstract = "Article Abstract",
+                Image = null,
+                Content = "Article Content"
+            }, 
+            new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(It.IsAny<string>()), Times.Once);
         }
@@ -57,7 +73,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
         {
             var requestLogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
 
-            await requestLogger.Process(new CreateArticleCommand { Id = 123, Name = "test" }, new CancellationToken());
+            await requestLogger.Process(new CreateArticleCommand
+            {
+                Id = Guid.NewGuid(),
+                Title = "Article Title",
+                Abstract = "Article Abstract",
+                Image = null,
+                Content = "Article Content"
+            }, 
+            new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(null), Times.Never);
         }

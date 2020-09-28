@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Common.Behaviours;
-using SK.Application.TestValues.Commands.CreateTestValue;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,7 +29,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
             var requestLogger = new UnhandledExceptionBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object);
             try
             {
-                await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _response.Object);
+                await requestLogger.Handle(new CreateArticleCommand
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Article Title",
+                    Abstract = "Article Abstract",
+                    Image = null,
+                    Content = "Article Content"
+                }, 
+                new CancellationToken(), _response.Object);
             }
             catch (Exception)
             {
