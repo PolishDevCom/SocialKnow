@@ -24,12 +24,6 @@ namespace SK.Application.UnitTests.Common.Mapping
         }
 
         [Test]
-        public void ShouldHaveValidConfiguration()
-        {
-            _configuration.AssertConfigurationIsValid();
-        }
-
-        [Test]
         [TestCase(typeof(Article), typeof(ArticleDto))]
         [TestCase(typeof(Event), typeof(EventDto))]
         [TestCase(typeof(UserEvent), typeof(AttendeeDto))]
