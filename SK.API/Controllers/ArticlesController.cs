@@ -12,14 +12,17 @@ using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
+    [Authorize]
     public class ArticlesController : ApiController
     {
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<ArticleDto>>> List()
         {
             return await Mediator.Send(new ListArticleQuery());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ArticleDto>> Details(Guid id)
         {
