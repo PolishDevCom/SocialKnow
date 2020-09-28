@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Articles.Commands.CreateArticle;
+using SK.Application.Articles.Commands.DeleteArticle;
+using SK.Application.Articles.Commands.EditArticle;
 using SK.Application.Articles.Queries;
 using SK.Application.Articles.Queries.DetailsArticle;
 using SK.Application.Articles.Queries.ListArticle;
-using SK.Application.TestValues.Commands.DeleteTestValue;
-using SK.Application.TestValues.Commands.EditTestValue;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +14,6 @@ namespace SK.API.Controllers
 {
     public class ArticlesController : ApiController
     {
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<ArticleDto>>> List()
         {
@@ -36,13 +35,13 @@ namespace SK.API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update([FromBody] ArticleDto request)
         {
-            await Mediator.Send(new EditArticleCommand(request.Id, request.Name));
+            await Mediator.Send(new EditArticleCommand(request));
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             await Mediator.Send(new DeleteArticleCommand { Id = id });
 

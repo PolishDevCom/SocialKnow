@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using NUnit.Framework;
+using SK.Application.Articles.Queries;
 using SK.Application.Common.Mapping;
 using SK.Application.Events.Queries;
-using SK.Application.TestValues.Queries;
 using SK.Domain.Entities;
 using System;
 

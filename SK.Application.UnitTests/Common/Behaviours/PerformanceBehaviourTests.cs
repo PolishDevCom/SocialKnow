@@ -3,9 +3,9 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Common.Behaviours;
 using SK.Application.Common.Interfaces;
-using SK.Application.TestValues.Commands.CreateTestValue;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,7 +35,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
         public async Task ShouldLogWarning()
         {
             var requestLogger = new PerformanceBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseLong.Object);
+            await requestLogger.Handle(new CreateArticleCommand
+            {
+                Id = Guid.NewGuid(),
+                Title = "Article Title",
+                Abstract = "Article Abstract",
+                Image = null,
+                Content = "Article Content"
+            }, 
+            new CancellationToken(), _responseLong.Object);
             _logger.Verify(
             l => l.Log(
                 LogLevel.Warning,
@@ -51,7 +59,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
         public async Task ShouldNotLogWarning()
         {
             var requestLogger = new PerformanceBehaviour<CreateArticleCommand, CreateArticleCommandHandler>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestLogger.Handle(new CreateArticleCommand { Id = 123, Name = "Test" }, new CancellationToken(), _responseShort.Object);
+            await requestLogger.Handle(new CreateArticleCommand
+            {
+                Id = Guid.NewGuid(),
+                Title = "Article Title",
+                Abstract = "Article Abstract",
+                Image = null,
+                Content = "Article Content"
+            }, 
+            new CancellationToken(), _responseShort.Object);
             _logger.Object.IsSameOrEqualTo(null);
         }
     }
