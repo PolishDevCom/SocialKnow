@@ -2,7 +2,9 @@
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +26,9 @@ namespace SK.Application.Articles.Queries.DetailsArticle
         {
             return await _context.Articles
                 .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(a => a.Id == request.Id);
+                .FirstOrDefaultAsync(a => a.Id == request.Id)
+                ??
+                throw new NotFoundException(nameof(Article), request.Id);
         }
     }
 }
