@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SK.Domain", "SK.Domain\SK.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SK.Infrastructure", "SK.Infrastructure\SK.Infrastructure.csproj", "{54573BC1-11A6-4169-B959-B3384A8B2537}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.Application.IntegrationTests", "SK.Application.IntegrationTests\SK.Application.IntegrationTests.csproj", "{E3BB6521-6F9B-4FBD-945C-44CAC203368D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SK.Application.IntegrationTests", "SK.Application.IntegrationTests\SK.Application.IntegrationTests.csproj", "{E3BB6521-6F9B-4FBD-945C-44CAC203368D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.Application.UnitTests", "SK.Application.UnitTests\SK.Application.UnitTests.csproj", "{989B086E-EC15-4876-AD2D-15F523DF8615}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SK.Application.UnitTests", "SK.Application.UnitTests\SK.Application.UnitTests.csproj", "{989B086E-EC15-4876-AD2D-15F523DF8615}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
