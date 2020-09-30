@@ -44,15 +44,19 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         }
 
         [Test]
-        public void ShouldRequireTitle()
+        [TestCase(null, "Article Abstract", "Article Content")]
+        [TestCase("Article Title", null, "Article Content")]
+        [TestCase("Article Title", "Article Abstract", null)]
+        public void ShouldRequireFieldAndThrowValidationException(string testTitle, string testAbstract, string testContent)
         {
             //arrange
             var command = new CreateArticleCommand()
             {
                 Id = Guid.NewGuid(),
-                Abstract = "Article Abstract",
+                Title = testTitle,
+                Abstract = testAbstract,
                 Image = null,
-                Content = "Article Content"
+                Content = testContent
             };
 
             //act
@@ -61,44 +65,5 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
-
-        [Test]
-        public void ShouldRequireAbstract()
-        {
-            //arrange
-            var command = new CreateArticleCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Image = null,
-                Content = "Article Content"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireContent()
-        {
-            //arrange
-            var command = new CreateArticleCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Abstract = "Article Abstract",
-                Image = null
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
     }
 }

@@ -188,8 +188,6 @@ namespace SK.Persistence
                 await userManager.CreateAsync(tomUser, "Pa$$w0rd!");
                 await userManager.CreateAsync(janeUser, "Pa$$w0rd!");
             }
-
-            if
         }
     }
 }

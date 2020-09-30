@@ -44,17 +44,25 @@ namespace SK.Application.IntegrationTests.Events.Commands
         }
 
         [Test]
-        public void ShouldRequireFieldTitle()
+        [TestCase(null, "Test Event", "Event now", "webinar", "Internet", "Discord")]
+        [TestCase("2020-8-18", null, "Event now", "webinar", "Internet", "Discord")]
+        [TestCase("2020-8-18", "Test Event", null, "webinar", "Internet", "Discord")]
+        [TestCase("2020-8-18", "Test Event", "Event now", null, "Internet", "Discord")]
+        [TestCase("2020-8-18", "Test Event", "Event now", "webinar", null, "Discord")]
+        [TestCase("2020-8-18", "Test Event", "Event now", "webinar", "Internet", null)]
+        [TestCase("2020-8-18", "Test Event Title Which Is Very Very Long And Is Above Two Hundred Characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate euismod dapibus. Suspendisse potenti. Donec tristique mi id quam imperdiet semper. Sed ac ullamcorper lorem, vitae tincidunt magna. Vestibulum id tortor turpis. Cras at dolor non magna pharetra molestie eget sed augue. Sed vitae eros augue. Nullam vestibulum malesuada consectetur. Sed lacinia vitae velit et pharetra viverra.", "Event now", "webinar", "Internet", "Discord")]
+        public void ShouldThrowValidationException(DateTime testDate, string testTitle, string testDescribtion, string testCategory, string testCity, string testVenue)
         {
             //arrange
             var command = new CreateEventCommand()
             {
                 Id = Guid.NewGuid(),
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
+                Date = testDate,
+                Title = testTitle,
+                Description = testDescribtion,
+                Category = testCategory,
+                City = testCity,
+                Venue = testVenue
             };
 
             //act
@@ -63,133 +71,5 @@ namespace SK.Application.IntegrationTests.Events.Commands
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
-
-        [Test]
-        public void ShouldRequireFieldDate()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldDescription()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldCategory()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldCity()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldVenue()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldThrowExceptionIfTitleLongerThan200()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event Title Which Is Very Very Long And Is Above Two Hundred Characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate euismod dapibus. Suspendisse potenti. Donec tristique mi id quam imperdiet semper. Sed ac ullamcorper lorem, vitae tincidunt magna. Vestibulum id tortor turpis. Cras at dolor non magna pharetra molestie eget sed augue. Sed vitae eros augue. Nullam vestibulum malesuada consectetur. Sed lacinia vitae velit et pharetra viverra.",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
     }
 }
