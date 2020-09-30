@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using NUnit.Framework;
 using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Articles.Commands.DeleteArticle;
@@ -30,14 +31,13 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
-            var command = new CreateArticleCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Abstract = "Article Abstract",
-                Image = null,
-                Content = "Article Content"
-            };
+            var command = new Faker<CreateArticleCommand>("en")
+                .RuleFor(a => a.Id, f => f.Random.Guid())
+                .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.Image, f => null)
+                .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
+                .Generate();
             var createdArticleId = await SendAsync(command);
 
             //act

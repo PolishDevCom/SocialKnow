@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using SK.Application.Articles.Commands.CreateArticle;
@@ -7,6 +8,7 @@ using SK.Application.Articles.Queries;
 using SK.Application.Common.Exceptions;
 using SK.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Articles.Commands
@@ -19,25 +21,23 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         public async Task ShouldUpdateArticle()
         {
             //arrange
-            var articleToCreate = new ArticleDto
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Abstract = "Article Abstract",
-                Image = null,
-                Content = "Article Content"
-            };
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+            var articleToCreate = new Faker<ArticleDto>("en")
+                .RuleFor(a => a.Id, f => f.Random.Guid())
+                .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.Image, f => null)
+                .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
+                .Generate();
             var articleId = await SendAsync(new CreateArticleCommand(articleToCreate));
 
-            var articleToModify = new ArticleDto
-            {
-                Id = articleToCreate.Id,
-                Title = "Modified Article Title",
-                Abstract = " ModifiedArticle Abstract",
-                Image = null,
-                Content = "Modified Article Content"
-            };
+            var articleToModify = new Faker<ArticleDto>("en")
+                .RuleFor(a => a.Id, f => articleToCreate.Id)
+                .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.Image, f => null)
+                .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
+                .Generate();
 
             //act
             var command = new EditArticleCommand(articleToModify);
@@ -54,11 +54,19 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             modifiedArticle.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
         }
 
+        private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringUpdateArticleTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(null, new Faker("en").Lorem.Paragraph(), new Faker("en").Lorem.Paragraphs(5));
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Paragraphs(5));
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Paragraph(), null);
+            }
+        }
+
         [Test]
-        [TestCase(null, "Article Abstract", "Article Content")]
-        [TestCase("Article Title", null, "Article Content")]
-        [TestCase("Article Title", "Article Abstract", null)]
-        public void ShouldRequireFieldAndThrowValidationException(string testTitle, string testAbstract, string testContent)
+        [TestCaseSource(nameof(ShouldRequireFieldAndThrowValidationExceptionDuringUpdateArticleTestCases))]
+        public void ShouldRequireFieldAndThrowValidationExceptionDuringArticleEditing(string testTitle, string testAbstract, string testContent)
         {
             //arrange
             var command = new EditArticleCommand()
@@ -74,21 +82,20 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
         }
 
         [Test]
         public void ShouldRequireValidArticleIdAndThrowValidationException()
         {
             //arrange
-            var command = new EditArticleCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Abstract = "Article Abstract",
-                Image = null,
-                Content = "Article Content"
-            };
+            var command = new Faker<EditArticleCommand>("en")
+                .RuleFor(a => a.Id, f => f.Random.Guid())
+                .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.Image, f => null)
+                .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
+                .Generate();
 
             //assert
             FluentActions.Invoking(() =>

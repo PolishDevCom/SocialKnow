@@ -1,11 +1,12 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Articles.Queries;
-using SK.Application.Common.Exceptions;
 using SK.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Articles.Commands
@@ -19,14 +20,13 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
-            var articleToCreate = new ArticleDto
-            {
-                Id = Guid.NewGuid(),
-                Title = "Article Title",
-                Abstract = "Article Abstract",
-                Image = null,
-                Content = "Article Content"
-            };
+            var articleToCreate = new Faker<ArticleDto>("en")
+                .RuleFor(a => a.Id, f => f.Random.Guid())
+                .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
+                .RuleFor(a => a.Image, f => null)
+                .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
+                .Generate();
             var command = new CreateArticleCommand(articleToCreate);
 
             //act
@@ -43,11 +43,19 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             createdArticle.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
         }
 
+        private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringCreatingArticleTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(null, new Faker("en").Lorem.Paragraph(), new Faker("en").Lorem.Paragraphs(5));
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Paragraphs(5));
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Paragraph(), null);
+            }
+        }
+
         [Test]
-        [TestCase(null, "Article Abstract", "Article Content")]
-        [TestCase("Article Title", null, "Article Content")]
-        [TestCase("Article Title", "Article Abstract", null)]
-        public void ShouldRequireFieldAndThrowValidationException(string testTitle, string testAbstract, string testContent)
+        [TestCaseSource(nameof(ShouldRequireFieldAndThrowValidationExceptionDuringCreatingArticleTestCases))]
+        public void ShouldRequireFieldAndThrowValidationExceptionDuringArticleCreating(string testTitle, string testAbstract, string testContent)
         {
             //arrange
             var command = new CreateArticleCommand()
@@ -63,7 +71,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
         }
     }
 }
