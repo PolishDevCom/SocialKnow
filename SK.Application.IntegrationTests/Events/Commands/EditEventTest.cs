@@ -58,13 +58,13 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             get
             {
-                yield return new TestCaseData(null, new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1));
-                yield return new TestCaseData(new Faker("en").Date.Future(), null, new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1));
-                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1));
-                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1));
-                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), null, new Faker("en").Lorem.Sentence(1));
-                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), null);
-                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(50));
+                yield return new TestCaseData(null, new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventDateMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), null, new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventTitleMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventDescriptionMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventCategoryMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), null, new Faker("en").Lorem.Sentence(1)).SetName("EventCityMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), null).SetName("EventVenueMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(50), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventTooLongTitleTest");
             }
         }
 
@@ -83,14 +83,16 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate());
 
-            var command = new Faker<EditEventCommand>("en")
-                            .RuleFor(e => e.Id, f => eventId)
-                            .RuleFor(e => e.Title, f => f.Lorem.Sentence())
-                            .RuleFor(e => e.Date, f => f.Date.Future())
-                            .RuleFor(e => e.Description, f => f.Lorem.Sentence(5))
-                            .RuleFor(e => e.Category, f => f.Lorem.Word())
-                            .RuleFor(e => e.City, f => f.Lorem.Word())
-                            .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
+            var command = new CreateEventCommand()
+            {
+                Id = eventId,
+                Date = testDate,
+                Title = testTitle,
+                Description = testDescribtion,
+                Category = testCategory,
+                City = testCity,
+                Venue = testVenue
+            };
 
             //act
 
