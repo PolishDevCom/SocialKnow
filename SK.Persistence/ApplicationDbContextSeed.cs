@@ -11,18 +11,42 @@ namespace SK.Persistence
     {
         public static async Task SeedSampleDataAsync(ApplicationDbContext context)
         {
-            if (!context.TestValues.Any())
+            if (!context.Articles.Any())
             {
-                var testValues = new List<TestValue>
+                var articles = new List<Article>
                 {
-                    new TestValue {Id=1, Name="Value101"},
-                    new TestValue {Id=2, Name="Value102"},
-                    new TestValue {Id=3, Name="Value103"},
-                    new TestValue {Id=4, Name="Value104"},
-                    new TestValue {Id=5, Name="Value105"},
-                    new TestValue {Id=6, Name="Value106"}
+                    new Article 
+                    {
+                        Id=Guid.NewGuid(),
+                        Title="First Article",
+                        Abstract="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eros quam, scelerisque eu odio a, maximus gravida sapien. Proin velit sapien, placerat nec lorem sit amet, tempor egestas velit. Integer ullamcorper erat dolor, quis sagittis enim pharetra eget. Vestibulum magna ex, semper in efficitur vitae, accumsan eget eros.",
+                        Image=null,
+                        Content="In hac habitasse platea dictumst. Nulla efficitur justo eu nisi commodo blandit. Integer tempus sit amet urna a lobortis. Praesent lacus ipsum, accumsan vitae lectus eget, sodales dapibus diam. Suspendisse hendrerit rutrum aliquet. Curabitur vel aliquet eros. Sed in lorem faucibus, pharetra odio vel, iaculis nunc.",
+                        CreatedBy="Content Admin",
+                        Created=DateTime.UtcNow
+                    },
+                    new Article
+                    {
+                        Id=Guid.NewGuid(),
+                        Title="Second Article",
+                        Abstract="Nulla ullamcorper justo ex, vel ultricies augue tincidunt porta. Phasellus eros lorem, vehicula tincidunt tempor consectetur, eleifend molestie urna.",
+                        Image=null,
+                        Content="Duis tempus dolor nec ante ullamcorper consequat. Pellentesque sagittis mauris condimentum sollicitudin aliquet. Fusce tortor lorem, dignissim ac scelerisque at, blandit viverra leo. Phasellus et lorem sit amet quam sollicitudin ultrices sit amet blandit nisi. Sed ultrices malesuada purus, eu blandit nibh sodales id. Praesent ac turpis eget arcu luctus ullamcorper.",
+                        CreatedBy="Content Admin",
+                        Created=DateTime.UtcNow.AddDays(-7)
+                    },
+                    new Article
+                    {
+                        Id=Guid.NewGuid(),
+                        Title="Third Article",
+                        Abstract="Donec sagittis tincidunt tempus. Vestibulum a enim est. Donec ut odio sollicitudin lacus blandit porttitor sed interdum quam. Curabitur eget auctor erat. Sed at enim imperdiet, efficitur lectus id, pellentesque dui.",
+                        Image=null,
+                        Content="Aenean odio dolor, mollis non diam a, dictum iaculis enim. Praesent ultrices pharetra dolor, ac bibendum felis scelerisque quis. Donec congue mi ligula, ac feugiat nunc porttitor at. Aenean ornare accumsan auctor. Vestibulum dictum orci vel aliquet sodales. Pellentesque pulvinar at eros nec euismod.",
+                        CreatedBy="Content Admin",
+                        Created=DateTime.UtcNow.AddDays(-3)
+                    },
                 };
-                context.TestValues.AddRange(testValues);
+                context.Articles.AddRange(articles);
                 await context.SaveChangesAsync();
             }
 
