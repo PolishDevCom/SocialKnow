@@ -107,11 +107,11 @@ public class Testing
 
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        var allTestValues = from c in context.TestValues select c;
+        var allArticles = from c in context.Articles select c;
         var allUsers = from c in context.Users select c;
         var allEvents = from c in context.Events select c;
 
-        context.TestValues.RemoveRange(allTestValues);
+        context.Articles.RemoveRange(allArticles);
         context.Users.RemoveRange(allUsers);
         context.Events.RemoveRange(allEvents);
 

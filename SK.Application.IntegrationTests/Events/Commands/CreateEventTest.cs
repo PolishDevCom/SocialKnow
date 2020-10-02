@@ -1,9 +1,11 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using NUnit.Framework;
 using SK.Application.Common.Exceptions;
 using SK.Application.Events.Commands.CreateEvent;
 using SK.Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Events.Commands
@@ -16,19 +18,19 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
+
+            var command = new Faker<CreateEventCommand>("en")
+                .RuleFor(e => e.Id, f => f.Random.Guid())
+                .RuleFor(e => e.Title, f => f.Lorem.Sentence())
+                .RuleFor(e => e.Date, f => DateTime.UtcNow)
+                .RuleFor(e => e.Description, f => f.Lorem.Sentence(5))
+                .RuleFor(e => e.Category, f => f.Lorem.Word())
+                .RuleFor(e => e.City, f => f.Lorem.Word())
+                .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
 
             //act
             var createdTestEventId = await SendAsync(command);
+
             var createdTestEvent = await FindByGuidAsync<Event>(createdTestEventId);
 
             //assert
@@ -43,153 +45,41 @@ namespace SK.Application.IntegrationTests.Events.Commands
             createdTestEvent.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
         }
 
+        private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringCreatingEventTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(null, new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventDateMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), null, new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventTitleMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventDescriptionMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventCategoryMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), null, new Faker("en").Lorem.Sentence(1)).SetName("EventCityMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), null).SetName("EventVenueMissingTest");
+                yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(50), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1)).SetName("EventTooLongTitleTest");
+            }
+        }
+
         [Test]
-        public void ShouldRequireFieldTitle()
+        [TestCaseSource(nameof(ShouldThrowValidationExceptionDuringCreatingEventTestCases))]
+        public void ShouldThrowValidationExceptionDuringEventCreation(DateTime testDate, string testTitle, string testDescribtion, string testCategory, string testCity, string testVenue)
         {
             //arrange
             var command = new CreateEventCommand()
             {
                 Id = Guid.NewGuid(),
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
+                Date = testDate,
+                Title = testTitle,
+                Description = testDescribtion,
+                Category = testCategory,
+                City = testCity,
+                Venue = testVenue
             };
 
             //act
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
         }
-
-        [Test]
-        public void ShouldRequireFieldDate()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldDescription()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldCategory()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldCity()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldRequireFieldVenue()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
-        [Test]
-        public void ShouldThrowExceptionIfTitleLongerThan200()
-        {
-            //arrange
-            var command = new CreateEventCommand()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Test Event Title Which Is Very Very Long And Is Above Two Hundred Characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vulputate euismod dapibus. Suspendisse potenti. Donec tristique mi id quam imperdiet semper. Sed ac ullamcorper lorem, vitae tincidunt magna. Vestibulum id tortor turpis. Cras at dolor non magna pharetra molestie eget sed augue. Sed vitae eros augue. Nullam vestibulum malesuada consectetur. Sed lacinia vitae velit et pharetra viverra.",
-                Date = DateTime.Now,
-                Description = "Event now",
-                Category = "webinar",
-                City = "Internet",
-                Venue = "Discord"
-            };
-
-            //act
-
-            //assert
-            FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
-        }
-
     }
 }
