@@ -21,6 +21,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var eventId = await SendAsync(new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())
@@ -40,6 +41,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
             await SendAsync(command);
+
             var actualEvent = await FindByGuidAsync<Event>(eventId);
 
             //assert
@@ -74,6 +76,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var eventId = await SendAsync(new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())

@@ -19,7 +19,9 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var eventId = Guid.NewGuid();
+
             var creatorUsername = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var createCommand = new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())
@@ -28,11 +30,14 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.Category, f => f.Lorem.Word())
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
+
             var createdEventId = await SendAsync(createCommand);
+
             var subscriberUsername = await RunAsDefaultUserAsync();
 
             //act
             var subscribe = await SendAsync(new SubscribeEventCommand() { Id = createdEventId });
+
             var testedEvents = FindUserEventsByEventGuidAsync(createdEventId);
 
             //assert
@@ -46,7 +51,9 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var eventId = Guid.NewGuid();
+
             var creatorUsername = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var createCommand = new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())
@@ -55,7 +62,9 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.Category, f => f.Lorem.Word())
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
+
             var createdEventId = await SendAsync(createCommand);
+
             var subscriberUsername = await RunAsDefaultUserAsync();
 
             //act
@@ -70,7 +79,9 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var eventId = Guid.NewGuid();
+
             var creatorUsername = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var createCommand = new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())
@@ -79,7 +90,9 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.Category, f => f.Lorem.Word())
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
+
             var createdEventId = await SendAsync(createCommand);
+
             var subscriberUsername = await RunAsDefaultUserAsync();
 
             //act
