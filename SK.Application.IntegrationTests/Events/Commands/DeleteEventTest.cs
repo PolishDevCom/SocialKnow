@@ -48,6 +48,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
             });
 
             var actualEvent = await FindByGuidAsync<Event>(createdEventId);
+
             //assert
             actualEvent.Should().BeNull();
         }

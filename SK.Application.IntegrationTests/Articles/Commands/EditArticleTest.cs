@@ -22,6 +22,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var articleToCreate = new Faker<ArticleDto>("en")
                 .RuleFor(a => a.Id, f => f.Random.Guid())
                 .RuleFor(a => a.Title, f => f.Lorem.Sentence())
@@ -29,6 +30,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
                 .RuleFor(a => a.Image, f => null)
                 .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
                 .Generate();
+
             var articleId = await SendAsync(new CreateArticleCommand(articleToCreate));
 
             var articleToModify = new Faker<ArticleDto>("en")
@@ -42,6 +44,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             //act
             var command = new EditArticleCommand(articleToModify);
             await SendAsync(command);
+
             var modifiedArticle= await FindByGuidAsync<Article>(articleId);
 
             //assert

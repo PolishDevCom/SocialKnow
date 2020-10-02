@@ -18,6 +18,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
             var command = new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())
@@ -29,6 +30,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //act
             var createdTestEventId = await SendAsync(command);
+
             var createdTestEvent = await FindByGuidAsync<Event>(createdTestEventId);
 
             //assert
