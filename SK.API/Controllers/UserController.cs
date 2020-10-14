@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Common.Models;
 using SK.Application.User;
+using SK.Application.User.Commands.AddRoleToUser;
 using SK.Application.User.Commands.DeleteUser;
 using SK.Application.User.Commands.RegisterUser;
+using SK.Application.User.Commands.RemoveRoleFromUser;
 using SK.Application.User.Queries.GetCurrentUser;
 using SK.Application.User.Queries.LoginUser;
 using System.Threading.Tasks;
@@ -35,6 +37,20 @@ namespace SK.API.Controllers
         [Authorize]
         [HttpDelete]
         public async Task<ActionResult<Result>> DeleteUser(DeleteUserCommand command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("addRole")]
+        public async Task<ActionResult<Result>> AddRoleToUser(AddRoleToUserCommand command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpDelete("removeRole")]
+        public async Task<ActionResult<Result>> RemoveRoleFromUser(RemoveRoleFromUserCommand command)
         {
             return await Mediator.Send(command);
         }
