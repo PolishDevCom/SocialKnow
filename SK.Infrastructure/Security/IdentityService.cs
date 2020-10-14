@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Models;
 using SK.Domain.Entities;
@@ -52,6 +51,12 @@ namespace SK.Infrastructure.Security
         {
             var user = await _userManager.FindByEmailAsync(email);
             return user;
+        }
+
+        public async Task<Result> AddRoleToUserAsync(AppUser user, string role)
+        {
+            var result = await _userManager.AddToRoleAsync(user, role);
+            return result.ToApplicationResult();
         }
     }
 }

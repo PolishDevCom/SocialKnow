@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
+using SK.Domain.Enums;
 using System;
 using System.Net;
 using System.Threading;
@@ -45,6 +46,7 @@ namespace SK.Application.User.Commands.RegisterUser
 
             if (result.Result.Succeeded)
             {
+                await _identityService.AddRoleToUserAsync(user, IdentityRoles.Standard.ToString());
                 return new User
                 {
                     Username = user.UserName,
