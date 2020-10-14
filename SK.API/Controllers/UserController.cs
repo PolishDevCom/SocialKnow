@@ -42,14 +42,14 @@ namespace SK.API.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpPost("addRole")]
+        [HttpPost("role")]
         public async Task<ActionResult<Result>> AddRoleToUser(AddRoleToUserCommand command)
         {
             return await Mediator.Send(command);
         }
 
         [Authorize(Roles = "Administrator")]
-        [HttpDelete("removeRole")]
+        [HttpDelete("role")]
         public async Task<ActionResult<Result>> RemoveRoleFromUser(RemoveRoleFromUserCommand command)
         {
             return await Mediator.Send(command);
