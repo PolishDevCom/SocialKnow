@@ -58,5 +58,11 @@ namespace SK.Infrastructure.Security
             var result = await _userManager.AddToRoleAsync(user, role);
             return result.ToApplicationResult();
         }
+
+        public async Task<Result> RemoveRoleFromUserAsync(AppUser user, string role)
+        {
+            var result = await _userManager.RemoveFromRoleAsync(user, role);
+            return result.ToApplicationResult();
+        }
     }
 }
