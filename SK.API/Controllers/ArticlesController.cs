@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator, Moderator")]
     public class ArticlesController : ApiController
     {
         [AllowAnonymous]
