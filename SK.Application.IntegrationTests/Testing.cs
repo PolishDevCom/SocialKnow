@@ -9,6 +9,7 @@ using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
+using SK.Domain.Enums;
 using SK.Persistence;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,6 @@ public class Testing
             Mock.Of<IJwtGenerator>());
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
-
         EnsureDatabase();
     }
 
@@ -99,6 +99,28 @@ public class Testing
         _currentUserName = user.UserName;
 
         return _currentUserName;
+    }
+
+    public static async Task<IList<string>> GetRolesForUserAsync(string userName)
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var userManager = scope.ServiceProvider.GetService<UserManager<AppUser>>();
+        var user = await userManager.FindByNameAsync(userName);
+        return await userManager.GetRolesAsync(user);
+    }
+
+    public static async Task SeedRoles()
+    {
+        using var scope = _scopeFactory.CreateScope();
+        var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+        if (!roleManager.Roles.Any())
+        {
+            await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Administrator.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Moderator.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Premium.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Standard.ToString()));
+        }
     }
 
     public static async Task ResetState()

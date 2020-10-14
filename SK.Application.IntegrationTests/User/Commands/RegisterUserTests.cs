@@ -29,6 +29,26 @@ namespace SK.Application.IntegrationTests.User.Commands
         }
 
         [Test]
+        public async Task ShouldHaveStandardRole()
+        {
+            //arrange
+            await SeedRoles();
+            var command = new RegisterUserCommand()
+            {
+                Username = "Scott101",
+                Email = "scott@localhost",
+                Password = "Pa$$w0rd!"
+            };
+            //act
+            var registeredUser = await SendAsync(command);
+            var result = await GetRolesForUserAsync(registeredUser.Username);
+
+            //assert
+            result.Should().HaveCount(1);
+            result.Should().Contain("Standard");
+        }
+
+        [Test]
         public void ShouldHaveErrorWhenNameIsNotProvided()
         {
             //arrange
