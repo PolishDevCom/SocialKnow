@@ -25,11 +25,14 @@ namespace SK.API
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
+
                     if (context.Database.IsNpgsql())
                     {
                         context.Database.Migrate();
                     }
+                    await ApplicationDbContextSeed.SeedRolesAsync(roleManager);
                     await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager);
                     await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }

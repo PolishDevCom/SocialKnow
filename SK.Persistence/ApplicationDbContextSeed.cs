@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SK.Domain.Entities;
+using SK.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -174,6 +175,17 @@ namespace SK.Persistence
             }
         }
 
+        public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            if (!roleManager.Roles.Any())
+            {
+                await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Administrator.ToString()));
+                await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Moderator.ToString()));
+                await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Premium.ToString()));
+                await roleManager.CreateAsync(new IdentityRole(IdentityRoles.Standard.ToString()));
+            }
+        }
+
         public static async Task SeedDefaultUserAsync(UserManager<AppUser> userManager)
         {
             var defaultUser = new AppUser { Id="a", UserName = "administrator", Email = "administrator@localhost" };
@@ -183,11 +195,19 @@ namespace SK.Persistence
 
             if (userManager.Users.All(u => u.UserName != defaultUser.UserName))
             {
+                //adding users
                 await userManager.CreateAsync(defaultUser, "Administrator1!");
                 await userManager.CreateAsync(bobUser, "Pa$$w0rd!");
                 await userManager.CreateAsync(tomUser, "Pa$$w0rd!");
                 await userManager.CreateAsync(janeUser, "Pa$$w0rd!");
+
+                //adding roles for users
+                await userManager.AddToRoleAsync(defaultUser, IdentityRoles.Administrator.ToString());
+                await userManager.AddToRoleAsync(bobUser, IdentityRoles.Moderator.ToString());
+                await userManager.AddToRoleAsync(tomUser, IdentityRoles.Premium.ToString());
+                await userManager.AddToRoleAsync(janeUser, IdentityRoles.Standard.ToString());
             }
         }
+
     }
 }
