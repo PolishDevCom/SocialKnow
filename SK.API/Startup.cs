@@ -31,8 +31,9 @@ namespace SK.API
 
             var builder = services.AddIdentityCore<AppUser>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-            identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
+            identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddPersistence(Configuration);
             services.AddInfrastructure(Configuration);
