@@ -16,4 +16,17 @@
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Discussions\Commands\EditDiscussion\" />
+    <Folder Include="Discussions\Commands\DeleteDiscussion\" />
+    <Folder Include="Discussions\Commands\CloseDiscussion\" />
+    <Folder Include="Discussions\Commands\PinDiscussion\" />
+    <Folder Include="Discussions\Queries\ListDiscussion\" />
+    <Folder Include="Discussions\Queries\DetailsDiscussion\" />
+    <Folder Include="Posts\Commands\DeletePost\" />
+    <Folder Include="Posts\Commands\EditPost\" />
+    <Folder Include="Posts\Commands\CreatePost\" />
+    <Folder Include="Posts\Commands\PinPost\" />
+  </ItemGroup>
+
 </Project>
