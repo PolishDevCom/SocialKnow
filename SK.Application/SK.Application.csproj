@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Discussions\Commands\EditDiscussion\" />
     <Folder Include="Discussions\Commands\CloseDiscussion\" />
     <Folder Include="Discussions\Commands\PinDiscussion\" />
     <Folder Include="Discussions\Queries\ListDiscussion\" />

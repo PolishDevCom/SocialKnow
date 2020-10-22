@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
+using SK.Application.Discussions.Commands.EditDiscussion;
 using System;
 using System.Threading.Tasks;
 
@@ -19,6 +20,13 @@ namespace SK.API.Controllers
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
             return await Mediator.Send(new DeleteDiscussionCommand { Id = id });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditDiscussionCommand command)
+        {
+            command.Id = id;
+            return await Mediator.Send(command);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate());
 
-            var command = new CreateEventCommand()
+            var command = new EditEventCommand()
             {
                 Id = eventId,
                 Date = testDate,

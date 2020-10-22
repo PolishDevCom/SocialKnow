@@ -55,7 +55,7 @@ namespace SK.Application.Events.Commands.CreateEvent
             {
                 return newEvent.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
         }
     }
 }
