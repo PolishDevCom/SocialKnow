@@ -29,7 +29,7 @@ namespace SK.Application.Events.Commands.DeleteEvent
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
 
         }
     }
