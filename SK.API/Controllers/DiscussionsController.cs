@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
 using SK.Application.Discussions.Commands.EditDiscussion;
@@ -27,6 +28,12 @@ namespace SK.API.Controllers
         {
             command.Id = id;
             return await Mediator.Send(command);
+        }
+
+        [HttpPut("{id}/close")]
+        public async Task<ActionResult<Unit>> Close(Guid id)
+        {
+            return await Mediator.Send(new CloseDiscussionCommand { Id = id });
         }
     }
 }
