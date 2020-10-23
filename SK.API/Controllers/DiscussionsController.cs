@@ -4,6 +4,7 @@ using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
 using SK.Application.Discussions.Commands.EditDiscussion;
+using SK.Application.Discussions.Commands.OpenDiscussion;
 using System;
 using System.Threading.Tasks;
 
@@ -34,6 +35,12 @@ namespace SK.API.Controllers
         public async Task<ActionResult<Unit>> Close(Guid id)
         {
             return await Mediator.Send(new CloseDiscussionCommand { Id = id });
+        }
+
+        [HttpPut("{id}/open")]
+        public async Task<ActionResult<Unit>> Open(Guid id)
+        {
+            return await Mediator.Send(new OpenDiscussionCommand { Id = id });
         }
     }
 }
