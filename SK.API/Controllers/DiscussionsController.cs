@@ -7,13 +7,22 @@ using SK.Application.Discussions.Commands.EditDiscussion;
 using SK.Application.Discussions.Commands.OpenDiscussion;
 using SK.Application.Discussions.Commands.PinDiscussion;
 using SK.Application.Discussions.Commands.UnpinDiscussion;
+using SK.Application.Discussions.Queries;
+using SK.Application.Discussions.Queries.ListDiscussion;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
     public class DiscussionsController : ApiController
     {
+        [HttpGet]
+        public async Task<ActionResult<List<DiscussionDto>>> List()
+        {
+            return await Mediator.Send(new ListDiscussionQuery());
+        }
+
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateDiscussionCommand command)
         {
