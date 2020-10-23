@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
-    public class UnpinDiscussion : TestBase
+    public class UnpinDiscussionTest : TestBase
     {
         [Test]
         public async Task ShouldUnpinDiscussion()
