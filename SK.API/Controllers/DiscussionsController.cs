@@ -5,6 +5,7 @@ using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
 using SK.Application.Discussions.Commands.EditDiscussion;
 using SK.Application.Discussions.Commands.OpenDiscussion;
+using SK.Application.Discussions.Commands.PinDiscussion;
 using System;
 using System.Threading.Tasks;
 
@@ -41,6 +42,12 @@ namespace SK.API.Controllers
         public async Task<ActionResult<Unit>> Open(Guid id)
         {
             return await Mediator.Send(new OpenDiscussionCommand { Id = id });
+        }
+
+        [HttpPut("{id}/pin")]
+        public async Task<ActionResult<Unit>> Pin(Guid id)
+        {
+            return await Mediator.Send(new PinDiscussionCommand { Id = id });
         }
     }
 }
