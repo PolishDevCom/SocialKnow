@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Discussions\Commands\UnpinDiscussion\" />
     <Folder Include="Discussions\Queries\ListDiscussion\" />
     <Folder Include="Discussions\Queries\DetailsDiscussion\" />
     <Folder Include="Posts\Commands\DeletePost\" />
