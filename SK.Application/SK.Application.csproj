@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Discussions\Commands\UnpinDiscussion\" />
-    <Folder Include="Discussions\Commands\OpenDiscussion\" />
     <Folder Include="Discussions\Commands\PinDiscussion\" />
     <Folder Include="Discussions\Queries\ListDiscussion\" />
     <Folder Include="Discussions\Queries\DetailsDiscussion\" />
