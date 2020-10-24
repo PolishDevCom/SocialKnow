@@ -8,6 +8,7 @@ using SK.Application.Discussions.Commands.OpenDiscussion;
 using SK.Application.Discussions.Commands.PinDiscussion;
 using SK.Application.Discussions.Commands.UnpinDiscussion;
 using SK.Application.Discussions.Queries;
+using SK.Application.Discussions.Queries.DetailsDiscussion;
 using SK.Application.Discussions.Queries.ListDiscussion;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,12 @@ namespace SK.API.Controllers
         public async Task<ActionResult<List<DiscussionDto>>> List()
         {
             return await Mediator.Send(new ListDiscussionQuery());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DiscussionDto>> Details(Guid id)
+        {
+            return await Mediator.Send(new DetailsDiscussionQuery { Id = id });
         }
 
         [HttpPost]
