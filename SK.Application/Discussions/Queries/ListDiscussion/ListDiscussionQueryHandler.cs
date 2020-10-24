@@ -38,6 +38,8 @@ namespace SK.Application.Discussions.Queries.ListDiscussion
             allDiscussionsList.AddRange(pinnedDiscussionList);
             allDiscussionsList.AddRange(unpinnedDiscussionList);
 
+            allDiscussionsList.ForEach(d => d.NumberOfPosts = d.Posts?.Count ?? 0);
+
             return allDiscussionsList;
         }
     }
