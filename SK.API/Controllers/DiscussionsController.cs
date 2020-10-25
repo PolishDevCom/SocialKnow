@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Application.Discussions.Commands.CreateDiscussion;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
+    [Authorize]
     public class DiscussionsController : ApiController
     {
         [HttpGet]
@@ -36,12 +38,14 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
             return await Mediator.Send(new DeleteDiscussionCommand { Id = id });
         }
-
+        
+        [Authorize(Policy = "IsDiscussionOwner")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditDiscussionCommand command)
         {
@@ -49,24 +53,28 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/close")]
         public async Task<ActionResult<Unit>> Close(Guid id)
         {
             return await Mediator.Send(new CloseDiscussionCommand { Id = id });
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/open")]
         public async Task<ActionResult<Unit>> Open(Guid id)
         {
             return await Mediator.Send(new OpenDiscussionCommand { Id = id });
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
         public async Task<ActionResult<Unit>> Pin(Guid id)
         {
             return await Mediator.Send(new PinDiscussionCommand { Id = id });
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
         public async Task<ActionResult<Unit>> Unpin(Guid id)
         {
