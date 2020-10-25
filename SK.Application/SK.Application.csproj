@@ -19,7 +19,7 @@
   <ItemGroup>
     <Folder Include="Posts\Commands\DeletePost\" />
     <Folder Include="Posts\Commands\EditPost\" />
-    <Folder Include="Posts\Commands\CreatePost\" />
+    <Folder Include="Posts\Commands\UnpinPost\" />
     <Folder Include="Posts\Commands\PinPost\" />
   </ItemGroup>
 
