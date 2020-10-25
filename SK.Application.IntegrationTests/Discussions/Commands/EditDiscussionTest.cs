@@ -7,7 +7,6 @@ using SK.Application.Discussions.Commands.EditDiscussion;
 using SK.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Discussions.Commands
