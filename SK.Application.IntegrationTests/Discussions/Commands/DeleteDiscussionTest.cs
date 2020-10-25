@@ -46,7 +46,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
                 Id = createdDiscussionId
             });
 
-            var actualDiscussion = await FindByGuidAsync<Event>(createdDiscussionId);
+            var actualDiscussion = await FindByGuidAsync<Discussion>(createdDiscussionId);
             var actualDiscussionPosts = FindPostsByDiscussionGuidAsync(createdDiscussionId);
 
             //assert
