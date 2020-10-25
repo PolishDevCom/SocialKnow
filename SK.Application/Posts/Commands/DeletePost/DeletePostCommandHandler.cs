@@ -6,22 +6,22 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.Discussions.Commands.DeleteDiscussion
+namespace SK.Application.Posts.Commands.DeletePost
 {
-    public class DeleteDiscussionCommandHandler : IRequestHandler<DeleteDiscussionCommand>
+    public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {
         private readonly IApplicationDbContext _context;
 
-        public DeleteDiscussionCommandHandler(IApplicationDbContext context)
+        public DeletePostCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Unit> Handle(DeleteDiscussionCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
         {
-            var discussionToDelete = await _context.Discussions.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Discussion), request.Id);
+            var postToDelete = await _context.Posts.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Post), request.Id);
 
-            _context.Discussions.Remove(discussionToDelete);
+            _context.Posts.Remove(postToDelete);
 
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
 

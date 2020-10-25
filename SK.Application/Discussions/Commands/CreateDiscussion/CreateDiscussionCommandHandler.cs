@@ -46,7 +46,7 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
             {
                 return newDiscussion.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
         }
     }
 }
