@@ -5,6 +5,8 @@ using SK.Application.Posts.Commands.CreatePost;
 using SK.Application.Posts.Commands.DeletePost;
 using MediatR;
 using SK.Application.Posts.Commands.EditPost;
+using SK.Application.Posts.Commands.UnpinPost;
+using SK.Application.Posts.Commands.PinPost;
 
 namespace SK.API.Controllers
 {
@@ -27,6 +29,18 @@ namespace SK.API.Controllers
         {
             command.Id = id;
             return await Mediator.Send(command);
+        }
+
+        [HttpPut("{id}/pin")]
+        public async Task<ActionResult<Unit>> Pin(Guid id)
+        {
+            return await Mediator.Send(new PinPostCommand { Id = id });
+        }
+
+        [HttpPut("{id}/unpin")]
+        public async Task<ActionResult<Unit>> Unpin(Guid id)
+        {
+            return await Mediator.Send(new UnpinPostCommand { Id = id });
         }
     }
 }
