@@ -16,9 +16,4 @@
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Posts\Commands\UnpinPost\" />
-    <Folder Include="Posts\Commands\PinPost\" />
-  </ItemGroup>
-
 </Project>
