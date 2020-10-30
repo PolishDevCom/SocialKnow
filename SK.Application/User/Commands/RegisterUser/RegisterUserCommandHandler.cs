@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Users;
 using SK.Domain.Entities;
 using SK.Domain.Enums;
-using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,24 +17,26 @@ namespace SK.Application.User.Commands.RegisterUser
         private readonly IApplicationDbContext _context;
         private readonly IJwtGenerator _jwtGenerator;
         private readonly IIdentityService _identityService;
+        private readonly IStringLocalizer<UsersResource> _localizer;
 
-        public RegisterUserCommandHandler(IApplicationDbContext context, IJwtGenerator jwtGenerator, IIdentityService identityService)
+        public RegisterUserCommandHandler(IApplicationDbContext context, IJwtGenerator jwtGenerator, IIdentityService identityService, IStringLocalizer<UsersResource> localizer)
         {
             _context = context;
             _jwtGenerator = jwtGenerator;
             _identityService = identityService;
+            _localizer = localizer;
         }
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             if (await _context.Users.AnyAsync(u => u.Email == request.Email))
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exists" });
+                throw new RestException(HttpStatusCode.BadRequest, new { Email = _localizer["UserRegisterEmailExistsError"] });
             }
 
             if (await _context.Users.AnyAsync(u => u.UserName == request.Username))
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exists" });
+                throw new RestException(HttpStatusCode.BadRequest, new { Username = _localizer["UserRegisterUsernameExistsError"] });
             }
 
             var user = new AppUser
@@ -54,7 +57,7 @@ namespace SK.Application.User.Commands.RegisterUser
                     Image = null
                 };
             }
-            throw new Exception("Problem saving changes");
+            throw new RestException(HttpStatusCode.BadRequest, new { User = _localizer["UserSaveError"] });
         }
     }
 }

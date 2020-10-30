@@ -5,16 +5,20 @@ using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Discussions;
 
 namespace SK.Application.Discussions.Commands.OpenDiscussion
 {
     public class OpenDiscussionCommandHandler : IRequestHandler<OpenDiscussionCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<DiscussionsResource> _localizer;
 
-        public OpenDiscussionCommandHandler(IApplicationDbContext context)
+        public OpenDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(OpenDiscussionCommand request, CancellationToken cancellationToken)
@@ -23,7 +27,7 @@ namespace SK.Application.Discussions.Commands.OpenDiscussion
 
             if (!discussionToOpen.IsClosed)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Discussion is opened already." });
+                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionOpenError"] });
             }
 
             discussionToOpen.IsClosed = false;
@@ -33,7 +37,7 @@ namespace SK.Application.Discussions.Commands.OpenDiscussion
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionSaveError"] });
         }
     }
 }

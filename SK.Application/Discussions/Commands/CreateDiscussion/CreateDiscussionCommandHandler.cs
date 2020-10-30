@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Discussions;
 using SK.Domain.Entities;
 using System;
 using System.Net;
@@ -12,10 +14,12 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
     public class CreateDiscussionCommandHandler : IRequestHandler<CreateDiscussionCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<DiscussionsResource> _localizer;
 
-        public CreateDiscussionCommandHandler(IApplicationDbContext context)
+        public CreateDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Guid> Handle(CreateDiscussionCommand request, CancellationToken cancellationToken)
@@ -46,7 +50,7 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
             {
                 return newDiscussion.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionSaveError"] });
         }
     }
 }

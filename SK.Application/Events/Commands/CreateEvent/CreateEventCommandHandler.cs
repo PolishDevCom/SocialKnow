@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Events;
 using SK.Domain.Entities;
 using System;
 using System.Net;
@@ -15,12 +17,14 @@ namespace SK.Application.Events.Commands.CreateEvent
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUser;
         private readonly IDateTime _dateTime;
+        private readonly IStringLocalizer<EventsResource> _localizer;
 
-        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IDateTime dateTime)
+        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IDateTime dateTime, IStringLocalizer<EventsResource> localizer)
         {
             _context = context;
             _currentUser = currentUser;
             _dateTime = dateTime;
+            _localizer = localizer;
         }
 
         public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -55,7 +59,7 @@ namespace SK.Application.Events.Commands.CreateEvent
             {
                 return newEvent.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localizer["EventSaveError"] });
         }
     }
 }

@@ -5,16 +5,20 @@ using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
+using SK.Application.Common.Resources.Discussions;
+using Microsoft.Extensions.Localization;
 
 namespace SK.Application.Discussions.Commands.UnpinDiscussion
 {
     public class UnpinDiscussionCommandHandler : IRequestHandler<UnpinDiscussionCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<DiscussionsResource> _localizer;
 
-        public UnpinDiscussionCommandHandler(IApplicationDbContext context)
+        public UnpinDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(UnpinDiscussionCommand request, CancellationToken cancellationToken)
@@ -23,7 +27,7 @@ namespace SK.Application.Discussions.Commands.UnpinDiscussion
 
             if (!discussionToUnpin.IsPinned)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Discussion is unpinned already." });
+                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionUnpinError"] });
             }
 
             discussionToUnpin.IsPinned = false;
@@ -33,7 +37,7 @@ namespace SK.Application.Discussions.Commands.UnpinDiscussion
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionSaveError"] });
         }
     }
 }

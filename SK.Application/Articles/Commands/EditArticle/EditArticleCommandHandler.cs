@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Articles;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -11,10 +13,12 @@ namespace SK.Application.Articles.Commands.EditArticle
     public class EditArticleCommandHandler : IRequestHandler<EditArticleCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<ArticlesResource> _localizer;
 
-        public EditArticleCommandHandler(IApplicationDbContext context)
+        public EditArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(EditArticleCommand request, CancellationToken cancellationToken)
@@ -32,7 +36,7 @@ namespace SK.Application.Articles.Commands.EditArticle
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Article = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Article = _localizer["ArticleSaveError"] });
         }
 
     }

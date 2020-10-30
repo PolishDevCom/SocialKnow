@@ -1,13 +1,19 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Posts;
 
 namespace SK.Application.Posts.Commands.EditPost
 {
     public class EditPostCommandValidator : AbstractValidator<EditPostCommand>
     {
-        public EditPostCommandValidator()
+        private readonly IStringLocalizer<PostsResource> _localizer;
+
+        public EditPostCommandValidator(IStringLocalizer<PostsResource> localizer)
         {
+            _localizer = localizer;
+
             RuleFor(p => p.Body)
-                .NotEmpty().WithMessage("Post body is required.");
+                .NotEmpty().WithMessage(_localizer["PostValidatorBodyEmpty"]);
         }
     }
 }

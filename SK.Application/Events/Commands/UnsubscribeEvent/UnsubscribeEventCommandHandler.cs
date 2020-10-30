@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Events;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -13,11 +15,13 @@ namespace SK.Application.Events.Commands.UnsubscribeEvent
     {
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IStringLocalizer<EventsResource> _localizer;
 
-        public UnsubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService)
+        public UnsubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IStringLocalizer<EventsResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(UnsubscribeEventCommand request, CancellationToken cancellationToken)
@@ -33,7 +37,7 @@ namespace SK.Application.Events.Commands.UnsubscribeEvent
 
             if (subscription.IsHost)
             {
-                throw new RestException(HttpStatusCode.NotFound, new { Attendance = "You cannot remove yourself as host" });
+                throw new RestException(HttpStatusCode.NotFound, new { Attendance = _localizer["EventUnsubscribeHostError"] });
             }
 
             _context.UserEvents.Remove(subscription);
@@ -44,7 +48,7 @@ namespace SK.Application.Events.Commands.UnsubscribeEvent
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localizer["EventSaveError"] });
 
         }
     }

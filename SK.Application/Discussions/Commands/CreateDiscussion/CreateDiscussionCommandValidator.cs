@@ -1,21 +1,27 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Discussions;
 
 namespace SK.Application.Discussions.Commands.CreateDiscussion
 {
     public class CreateDiscussionCommandValidator : AbstractValidator<CreateDiscussionCommand>
     {
-        public CreateDiscussionCommandValidator()
+        private readonly IStringLocalizer<DiscussionsResource> _localizer;
+
+        public CreateDiscussionCommandValidator(IStringLocalizer<DiscussionsResource> localizer)
         {
+            _localizer = localizer;
+
             RuleFor(x => x.Title)
-                .NotEmpty().WithMessage("Discussion title is required.")
-                .Length(1, 70).WithMessage("Discussion title must be at least 1 and at max 70 characters long.");
+                .NotEmpty().WithMessage(_localizer["DiscussionValidatorTitleEmpty"])
+                .Length(1, 70).WithMessage(_localizer["DiscussionValidatorTitleLength"]);
 
             RuleFor(x => x.Description)
-                .NotEmpty().WithMessage("Discussion description is required.")
-                .Length(1, 200).WithMessage("Discussion description must be at least 1 and at max 200 characters long.");
+                .NotEmpty().WithMessage(_localizer["DiscussionValidatorDescriptionEmpty"])
+                .Length(1, 200).WithMessage(_localizer["DiscussionValidatorDescriptionLength"]);
 
             RuleFor(x => x.PostBody)
-                .NotEmpty().WithMessage("Post body is required.");
+                .NotEmpty().WithMessage(_localizer["DiscussionValidatorPostEmpty"]);
         }
     }
 }
