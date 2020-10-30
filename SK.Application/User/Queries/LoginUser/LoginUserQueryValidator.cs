@@ -1,13 +1,19 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Users;
 
 namespace SK.Application.User.Queries.LoginUser
 {
     public class LoginUserQueryValidator : AbstractValidator<LoginUserQuery>
     {
-        public LoginUserQueryValidator()
+        private readonly IStringLocalizer<UsersResource> _localizer;
+
+        public LoginUserQueryValidator(IStringLocalizer<UsersResource> localizer)
         {
-            RuleFor(x => x.Email).NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
+            _localizer = localizer;
+
+            RuleFor(x => x.Email).NotEmpty().WithMessage(_localizer["UserValidatorEmailEmpty"]);
+            RuleFor(x => x.Password).NotEmpty().WithMessage(_localizer["UserValidatorPasswordEmpty"]);
         }
     }
 }

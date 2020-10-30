@@ -5,16 +5,20 @@ using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Posts;
 
 namespace SK.Application.Posts.Commands.UnpinPost
 {
     public class UnpinPostCommandHandler : IRequestHandler<UnpinPostCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<PostsResource> _localizer;
 
-        public UnpinPostCommandHandler(IApplicationDbContext context)
+        public UnpinPostCommandHandler(IApplicationDbContext context, IStringLocalizer<PostsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(UnpinPostCommand request, CancellationToken cancellationToken)
@@ -23,7 +27,7 @@ namespace SK.Application.Posts.Commands.UnpinPost
 
             if (!postToUnpin.IsPinned)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Post is unpinned already." });
+                throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostUnpinError"] });
             }
 
             postToUnpin.IsPinned = false;
@@ -33,7 +37,7 @@ namespace SK.Application.Posts.Commands.UnpinPost
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostSaveError"] });
         }
     }
 }

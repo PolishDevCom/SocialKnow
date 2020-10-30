@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Posts.Commands
 {
     using static Testing;
-    public class PinPostTestcs : TestBase
+    public class PinPostTest : TestBase
     {
         [Test]
         public async Task ShouldPinPost()

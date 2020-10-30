@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Posts;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -11,10 +13,12 @@ namespace SK.Application.Posts.Commands.DeletePost
     public class DeletePostCommandHandler : IRequestHandler<DeletePostCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<PostsResource> _localizer;
 
-        public DeletePostCommandHandler(IApplicationDbContext context)
+        public DeletePostCommandHandler(IApplicationDbContext context, IStringLocalizer<PostsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
@@ -29,7 +33,7 @@ namespace SK.Application.Posts.Commands.DeletePost
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostSaveError"] });
         }
     }
 }

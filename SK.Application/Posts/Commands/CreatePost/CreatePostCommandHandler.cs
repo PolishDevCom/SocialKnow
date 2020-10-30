@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Posts;
 using SK.Domain.Entities;
 using System;
 using System.Net;
@@ -12,10 +14,12 @@ namespace SK.Application.Posts.Commands.CreatePost
     public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<PostsResource> _localizer;
 
-        public CreatePostCommandHandler(IApplicationDbContext context)
+        public CreatePostCommandHandler(IApplicationDbContext context, IStringLocalizer<PostsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Guid> Handle(CreatePostCommand request, CancellationToken cancellationToken)
@@ -24,7 +28,7 @@ namespace SK.Application.Posts.Commands.CreatePost
 
             if (discussionToFind.IsClosed)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Post = "Adding post to closed discussion is not allowed." });
+                throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostClosedDiscussionError"] });
             }
 
             var newPost = new Post()
@@ -42,7 +46,7 @@ namespace SK.Application.Posts.Commands.CreatePost
             {
                 return newPost.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostSaveError"] });
         }
     }
 }

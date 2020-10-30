@@ -5,16 +5,20 @@ using SK.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Resources.Discussions;
 
 namespace SK.Application.Discussions.Commands.PinDiscussion
 {
     public class PinDiscussionCommandHandler : IRequestHandler<PinDiscussionCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<DiscussionsResource> _localizer;
 
-        public PinDiscussionCommandHandler(IApplicationDbContext context)
+        public PinDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(PinDiscussionCommand request, CancellationToken cancellationToken)
@@ -23,7 +27,7 @@ namespace SK.Application.Discussions.Commands.PinDiscussion
 
             if (discussionToPin.IsPinned)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Discussion is pinned already." });
+                throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionPinError"] });
             }
 
             discussionToPin.IsPinned = true;
@@ -33,7 +37,7 @@ namespace SK.Application.Discussions.Commands.PinDiscussion
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Discussion = _localizer["DiscussionSaveError"] });
         }
     }
 }
