@@ -65,8 +65,10 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
         {
             get
             {
-                yield return new TestCaseData(null, new Faker("en").Lorem.Sentences(sentenceCount: 2)).SetName("DiscussionTitleMissingTest");
-                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), null).SetName("DiscussionDescriptionMissingTest");
+                yield return new TestCaseData(null, new Faker("en").Lorem.Sentences(sentenceCount: 2))
+                    .SetName("DiscussionTitleMissingTest");
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), null)
+                    .SetName("DiscussionDescriptionMissingTest");
             }
         }
 

@@ -27,7 +27,9 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //act
             var createdDiscussionId = await SendAsync(createDiscussionCommand);
+
             var createdDiscussion = await FindByGuidAsync<Discussion>(createdDiscussionId);
+
             var createdFirstPost = FindPostsByDiscussionGuidAsync(createdDiscussionId);
 
             //assert
@@ -49,9 +51,12 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
         {
             get
             {
-                yield return new TestCaseData(null, new Faker("en").Lorem.Sentences(sentenceCount: 2), new Faker("en").Lorem.Paragraph()).SetName("DiscussionTitleMissingTest");
-                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), null, new Faker("en").Lorem.Paragraph()).SetName("DiscussionDescriptionMissingTest");
-                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), new Faker("en").Lorem.Sentences(sentenceCount: 2), null).SetName("DiscussionPostBodyMissingTest");
+                yield return new TestCaseData(null, new Faker("en").Lorem.Sentences(sentenceCount: 2), new Faker("en").Lorem.Paragraph())
+                    .SetName("DiscussionTitleMissingTest");
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), null, new Faker("en").Lorem.Paragraph())
+                    .SetName("DiscussionDescriptionMissingTest");
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(wordCount: 3), new Faker("en").Lorem.Sentences(sentenceCount: 2), null)
+                    .SetName("DiscussionPostBodyMissingTest");
             }
         }
 
