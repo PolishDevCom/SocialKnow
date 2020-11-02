@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Models;
+using SK.Application.Common.Resources.Users;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -14,11 +16,14 @@ namespace SK.Application.User.Commands.AddRoleToUser
     {
         private readonly IIdentityService _identityService;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IStringLocalizer<UsersResource> _localizer;
 
-        public AddRoleToUserCommandHandler(IIdentityService identityService, RoleManager<IdentityRole> roleManager)
+        public AddRoleToUserCommandHandler(IIdentityService identityService, RoleManager<IdentityRole> roleManager, IStringLocalizer<UsersResource> localizer)
         {
             _identityService = identityService;
             _roleManager = roleManager;
+            _localizer = localizer;
+
         }
 
         public async Task<Result> Handle(AddRoleToUserCommand request, CancellationToken cancellationToken)
@@ -27,7 +32,7 @@ namespace SK.Application.User.Commands.AddRoleToUser
 
             if (!await _roleManager.RoleExistsAsync(request.Role))
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Role = "Provided role does not exist" });
+                throw new RestException(HttpStatusCode.BadRequest, new { Role = _localizer["UserRoleNotExistingError"] });
             }
 
             var result = await _identityService.AddRoleToUserAsync(user, request.Role);

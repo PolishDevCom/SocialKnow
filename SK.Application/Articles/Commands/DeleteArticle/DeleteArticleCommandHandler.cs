@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Articles;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -11,9 +13,12 @@ namespace SK.Application.Articles.Commands.DeleteArticle
     public class DeleteArticleCommandHandler : IRequestHandler<DeleteArticleCommand>
     {
         private readonly IApplicationDbContext _context;
-        public DeleteArticleCommandHandler(IApplicationDbContext context)
+        private readonly IStringLocalizer<ArticlesResource> _localizer;
+
+        public DeleteArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer)
         {
             _context = context;
+            _localizer = localizer;
         }
 
         public async Task<Unit> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
@@ -25,7 +30,7 @@ namespace SK.Application.Articles.Commands.DeleteArticle
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Article = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Article = _localizer["ArticleSaveError"] });
         }
     }
 }

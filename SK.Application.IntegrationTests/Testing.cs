@@ -132,10 +132,14 @@ public class Testing
         var allArticles = from c in context.Articles select c;
         var allUsers = from c in context.Users select c;
         var allEvents = from c in context.Events select c;
+        var allDiscussions = from c in context.Discussions select c;
+        var allPosts = from c in context.Posts select c;
 
         context.Articles.RemoveRange(allArticles);
         context.Users.RemoveRange(allUsers);
         context.Events.RemoveRange(allEvents);
+        context.Discussions.RemoveRange(allDiscussions);
+        context.Posts.RemoveRange(allPosts);
 
         await context.SaveChangesAsync();
 
@@ -176,6 +180,22 @@ public class Testing
         }
 
         return userEventsList;
+    }
+
+    public static List<Post> FindPostsByDiscussionGuidAsync(Guid id)
+    {
+        List<Post> postsList = new List<Post>();
+
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        foreach (var post in context.Posts.Select(p => p).Where(p => p.DiscussionId == id).Include(d => d.Discussion))
+        {
+            postsList.Add(post);
+        }
+
+        return postsList;
     }
 
     public static async Task AddAsync<TEntity>(TEntity entity)

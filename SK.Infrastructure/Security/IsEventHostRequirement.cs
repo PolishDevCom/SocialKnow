@@ -25,7 +25,6 @@ namespace SK.Infrastructure.Security
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
-            _mapper = mapper;
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsEventHostRequirement requirement)
