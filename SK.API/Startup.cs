@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using SK.API.Extensions;
 using SK.API.Filters;
 using SK.API.Services;
 using SK.Application;
@@ -12,6 +16,8 @@ using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Infrastructure;
 using SK.Persistence;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SK.API
 {
@@ -71,6 +77,27 @@ namespace SK.API
                 });
             });
 
+            services.AddLocalization();
+            services.Configure<RequestLocalizationOptions>(
+                options =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("pl-PL")
+                    };
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                    options.RequestCultureProviders = new[] { new RouteDataRequestCultureProvider { IndexOfCulture = 1, IndexofUICulture = 1 } };
+                });
+
+            services.Configure<RouteOptions>(options =>
+            {
+                options.ConstraintMap.Add("culture", typeof(LanguageRouteConstraint));
+            });
+
+
             services.AddControllers(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
         }
@@ -95,12 +122,16 @@ namespace SK.API
                 opt.SwaggerEndpoint("/swagger/v1/swagger.json", "SocialKnow API V1");
             });
 
+            var localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(localizeOptions.Value);
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("default", "{culture:culture}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

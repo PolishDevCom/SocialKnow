@@ -61,9 +61,12 @@ namespace SK.Application.IntegrationTests.Articles.Commands
         {
             get
             {
-                yield return new TestCaseData(null, new Faker("en").Lorem.Paragraph(), new Faker("en").Lorem.Paragraphs(5)).SetName("ArticleTitleMissingTest");
-                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Paragraphs(5)).SetName("ArticleAbstactMissingTest");
-                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Paragraph(), null).SetName("ArticleContentMissingTest");
+                yield return new TestCaseData(null, new Faker("en").Lorem.Paragraph(), new Faker("en").Lorem.Paragraphs(5))
+                    .SetName("ArticleTitleMissingTest");
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Paragraphs(5))
+                    .SetName("ArticleAbstactMissingTest");
+                yield return new TestCaseData(new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Paragraph(), null)
+                    .SetName("ArticleContentMissingTest");
             }
         }
 

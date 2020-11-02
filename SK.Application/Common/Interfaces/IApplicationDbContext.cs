@@ -11,6 +11,8 @@ namespace SK.Application.Common.Interfaces
         DbSet<Article> Articles { get; set; }
         DbSet<Event> Events { get; set; }
         DbSet<UserEvent> UserEvents { get; set; }
+        DbSet<Discussion> Discussions { get; set; }
+        DbSet<Post> Posts { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

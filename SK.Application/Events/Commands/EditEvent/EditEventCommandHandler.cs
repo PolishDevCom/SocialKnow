@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Events;
 using SK.Domain.Entities;
-using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace SK.Application.Events.Commands.EditEvent
     public class EditEventCommandHandler : IRequestHandler<EditEventCommand>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IStringLocalizer<EventsResource> _localize;
 
-        public EditEventCommandHandler(IApplicationDbContext context)
+        public EditEventCommandHandler(IApplicationDbContext context, IStringLocalizer<EventsResource> localize)
         {
             _context = context;
+            _localize = localize;
         }
         public async Task<Unit> Handle(EditEventCommand request, CancellationToken cancellationToken)
         {
@@ -33,7 +36,7 @@ namespace SK.Application.Events.Commands.EditEvent
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localize["EventSaveError"] });
 
         }
     }

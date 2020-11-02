@@ -42,17 +42,14 @@ namespace SK.Application.IntegrationTests.User.Queries
         public void ShouldHaveErrorWhenEmailNotProvided()
         {
             //arrange
-            var validator = new LoginUserQueryValidator();
             var query = new LoginUserQuery()
             {
                 Password = "Pa$$w0rd!"
             };
 
             //act 
-            var result = validator.TestValidate(query);
 
             //assert
-            result.ShouldHaveValidationErrorFor(query => query.Email);
             FluentActions.Invoking(() =>
                 SendAsync(query)).Should().Throw<ValidationException>();
         }
@@ -61,17 +58,14 @@ namespace SK.Application.IntegrationTests.User.Queries
         public void ShouldHaveErrorWhenPasswordNotProvided()
         {
             //arrange
-            var validator = new LoginUserQueryValidator();
             var query = new LoginUserQuery()
             {
                 Email = "scott@localhost"
             };
 
             //act 
-            var result = validator.TestValidate(query);
 
             //assert
-            result.ShouldHaveValidationErrorFor(query => query.Password);
             FluentActions.Invoking(() =>
                 SendAsync(query)).Should().Throw<ValidationException>();
         }

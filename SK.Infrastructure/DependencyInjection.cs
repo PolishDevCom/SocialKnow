@@ -20,6 +20,16 @@ namespace SK.Infrastructure
                 {
                     policy.Requirements.Add(new IsEventHostRequirement());
                 });
+
+                opt.AddPolicy("IsDiscussionOwner", policy =>
+                {
+                    policy.Requirements.Add(new IsDiscussionOwnerRequirement());
+                });
+
+                opt.AddPolicy("IsPostOwner", policy =>
+                {
+                    policy.Requirements.Add(new IsPostOwnerRequirement());
+                });
             });
             services.AddTransient<IAuthorizationHandler, IsEventHostRequirementHandler>();
 

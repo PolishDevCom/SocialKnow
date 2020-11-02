@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Events;
 using SK.Domain.Entities;
 using System.Net;
 using System.Threading;
@@ -14,12 +16,14 @@ namespace SK.Application.Events.Commands.SubscribeEvent
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
+        private readonly IStringLocalizer<EventsResource> _localize;
 
-        public SubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IDateTime dateTime)
+        public SubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IDateTime dateTime, IStringLocalizer<EventsResource> localize)
         {
             _context = context;
             _currentUserService = currentUserService;
             _dateTime = dateTime;
+            _localize = localize;
         }
         public async Task<Unit> Handle(SubscribeEventCommand request, CancellationToken cancellationToken)
         {
@@ -29,7 +33,7 @@ namespace SK.Application.Events.Commands.SubscribeEvent
             var subscription = await _context.UserEvents.SingleOrDefaultAsync(x => x.EventId == eventToSubscribe.Id && x.AppUserId == user.Id);
             if (subscription != null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Attendance = "Already subscribing this event" });
+                throw new RestException(HttpStatusCode.BadRequest, new { Attendance = _localize["EventSubscribeError"] });
             }
 
             subscription = new UserEvent
@@ -48,7 +52,7 @@ namespace SK.Application.Events.Commands.SubscribeEvent
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = "Problem saving changes" });
+            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localize["EventSaveError"] });
         }
     }
 }

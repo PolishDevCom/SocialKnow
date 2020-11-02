@@ -57,13 +57,10 @@ namespace SK.Application.IntegrationTests.User.Commands
                 Email = "scott@localhost",
                 Password = "Pa$$w0rd!"
             };
-            var validator = new RegisterUserCommandValidator();
 
             //act
-            var result = validator.TestValidate(command);
 
             //assert
-            result.ShouldHaveValidationErrorFor(command => command.Username);
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
@@ -77,13 +74,10 @@ namespace SK.Application.IntegrationTests.User.Commands
                 Username = "Scott101",
                 Password = "Pa$$w0rd!"
             };
-            var validator = new RegisterUserCommandValidator();
 
             //act
-            var result = validator.TestValidate(command);
 
             //assert
-            result.ShouldHaveValidationErrorFor(command => command.Email);
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
@@ -97,13 +91,10 @@ namespace SK.Application.IntegrationTests.User.Commands
                 Username = "Scott101",
                 Email = "scott@localhost"
             };
-            var validator = new RegisterUserCommandValidator();
 
             //act
-            var result = validator.TestValidate(command);
 
             //assert
-            result.ShouldHaveValidationErrorFor(command => command.Password);
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
@@ -118,13 +109,10 @@ namespace SK.Application.IntegrationTests.User.Commands
                 Email = "scottlocalhost",
                 Password = "Pa$$w0rd!"
             };
-            var validator = new RegisterUserCommandValidator();
 
             //act
-            var result = validator.TestValidate(command);
 
             //assert
-            result.ShouldHaveValidationErrorFor(command => command.Email);
             FluentActions.Invoking(() =>
                 SendAsync(command)).Should().Throw<ValidationException>();
         }
