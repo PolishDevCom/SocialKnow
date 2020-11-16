@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,17 @@ namespace SK.Application.Articles.Queries.ListArticle
 
         public async Task<PagedResponse<List<ArticleDto>>> Handle(ListArticleQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Articles
+            var validFilter = new PaginationFilter(pageNumber: request.Filter.PageNumber, pageSize: request.Filter.PageSize);
+            var pagedData = await _context.Articles
+                .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                .Take(validFilter.PageSize)
                 .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
                 .OrderByDescending(a => a.Created)
                 .ToListAsync(cancellationToken);
+            var totalRecords = await _context.Articles.CountAsync();
+
+            return new PagedResponse<List<ArticleDto>>(pagedData, validFilter.PageNumber, validFilter.PageSize);
+
         }
     }
 }
