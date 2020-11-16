@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Wrappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SK.Application.Articles.Queries.ListArticle
 { 
-    public class ListArticleQueryHandler : IRequestHandler<ListArticleQuery, List<ArticleDto>>
+    public class ListArticleQueryHandler : IRequestHandler<ListArticleQuery, PagedResponse<List<ArticleDto>>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -21,7 +22,7 @@ namespace SK.Application.Articles.Queries.ListArticle
             _mapper = mapper;
         }
 
-        public async Task<List<ArticleDto>> Handle(ListArticleQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResponse<List<ArticleDto>>> Handle(ListArticleQuery request, CancellationToken cancellationToken)
         {
             return await _context.Articles
                 .ProjectTo<ArticleDto>(_mapper.ConfigurationProvider)
