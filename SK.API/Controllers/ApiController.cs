@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SK.API.Controllers
 {
+    [Route("{culture:culture}/api/[controller]")]
     [ApiController]
-    [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
         private IMediator _mediator;
