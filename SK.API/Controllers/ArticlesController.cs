@@ -6,6 +6,8 @@ using SK.Application.Articles.Commands.EditArticle;
 using SK.Application.Articles.Queries;
 using SK.Application.Articles.Queries.DetailsArticle;
 using SK.Application.Articles.Queries.ListArticle;
+using SK.Application.Common.Models;
+using SK.Application.Common.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,9 +19,9 @@ namespace SK.API.Controllers
     {
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<ArticleDto>>> List()
+        public async Task<ActionResult<PagedResponse<List<ArticleDto>>>> List([FromQuery] PaginationFilter filter)
         {
-            return await Mediator.Send(new ListArticleQuery());
+            return await Mediator.Send(new ListArticleQuery(filter));
         }
 
         [AllowAnonymous]
