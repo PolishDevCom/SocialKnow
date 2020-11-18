@@ -21,7 +21,7 @@ namespace SK.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<ArticleDto>>>> List([FromQuery] PaginationFilter filter)
         {
-            return await Mediator.Send(new ListArticleQuery(filter));
+            return await Mediator.Send(new ListArticleQuery(filter, Request.Path.Value));
         }
 
         [AllowAnonymous]
