@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SK.Application.Articles.Queries.ListArticle;
+using SK.Application.Common.Models;
 using SK.Domain.Entities;
 using System;
 using System.Threading.Tasks;
@@ -29,13 +30,16 @@ namespace SK.Application.IntegrationTests.Articles.Queries
                     .Generate());
             }
 
-            var query = new ListArticleQuery();
+            var filter = new PaginationFilter();
+            var path = String.Empty;
+
+            var query = new ListArticleQuery(filter,path);
 
             //act
             var result = await SendAsync(query);
 
             //assert
-            result.Should().HaveCount(3);
+            result.Data.Should().HaveCount(3);
         }
     }
 }

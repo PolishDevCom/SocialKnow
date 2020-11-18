@@ -60,8 +60,6 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             get
             {
-                yield return new TestCaseData(null, new Faker("en").Lorem.Sentence(), new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1))
-                    .SetName("EventDateMissingTest");
                 yield return new TestCaseData(new Faker("en").Date.Future(), null, new Faker("en").Lorem.Sentence(5), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1))
                     .SetName("EventTitleMissingTest");
                 yield return new TestCaseData(new Faker("en").Date.Future(), new Faker("en").Lorem.Sentence(), null, new Faker("en").Lorem.Word(), new Faker("en").Lorem.Word(), new Faker("en").Lorem.Sentence(1))
@@ -103,6 +101,37 @@ namespace SK.Application.IntegrationTests.Events.Commands
                 City = testCity,
                 Venue = testVenue
             };
+
+            //act
+
+            //assert
+            FluentActions.Invoking(() =>
+                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+        }
+
+        [Test]
+        public async Task ShouldThrowValidationExceptionWhenEventDateMissing()
+        {
+            //arrange
+            var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
+            var eventId = await SendAsync(new Faker<CreateEventCommand>("en")
+                .RuleFor(e => e.Id, f => f.Random.Guid())
+                .RuleFor(e => e.Title, f => f.Lorem.Sentence())
+                .RuleFor(e => e.Date, f => f.Date.Future())
+                .RuleFor(e => e.Description, f => f.Lorem.Sentence(5))
+                .RuleFor(e => e.Category, f => f.Lorem.Word())
+                .RuleFor(e => e.City, f => f.Lorem.Word())
+                .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate());
+
+            var command = new Faker<EditEventCommand>("en")
+                .RuleFor(e => e.Id, f => eventId)
+                .RuleFor(e => e.Title, f => f.Lorem.Sentence())
+                .RuleFor(e => e.Date, f => null)
+                .RuleFor(e => e.Description, f => f.Lorem.Sentence(5))
+                .RuleFor(e => e.Category, f => f.Lorem.Word())
+                .RuleFor(e => e.City, f => f.Lorem.Word())
+                .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
 
             //act
 
