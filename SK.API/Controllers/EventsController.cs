@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Common.Models;
+using SK.Application.Common.Wrappers;
 using SK.Application.Events.Commands.CreateEvent;
 using SK.Application.Events.Commands.DeleteEvent;
 using SK.Application.Events.Commands.EditEvent;
@@ -19,9 +21,9 @@ namespace SK.API.Controllers
     public class EventsController : ApiController
     {
         [HttpGet]
-        public async Task<ActionResult<List<EventDto>>> List()
+        public async Task<ActionResult<PagedResponse<List<EventDto>>>> List([FromQuery] PaginationFilter filter)
         {
-            return await Mediator.Send(new ListEventQuery());
+            return await Mediator.Send(new ListEventQuery(filter, Request.Path.Value));
         }
 
         [HttpGet("{id}")]
