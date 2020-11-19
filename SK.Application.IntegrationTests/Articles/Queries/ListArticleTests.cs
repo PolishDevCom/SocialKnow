@@ -49,7 +49,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
             result.Errors.Should().BeNull();
             result.TotalRecords.Should().Be(numberOfArticles);
 
-            result.Data.Should().HaveCount(numberOfArticles);
+            result.Data.Should().HaveCount(numberOfArticles > filter.PageSize ? filter.PageSize : numberOfArticles);
         }
     }
 }

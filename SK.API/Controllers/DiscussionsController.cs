@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Common.Models;
+using SK.Application.Common.Wrappers;
 using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
@@ -21,15 +23,15 @@ namespace SK.API.Controllers
     public class DiscussionsController : ApiController
     {
         [HttpGet]
-        public async Task<ActionResult<List<DiscussionDto>>> List()
+        public async Task<ActionResult<PagedResponse<List<DiscussionDto>>>> List([FromQuery] PaginationFilter filter)
         {
-            return await Mediator.Send(new ListDiscussionQuery());
+            return await Mediator.Send(new ListDiscussionQuery(filter, Request.Path.Value));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DiscussionDto>> Details(Guid id)
+        public async Task<ActionResult<DiscussionWithPagedPostsDto>> Details(Guid id, [FromQuery] PaginationFilter filter)
         {
-            return await Mediator.Send(new DetailsDiscussionQuery { Id = id });
+            return await Mediator.Send(new DetailsDiscussionQuery(id, filter, Request.Path.Value));
         }
 
         [HttpPost]

@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
-using SK.Application.Discussions.Commands.CreateDiscussion;
+using SK.Application.Common.Models;
 using SK.Application.Discussions.Commands.PinDiscussion;
 using SK.Application.Discussions.Queries.ListDiscussion;
 using SK.Domain.Entities;
@@ -32,13 +32,15 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
                 await AddAsync(discussionToAdd);
             }
 
-            var listQuery = new ListDiscussionQuery();
+            var filter = new PaginationFilter();
+            var path = String.Empty;
+            var listQuery = new ListDiscussionQuery(filter, path);
 
             //act
             var result = await SendAsync(listQuery);
 
             //assert
-            result.Should().HaveCount(numberOfDiscussions);
+            result.Data.Should().HaveCount(numberOfDiscussions);
         }
 
         [Test]
@@ -58,13 +60,15 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
                 await AddAsync(discussionToAdd);
             }
 
-            var listQuery = new ListDiscussionQuery();
+            var filter = new PaginationFilter();
+            var path = String.Empty;
+            var listQuery = new ListDiscussionQuery(filter, path);
 
             //act
             var result = await SendAsync(listQuery);
 
             //assert
-            result.Should().BeInDescendingOrder(d => d.Created);
+            result.Data.Should().BeInDescendingOrder(d => d.Created);
         }
 
         [Test]
@@ -72,6 +76,8 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
         {
             //arrange
             int numberOfDiscussions = 10;
+            var filter = new PaginationFilter();
+            var path = String.Empty;
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
 
             for (int i = 0; i < numberOfDiscussions; i++)
@@ -84,16 +90,16 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
                 await AddAsync(discussionToAdd);
             }
 
-            var result = await SendAsync(new ListDiscussionQuery());
-            var discussionToPinId = result.Last().Id;
+            var result = await SendAsync(new ListDiscussionQuery(filter, path));
+            var discussionToPinId = result.Data.Last().Id;
 
             await SendAsync(new PinDiscussionCommand() { Id = discussionToPinId });
 
             //act
-            var actResult = await SendAsync(new ListDiscussionQuery());
+            var actResult = await SendAsync(new ListDiscussionQuery(filter, path));
 
             //assert
-            actResult.First().Id.Should().Be(discussionToPinId);
+            actResult.Data.First().Id.Should().Be(discussionToPinId);
         }
 
         [Test]
@@ -101,6 +107,8 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
         {
             //arrange
             int numberOfDiscussions = 10;
+            var filter = new PaginationFilter();
+            var path = String.Empty;
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
 
             for (int i = 0; i < numberOfDiscussions; i++)
@@ -113,22 +121,22 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
                 await AddAsync(discussionToAdd);
             }
 
-            var result = await SendAsync(new ListDiscussionQuery());
-            var discussionToPin1Id = result[3].Id;
-            var discussionToPin2Id = result[6].Id;
-            var discussionToPin3Id = result.Last().Id;
+            var result = await SendAsync(new ListDiscussionQuery(filter, path));
+            var discussionToPin1Id = result.Data[3].Id;
+            var discussionToPin2Id = result.Data[6].Id;
+            var discussionToPin3Id = result.Data.Last().Id;
 
             await SendAsync(new PinDiscussionCommand() { Id = discussionToPin1Id });
             await SendAsync(new PinDiscussionCommand() { Id = discussionToPin2Id });
             await SendAsync(new PinDiscussionCommand() { Id = discussionToPin3Id });
 
             //act
-            var actResult = await SendAsync(new ListDiscussionQuery());
+            var actResult = await SendAsync(new ListDiscussionQuery(filter, path));
 
             //assert
-            actResult[0].Id.Should().Be(discussionToPin1Id);
-            actResult[1].Id.Should().Be(discussionToPin2Id);
-            actResult[2].Id.Should().Be(discussionToPin3Id);
+            actResult.Data[0].Id.Should().Be(discussionToPin1Id);
+            actResult.Data[1].Id.Should().Be(discussionToPin2Id);
+            actResult.Data[2].Id.Should().Be(discussionToPin3Id);
         }
     }
 }

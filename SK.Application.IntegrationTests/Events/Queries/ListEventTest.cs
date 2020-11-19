@@ -67,7 +67,7 @@ namespace SK.Application.IntegrationTests.Events.Queries
 
             result.TotalRecords.Should().Be(3);
 
-            result.Data.Should().HaveCount(3);
+            result.Data.Should().HaveCount(3 > filter.PageSize ? filter.PageSize : 3);
             result.Data[0].Id.Should().Be(event2.Id);
             result.Data[1].Id.Should().Be(event1.Id);
             result.Data[2].Id.Should().Be(event3.Id);

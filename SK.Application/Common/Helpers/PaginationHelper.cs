@@ -3,7 +3,6 @@ using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SK.Application.Common.Helpers
 {
