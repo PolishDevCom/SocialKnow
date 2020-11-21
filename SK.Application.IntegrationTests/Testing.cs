@@ -60,6 +60,8 @@ public class Testing
             Mock.Of<ICurrentUserService>(s => s.Username == _currentUserName));
         services.AddTransient(provider =>
             Mock.Of<IJwtGenerator>());
+        services.AddSingleton(provider =>
+            Mock.Of<IUriService>());
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         EnsureDatabase();

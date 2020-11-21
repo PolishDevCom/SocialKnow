@@ -173,6 +173,105 @@ namespace SK.Persistence
                 await context.Events.AddRangeAsync(events);
                 await context.SaveChangesAsync();
             }
+            if (!context.Discussions.Any())
+            {
+                var discussion1Id = Guid.NewGuid();
+                var discussion2Id = Guid.NewGuid();
+                var discussion3Id = Guid.NewGuid();
+
+                var discussions = new List<Discussion>
+                {
+                    new Discussion()
+                    {
+                        Id = discussion1Id,
+                        Title = "Discussion No 1",
+                        Description = "Description of discussion no 1",
+                        IsClosed = true,
+                        IsPinned = false,
+                        Posts = new List<Post>()
+                        {
+                            new Post()
+                            {
+                                Body = "This is first post for this discussion 1",
+                                IsPinned = false,
+                                DiscussionId = discussion1Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is second post for this discussion 1",
+                                IsPinned = false,
+                                DiscussionId = discussion1Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is third post for this discussion 1",
+                                IsPinned = false,
+                                DiscussionId = discussion1Id
+                            }
+                        }                        
+                    },
+                    new Discussion()
+                    {
+                        Id = discussion2Id,
+                        Title = "Discussion No 2",
+                        Description = "Description of discussion no 2",
+                        IsClosed = false,
+                        IsPinned = true,
+                        Posts = new List<Post>()
+                        {
+                            new Post()
+                            {
+                                Body = "This is first post for this discussion 2",
+                                IsPinned = false,
+                                DiscussionId = discussion2Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is second post for this discussion 2",
+                                IsPinned = false,
+                                DiscussionId = discussion2Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is third post for this discussion 2",
+                                IsPinned = true,
+                                DiscussionId = discussion2Id
+                            }
+                        }
+                    },
+                    new Discussion()
+                    {
+                        Id = discussion3Id,
+                        Title = "Discussion No 3",
+                        Description = "Description of discussion no 3",
+                        IsClosed = false,
+                        IsPinned = false,
+                        Posts = new List<Post>()
+                        {
+                            new Post()
+                            {
+                                Body = "This is first post for this discussion 3",
+                                IsPinned = false,
+                                DiscussionId = discussion3Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is second post for this discussion 3",
+                                IsPinned = false,
+                                DiscussionId = discussion3Id
+                            },
+                            new Post()
+                            {
+                                Body = "This is third post for this discussion 3",
+                                IsPinned = false,
+                                DiscussionId = discussion3Id
+                            }
+                        }
+                    }
+                };
+                await context.Discussions.AddRangeAsync(discussions);
+                await context.SaveChangesAsync();
+            }
         }
 
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)

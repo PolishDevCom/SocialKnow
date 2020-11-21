@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
+using SK.Application.Common.Models;
 using SK.Application.Events.Queries.ListEvent;
 using SK.Domain.Entities;
 using System;
@@ -43,21 +44,33 @@ namespace SK.Application.IntegrationTests.Events.Queries
                 .RuleFor(e => e.City, f => f.Lorem.Word())
                 .RuleFor(e => e.Venue, f => f.Lorem.Sentence(1)).Generate();
 
-            
+            var filter = new PaginationFilter();
+            var path = String.Empty;
+
             await AddAsync(event1);
             await AddAsync(event2);
             await AddAsync(event3);
 
-            var query = new ListEventQuery();
+            var query = new ListEventQuery(filter, path);
 
             //act
             var result = await SendAsync(query);
 
             //assert
-            result.Should().HaveCount(3);
-            result[0].Id.Should().Be(event2.Id);
-            result[1].Id.Should().Be(event1.Id);
-            result[2].Id.Should().Be(event3.Id);
+            result.FirstPage.Should().BeNull();
+            result.LastPage.Should().BeNull();
+            result.NextPage.Should().BeNull();
+            result.PreviousPage.Should().BeNull();
+
+            result.Succeeded.Should().BeTrue();
+            result.Errors.Should().BeNull();
+
+            result.TotalRecords.Should().Be(3);
+
+            result.Data.Should().HaveCount(3 > filter.PageSize ? filter.PageSize : 3);
+            result.Data[0].Id.Should().Be(event2.Id);
+            result.Data[1].Id.Should().Be(event1.Id);
+            result.Data[2].Id.Should().Be(event3.Id);
         }
     }
 }
