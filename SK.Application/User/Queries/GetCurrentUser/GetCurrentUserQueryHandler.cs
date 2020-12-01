@@ -2,6 +2,7 @@
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,13 +23,13 @@ namespace SK.Application.User.Queries.GetCurrentUser
 
         public async Task<User> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
-            var username = await _identityService.GetUserByUsernameAsync(_currentUserService.Username) ?? throw new NotFoundException(nameof(AppUser), _currentUserService.Username);
+            var user = await _identityService.GetUserByUsernameAsync(_currentUserService.Username) ?? throw new NotFoundException(nameof(AppUser), _currentUserService.Username);
 
             return new User
             {
-                Username = username.UserName,
-                Image = null,
-                Token = _jwtGenerator.CreateToken(username)
+                Username = user.UserName,
+                Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                Token = _jwtGenerator.CreateToken(user)
             };
         }
     }

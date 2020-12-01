@@ -19,7 +19,11 @@ namespace SK.Application.Photos.Commands.DeletePhoto
         private readonly IPhotoService _photoService;
         private readonly IStringLocalizer<PhotosResource> _localizer;
 
-        public DeletePhotoCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IPhotoService photoService, IStringLocalizer<PhotosResource> localizer)
+        public DeletePhotoCommandHandler(
+            IApplicationDbContext context, 
+            ICurrentUserService currentUserService, 
+            IPhotoService photoService, 
+            IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
@@ -29,7 +33,10 @@ namespace SK.Application.Photos.Commands.DeletePhoto
 
         public async Task<Unit> Handle(DeletePhotoCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.Include(u => u.Photos).SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
+            var user = await _context.Users
+                .Include(u => u.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
+
             var photo = user.Photos.FirstOrDefault(p => p.Id == request.Id) ?? throw new NotFoundException(nameof(Photo), request.Id);
 
             if (photo.IsMain)

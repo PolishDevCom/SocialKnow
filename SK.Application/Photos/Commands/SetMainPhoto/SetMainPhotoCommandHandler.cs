@@ -18,7 +18,10 @@ namespace SK.Application.Photos.Commands.SetMainPhoto
         private readonly ICurrentUserService _currentUserService;
         private readonly IStringLocalizer<PhotosResource> _localizer;
 
-        public SetMainPhotoCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IStringLocalizer<PhotosResource> localizer)
+        public SetMainPhotoCommandHandler(
+            IApplicationDbContext context, 
+            ICurrentUserService currentUserService, 
+            IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
@@ -27,7 +30,9 @@ namespace SK.Application.Photos.Commands.SetMainPhoto
 
         public async Task<Unit> Handle(SetMainPhotoCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.Include(u => u.Photos).SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
+            var user = await _context.Users
+                .Include(u => u.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
             
             var newMainPhoto = user.Photos.FirstOrDefault(p => p.Id == request.Id) ?? throw new NotFoundException(nameof(Photo), request.Id);
             var currentMainPhoto = user.Photos.FirstOrDefault(p => p.IsMain);

@@ -5,6 +5,7 @@ using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Users;
 using SK.Domain.Entities;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace SK.Application.User.Queries.LoginUser
                 {
                     Username = user.UserName,
                     Token = _jwtGenerator.CreateToken(user),
-                    Image = null
+                    Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
                 };
             }
             throw new RestException(HttpStatusCode.Unauthorized, new { Password = _localizer["UserLoginPasswordError"] });

@@ -19,7 +19,11 @@ namespace SK.Application.Photos.Commands.AddPhoto
         private readonly IPhotoService _photoService;
         private readonly IStringLocalizer<PhotosResource> _localizer;
 
-        public AddPhotoCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IPhotoService photoService, IStringLocalizer<PhotosResource> localizer)
+        public AddPhotoCommandHandler(
+            IApplicationDbContext context, 
+            ICurrentUserService currentUserService, 
+            IPhotoService photoService, 
+            IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
@@ -31,7 +35,10 @@ namespace SK.Application.Photos.Commands.AddPhoto
         {
             var photoUploadResult = _photoService.AddPhoto(request.File);
 
-            var user = await _context.Users.Include(u => u.Photos).SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
+            var user = await _context.Users
+                .Include(u => u.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == _currentUserService.Username);
+
             var photo = new Photo
             {
                 Url = photoUploadResult.Url,
