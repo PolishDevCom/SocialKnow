@@ -5,15 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="9.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Photos\Commands\DeletePhoto\" />
+    <Folder Include="Photos\Commands\SetMainPhoto\" />
   </ItemGroup>
 
 </Project>

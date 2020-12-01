@@ -15,6 +15,7 @@ using SK.Application;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Infrastructure;
+using SK.Infrastructure.Photos;
 using SK.Persistence;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,6 +47,8 @@ namespace SK.API
             
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
 
             services.AddSwaggerGen(c =>
             {
