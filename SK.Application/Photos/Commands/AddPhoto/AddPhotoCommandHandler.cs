@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Photos;
 using SK.Domain.Entities;
-using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,12 +17,14 @@ namespace SK.Application.Photos.Commands.AddPhoto
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUserService;
         private readonly IPhotoService _photoService;
+        private readonly IStringLocalizer<PhotosResource> _localizer;
 
-        public AddPhotoCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IPhotoService photoService)
+        public AddPhotoCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IPhotoService photoService, IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
             _photoService = photoService;
+            _localizer = localizer;
         }
 
         public async Task<Photo> Handle(AddPhotoCommand request, CancellationToken cancellationToken)
@@ -45,7 +50,7 @@ namespace SK.Application.Photos.Commands.AddPhoto
             {
                 return photo;
             }
-            throw new Exception("Problem saving changes");
+            throw new RestException(HttpStatusCode.BadRequest, new { Photo = _localizer["PhotoSaveError"] });
         }
     }
 }
