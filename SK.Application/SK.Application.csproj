@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Photos\Commands\DeletePhoto\" />
     <Folder Include="Photos\Commands\SetMainPhoto\" />
   </ItemGroup>
 
