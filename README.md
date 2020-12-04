@@ -25,7 +25,7 @@
 
 * [About the Project](#about-the-project)
 * [Used Technologies](#used-technologies)
-* [Current state of project](#current-state-of-project)
+* [Current State of Project](#current-state-of-project)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Contributing](#contributing)
@@ -73,7 +73,7 @@ Frontend
 * [CSS](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
 
 <!-- CURRENT STATE OF THE PROJECT -->
-## Current state of the project
+## Current State of Project
 
 Currently, an MVP (Minimal Value Project) is being created, where the backend already has part of the implementation, while the creation of the React project and its integration are in progress.
 
