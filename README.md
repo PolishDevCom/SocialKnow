@@ -25,6 +25,7 @@
 
 * [About the Project](#about-the-project)
 * [Used Technologies](#used-technologies)
+* [Current state of project](#current-state-of-project)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Contributing](#contributing)
