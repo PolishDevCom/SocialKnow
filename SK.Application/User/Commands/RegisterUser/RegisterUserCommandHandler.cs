@@ -6,6 +6,7 @@ using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Users;
 using SK.Domain.Entities;
 using SK.Domain.Enums;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,19 +43,20 @@ namespace SK.Application.User.Commands.RegisterUser
             var user = new AppUser
             {
                 Email = request.Email,
-                UserName = request.Username
+                UserName = request.Username,
+                Photos = null
             };
 
-            var result = await _identityService.CreateUserAsync(user, request.Password);
+            var (Result, UserId) = await _identityService.CreateUserAsync(user, request.Password);
 
-            if (result.Result.Succeeded)
+            if (Result.Succeeded)
             {
                 await _identityService.AddRoleToUserAsync(user, IdentityRoles.Standard.ToString());
                 return new User
                 {
                     Username = user.UserName,
                     Token = _jwtGenerator.CreateToken(user),
-                    Image = null
+                    Image = user.Photos?.FirstOrDefault(x => x.IsMain)?.Url
                 };
             }
             throw new RestException(HttpStatusCode.BadRequest, new { User = _localizer["UserSaveError"] });

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using SK.Infrastructure.Services;
+using SK.Infrastructure.Photos;
 
 namespace SK.Infrastructure
 {
@@ -52,6 +53,7 @@ namespace SK.Infrastructure
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<IPhotoService, PhotoService>();
             services.AddSingleton<IUriService>(o =>
             {
                 var accessor = o.GetRequiredService<IHttpContextAccessor>();

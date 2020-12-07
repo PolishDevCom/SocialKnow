@@ -13,6 +13,7 @@ namespace SK.Application.Common.Interfaces
         DbSet<UserEvent> UserEvents { get; set; }
         DbSet<Discussion> Discussions { get; set; }
         DbSet<Post> Posts { get; set; }
+        DbSet<Photo> Photos { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

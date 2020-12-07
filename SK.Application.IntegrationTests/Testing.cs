@@ -62,6 +62,8 @@ public class Testing
             Mock.Of<IJwtGenerator>());
         services.AddSingleton(provider =>
             Mock.Of<IUriService>());
+        services.AddSingleton(provider =>
+            Mock.Of<IPhotoService>());
 
         _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
         EnsureDatabase();
@@ -136,12 +138,14 @@ public class Testing
         var allEvents = from c in context.Events select c;
         var allDiscussions = from c in context.Discussions select c;
         var allPosts = from c in context.Posts select c;
+        var allPhotos = from c in context.Photos select c;
 
         context.Articles.RemoveRange(allArticles);
         context.Users.RemoveRange(allUsers);
         context.Events.RemoveRange(allEvents);
         context.Discussions.RemoveRange(allDiscussions);
         context.Posts.RemoveRange(allPosts);
+        context.Photos.RemoveRange(allPhotos);
 
         await context.SaveChangesAsync();
 
@@ -159,6 +163,16 @@ public class Testing
     }
 
     public static async Task<TEntity> FindByGuidAsync<TEntity>(Guid id)
+    where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task<TEntity> FindByStringAsync<TEntity>(string id)
     where TEntity : class
     {
         using var scope = _scopeFactory.CreateScope();
@@ -208,6 +222,17 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         context.Add(entity);
+
+        await context.SaveChangesAsync();
+    }
+
+    public static async Task AddPhotoToUserAsync(Photo photo, string username)
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        context.Users.FirstOrDefault(u => u.UserName == username).Photos.Add(photo);
 
         await context.SaveChangesAsync();
     }
