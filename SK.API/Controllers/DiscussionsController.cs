@@ -22,24 +22,45 @@ namespace SK.API.Controllers
     [Authorize]
     public class DiscussionsController : ApiController
     {
+        /// <summary>
+        /// Fetches lists of discussions with selected pagination filter.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<DiscussionDto>>>> List([FromQuery] PaginationFilter filter)
         {
             return await Mediator.Send(new ListDiscussionQuery(filter, Request.Path.Value));
         }
 
+        /// <summary>
+        /// Fetches a single discussion by id with releted posts filtered pagination filter.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<DiscussionWithPagedPostsDto>> Details(Guid id, [FromQuery] PaginationFilter filter)
         {
             return await Mediator.Send(new DetailsDiscussionQuery(id, filter, Request.Path.Value));
         }
 
+        /// <summary>
+        /// Adds a new discussion.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateDiscussionCommand command)
         {
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Deletes a discussion with selected id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
@@ -47,6 +68,12 @@ namespace SK.API.Controllers
             return await Mediator.Send(new DeleteDiscussionCommand { Id = id });
         }
         
+        /// <summary>
+        /// Updates an existing discussion selected by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [Authorize(Policy = "IsDiscussionOwner")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditDiscussionCommand command)
@@ -55,6 +82,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Closes an existing open discussion selected by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/close")]
         public async Task<ActionResult<Unit>> Close(Guid id)
@@ -62,6 +94,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(new CloseDiscussionCommand { Id = id });
         }
 
+        /// <summary>
+        /// Opens an existing closed discussion selected by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/open")]
         public async Task<ActionResult<Unit>> Open(Guid id)
@@ -69,6 +106,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(new OpenDiscussionCommand { Id = id });
         }
 
+        /// <summary>
+        /// Pins an existing discussion selected by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
         public async Task<ActionResult<Unit>> Pin(Guid id)
@@ -76,6 +118,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(new PinDiscussionCommand { Id = id });
         }
 
+        /// <summary>
+        /// Unpins an existing discussion selected by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
         public async Task<ActionResult<Unit>> Unpin(Guid id)

@@ -17,6 +17,11 @@ namespace SK.API.Controllers
     [Authorize(Roles = "Administrator, Moderator")]
     public class ArticlesController : ApiController
     {
+        /// <summary>
+        /// Fetches lists of articles with selected pagination filter.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<ArticleDto>>>> List([FromQuery] PaginationFilter filter)
@@ -24,6 +29,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(new ListArticleQuery(filter, Request.Path.Value));
         }
 
+        /// <summary>
+        /// Fetches a single article by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ArticleDto>> Details(Guid id)
@@ -31,12 +41,22 @@ namespace SK.API.Controllers
             return await Mediator.Send(new DetailsArticleQuery { Id = id });
         }
 
+        /// <summary>
+        /// Adds a new article.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] ArticleDto request)
         {
             return await Mediator.Send(new CreateArticleCommand(request));
         }
 
+        /// <summary>
+        /// Updates an existing article selected by id.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult> Update([FromBody] ArticleDto request)
         {
@@ -45,6 +65,11 @@ namespace SK.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes an article with selected id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {

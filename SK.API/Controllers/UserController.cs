@@ -14,12 +14,21 @@ namespace SK.API.Controllers
 {
     public class UserController : ApiController
     {
+        /// <summary>
+        /// Fetches a current logged user.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<User>> CurrentUser()
         {
             return await Mediator.Send(new GetCurrentUserQuery());
         }
 
+        /// <summary>
+        /// Register a new user.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(RegisterUserCommand command)
@@ -27,6 +36,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Logs in an existing user.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(LoginUserQuery query)
@@ -34,6 +48,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(query);
         }
 
+        /// <summary>
+        /// Deletes a selected user.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpDelete]
         public async Task<ActionResult<Result>> DeleteUser(DeleteUserCommand command)
@@ -41,6 +60,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Adds new role to selected user.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpPost("role")]
         public async Task<ActionResult<Result>> AddRoleToUser(AddRoleToUserCommand command)
@@ -48,6 +72,11 @@ namespace SK.API.Controllers
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Deletes provided role from selected user.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpDelete("role")]
         public async Task<ActionResult<Result>> RemoveRoleFromUser(RemoveRoleFromUserCommand command)

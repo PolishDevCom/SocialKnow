@@ -9,6 +9,11 @@ namespace SK.API.Controllers
     [Authorize]
     public class ProfilesController : ApiController
     {
+        /// <summary>
+        /// Fetches a single user profile by username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         [HttpGet("{username}")]
         public async Task<ActionResult<ProfileDto>> Details(string username)
         {

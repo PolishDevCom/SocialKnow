@@ -17,8 +17,11 @@ using SK.Domain.Entities;
 using SK.Infrastructure;
 using SK.Infrastructure.Photos;
 using SK.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 
 namespace SK.API
 {
@@ -52,10 +55,25 @@ namespace SK.API
 
             services.AddSwaggerGen(c =>
             {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "My API",
-                    Version = "v1"
+                    Title = "SocialKnow API",
+                    Version = "v1",
+                    Description = "Web application project that is a social networking site with a knowledge base.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "PolishDev Team #1",
+                        Email = string.Empty,
+                        Url = new Uri("http://www.polishdev.com/?p=85"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under MIT license",
+                        Url = new Uri("https://github.com/UgzSourceCode/SocialKnow")
+                    }
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -78,6 +96,7 @@ namespace SK.API
                         new string[] { }
                     }
                 });
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddLocalization();
@@ -122,7 +141,8 @@ namespace SK.API
             app.UseSwagger();
             app.UseSwaggerUI(opt =>
             {
-                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "SocialKnow API V1");
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "SocialKnow API v1");
+                opt.RoutePrefix = string.Empty;
             });
 
             var localizeOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();

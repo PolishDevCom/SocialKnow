@@ -10,18 +10,33 @@ namespace SK.API.Controllers
 {
     public class PhotosController : ApiController
     {
+        /// <summary>
+        /// Adds new photo.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand command)
         {
             return await Mediator.Send(command);
         }
 
+        /// <summary>
+        /// Deletes a photo with selected id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(string id)
         {
             return await Mediator.Send(new DeletePhotoCommand(id));
         }
 
+        /// <summary>
+        /// Sets photo with selected id as a main photo.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> SetMain(string id)
         {
