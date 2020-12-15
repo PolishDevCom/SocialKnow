@@ -17,7 +17,7 @@ namespace SK.API.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<ProfileDto>> Details(string username)
         {
-            return await Mediator.Send(new DetailsProfileQuery(username));
+            return Ok(await Mediator.Send(new DetailsProfileQuery(username)));
         }
     }
 }

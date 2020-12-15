@@ -18,7 +18,7 @@ namespace SK.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand command)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
@@ -27,9 +27,10 @@ namespace SK.API.Controllers
         /// <param name="id">Photo ID</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return await Mediator.Send(new DeletePhotoCommand(id));
+            await Mediator.Send(new DeletePhotoCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -38,9 +39,10 @@ namespace SK.API.Controllers
         /// <param name="id">PhotoID</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> SetMain(string id)
+        public async Task<ActionResult> SetMain(string id)
         {
-            return await Mediator.Send(new SetMainPhotoCommand(id));
+            await Mediator.Send(new SetMainPhotoCommand(id));
+            return NoContent();
         }
     }
 }

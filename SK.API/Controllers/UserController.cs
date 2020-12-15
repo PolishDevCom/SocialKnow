@@ -21,7 +21,7 @@ namespace SK.API.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> CurrentUser()
         {
-            return await Mediator.Send(new GetCurrentUserQuery());
+            return Ok(await Mediator.Send(new GetCurrentUserQuery()));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SK.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(RegisterUserCommand command)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace SK.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(LoginUserQuery query)
         {
-            return await Mediator.Send(query);
+            return Ok(await Mediator.Send(query));
         }
 
         /// <summary>
@@ -55,9 +55,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpDelete]
-        public async Task<ActionResult<Result>> DeleteUser(DeleteUserCommand command)
+        public async Task<ActionResult> DeleteUser(DeleteUserCommand command)
         {
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         /// <summary>
@@ -67,9 +68,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpPost("role")]
-        public async Task<ActionResult<Result>> AddRoleToUser(AddRoleToUserCommand command)
+        public async Task<ActionResult> AddRoleToUser(AddRoleToUserCommand command)
         {
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         /// <summary>
@@ -79,9 +81,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpDelete("role")]
-        public async Task<ActionResult<Result>> RemoveRoleFromUser(RemoveRoleFromUserCommand command)
+        public async Task<ActionResult> RemoveRoleFromUser(RemoveRoleFromUserCommand command)
         {
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+            return NoContent();
         }
     }
 }

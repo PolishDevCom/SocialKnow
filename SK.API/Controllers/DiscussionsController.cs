@@ -30,7 +30,7 @@ namespace SK.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<DiscussionDto>>>> List([FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new ListDiscussionQuery(paginationFilter, Request.Path.Value));
+            return Ok(await Mediator.Send(new ListDiscussionQuery(paginationFilter, Request.Path.Value)));
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace SK.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<DiscussionWithPagedPostsDto>> Details(Guid id, [FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new DetailsDiscussionQuery(id, paginationFilter, Request.Path.Value));
+            return Ok(await Mediator.Send(new DetailsDiscussionQuery(id, paginationFilter, Request.Path.Value)));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SK.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateDiscussionCommand command)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
@@ -63,9 +63,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return await Mediator.Send(new DeleteDiscussionCommand(id));
+            await Mediator.Send(new DeleteDiscussionCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -76,10 +77,11 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Policy = "IsDiscussionOwner")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditDiscussionCommand command)
+        public async Task<ActionResult> Edit(Guid id, [FromBody] EditDiscussionCommand command)
         {
             command.Id = id;
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         /// <summary>
@@ -89,9 +91,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/close")]
-        public async Task<ActionResult<Unit>> Close(Guid id)
+        public async Task<ActionResult> Close(Guid id)
         {
-            return await Mediator.Send(new CloseDiscussionCommand(id));
+            await Mediator.Send(new CloseDiscussionCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -101,9 +104,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/open")]
-        public async Task<ActionResult<Unit>> Open(Guid id)
+        public async Task<ActionResult> Open(Guid id)
         {
-            return await Mediator.Send(new OpenDiscussionCommand(id));
+            await Mediator.Send(new OpenDiscussionCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -113,9 +117,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
-        public async Task<ActionResult<Unit>> Pin(Guid id)
+        public async Task<ActionResult> Pin(Guid id)
         {
-            return await Mediator.Send(new PinDiscussionCommand(id));
+            await Mediator.Send(new PinDiscussionCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -125,9 +130,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
-        public async Task<ActionResult<Unit>> Unpin(Guid id)
+        public async Task<ActionResult> Unpin(Guid id)
         {
-            return await Mediator.Send(new UnpinDiscussionCommand(id));
+            await Mediator.Send(new UnpinDiscussionCommand(id));
+            return NoContent();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SK.Application.Discussions.Queries;
 using System;
 
 namespace SK.Application.Posts.Commands.CreatePost

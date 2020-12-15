@@ -22,7 +22,7 @@ namespace SK.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] CreatePostCommand command)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(command));
         }
 
         /// <summary>
@@ -32,9 +32,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Policy = "IsPostOwner")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return await Mediator.Send(new DeletePostCommand(id));
+            await Mediator.Send(new DeletePostCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -45,10 +46,11 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Policy = "IsPostOwner")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditPostCommand command)
+        public async Task<ActionResult> Edit(Guid id, [FromBody] EditPostCommand command)
         {
             command.Id = id;
-            return await Mediator.Send(command);
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         /// <summary>
@@ -58,9 +60,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
-        public async Task<ActionResult<Unit>> Pin(Guid id)
+        public async Task<ActionResult> Pin(Guid id)
         {
-            return await Mediator.Send(new PinPostCommand(id));
+            await Mediator.Send(new PinPostCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -70,9 +73,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
-        public async Task<ActionResult<Unit>> Unpin(Guid id)
+        public async Task<ActionResult> Unpin(Guid id)
         {
-            return await Mediator.Send(new UnpinPostCommand(id));
+            await Mediator.Send(new UnpinPostCommand(id));
+            return NoContent();
         }
     }
 }

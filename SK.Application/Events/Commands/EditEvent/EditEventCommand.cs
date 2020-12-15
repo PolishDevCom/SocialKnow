@@ -1,5 +1,6 @@
 ﻿using System;
 using MediatR;
+using SK.Application.Events.Queries;
 
 namespace SK.Application.Events.Commands.EditEvent
 {
@@ -12,5 +13,16 @@ namespace SK.Application.Events.Commands.EditEvent
         public DateTime? Date { get; set; }
         public string City { get; set; }
         public string Venue { get; set; }
+        public EditEventCommand() { }
+        public EditEventCommand(EventDto request)
+        {
+            Id = request.Id;
+            Title = request.Title;
+            Description = request.Description;
+            Category = request.Category;
+            Date = request.Date;
+            City = request.City;
+            Venue = request.Venue;
+        }
     }
 }

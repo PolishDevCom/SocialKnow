@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
@@ -28,7 +27,7 @@ namespace SK.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<EventDto>>>> List([FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new ListEventQuery(paginationFilter, Request.Path.Value));
+            return Ok(await Mediator.Send(new ListEventQuery(paginationFilter, Request.Path.Value)));
         }
 
         /// <summary>
@@ -39,32 +38,31 @@ namespace SK.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> Details(Guid id)
         {
-            return await Mediator.Send(new DetailsEventQuery(id));
+            return Ok(await Mediator.Send(new DetailsEventQuery(id)));
         }
 
         /// <summary>
         /// Adds new event.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="newEvent">New event to add</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand command)
+        public async Task<ActionResult<Guid>> Create([FromBody] EventDto newEvent)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(new CreateEventCommand(newEvent)));
         }
 
         /// <summary>
         /// Updates an existing event.
         /// </summary>
-        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
-        /// <param name="command"></param>
+        /// <param name="editedEvent"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize(Policy = "IsEventHost")]
-        public async Task<ActionResult<Unit>> Edit(Guid id, [FromBody] EditEventCommand command)
+        public async Task<ActionResult> Edit([FromBody] EventDto editedEvent)
         {
-            command.Id = id;
-            return await Mediator.Send(command);
+            await Mediator.Send(new EditEventCommand(editedEvent));
+            return NoContent();
         }
 
         /// <summary>
@@ -74,9 +72,10 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Authorize(Policy = "IsEventHost")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
-            return await Mediator.Send(new DeleteEventCommand(id));
+            await Mediator.Send(new DeleteEventCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -85,9 +84,10 @@ namespace SK.API.Controllers
         /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpPost("{id}/subscribe")]
-        public async Task<ActionResult<Unit>> Subscribe(Guid id)
+        public async Task<ActionResult> Subscribe(Guid id)
         {
-            return await Mediator.Send(new SubscribeEventCommand(id));
+            await Mediator.Send(new SubscribeEventCommand(id));
+            return NoContent();
         }
 
         /// <summary>
@@ -96,9 +96,10 @@ namespace SK.API.Controllers
         /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpDelete("{id}/subscribe")]
-        public async Task<ActionResult<Unit>> Unsubscribe(Guid id)
+        public async Task<ActionResult> Unsubscribe(Guid id)
         {
-            return await Mediator.Send(new UnsubscribeEventCommand(id));
+            await Mediator.Send(new UnsubscribeEventCommand(id));
+            return NoContent();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace SK.API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<ArticleDto>>>> List([FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new ListArticleQuery(paginationFilter, Request.Path.Value));
+            return Ok(await Mediator.Send(new ListArticleQuery(paginationFilter, Request.Path.Value)));
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace SK.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ArticleDto>> Details(Guid id)
         {
-            return await Mediator.Send(new DetailsArticleQuery(id));
+            return Ok(await Mediator.Send(new DetailsArticleQuery(id)));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace SK.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] ArticleDto newArticle)
         {
-            return await Mediator.Send(new CreateArticleCommand(newArticle));
+            return Ok(await Mediator.Send(new CreateArticleCommand(newArticle)));
         }
 
         /// <summary>
