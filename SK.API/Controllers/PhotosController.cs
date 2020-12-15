@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Photos.Commands.AddPhoto;
 using SK.Application.Photos.Commands.DeletePhoto;
@@ -13,12 +13,12 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds new photo.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="newPhoto">New photo</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand command)
+        public async Task<ActionResult<Photo>> Add([FromForm] IFormFile newPhoto)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new AddPhotoCommand(newPhoto)));
         }
 
         /// <summary>

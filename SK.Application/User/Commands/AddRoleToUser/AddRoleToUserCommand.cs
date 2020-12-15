@@ -7,5 +7,11 @@ namespace SK.Application.User.Commands.AddRoleToUser
     {
         public string Username { get; set; }
         public string Role { get; set; }
+        public AddRoleToUserCommand() {}
+        public AddRoleToUserCommand(UserRoleDto request)
+        {
+            Username = request.Username;
+            Role = request.Role;
+        }
     }
 }
