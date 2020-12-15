@@ -24,7 +24,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Deletes a photo with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Photo ID</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(string id)
@@ -35,7 +35,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Sets photo with selected id as a main photo.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">PhotoID</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> SetMain(string id)

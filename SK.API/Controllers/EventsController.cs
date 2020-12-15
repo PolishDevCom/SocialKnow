@@ -23,23 +23,23 @@ namespace SK.API.Controllers
         /// <summary>
         /// Fetches list of events with selected pagination filter.
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="paginationFilter">Pagination filter</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<PagedResponse<List<EventDto>>>> List([FromQuery] PaginationFilter filter)
+        public async Task<ActionResult<PagedResponse<List<EventDto>>>> List([FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new ListEventQuery(filter, Request.Path.Value));
+            return await Mediator.Send(new ListEventQuery(paginationFilter, Request.Path.Value));
         }
 
         /// <summary>
         /// Fetches a single event by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> Details(Guid id)
         {
-            return await Mediator.Send(new DetailsEventQuery { Id = id });
+            return await Mediator.Send(new DetailsEventQuery(id));
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Updates an existing event.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
@@ -70,35 +70,35 @@ namespace SK.API.Controllers
         /// <summary>
         /// Deletes an event with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Authorize(Policy = "IsEventHost")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await Mediator.Send(new DeleteEventCommand { Id = id });
+            return await Mediator.Send(new DeleteEventCommand(id));
         }
 
         /// <summary>
         /// Subscribes user to event with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpPost("{id}/subscribe")]
         public async Task<ActionResult<Unit>> Subscribe(Guid id)
         {
-            return await Mediator.Send(new SubscribeEventCommand { Id = id });
+            return await Mediator.Send(new SubscribeEventCommand(id));
         }
 
         /// <summary>
         /// Unsubscribe user from event with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Event ID</param>
         /// <returns></returns>
         [HttpDelete("{id}/subscribe")]
         public async Task<ActionResult<Unit>> Unsubscribe(Guid id)
         {
-            return await Mediator.Send(new UnsubscribeEventCommand { Id = id });
+            return await Mediator.Send(new UnsubscribeEventCommand(id));
         }
     }
 }

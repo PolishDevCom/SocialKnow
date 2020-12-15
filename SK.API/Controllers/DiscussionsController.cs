@@ -25,24 +25,24 @@ namespace SK.API.Controllers
         /// <summary>
         /// Fetches lists of discussions with selected pagination filter.
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="paginationFilter">Pagination filter</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<PagedResponse<List<DiscussionDto>>>> List([FromQuery] PaginationFilter filter)
+        public async Task<ActionResult<PagedResponse<List<DiscussionDto>>>> List([FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new ListDiscussionQuery(filter, Request.Path.Value));
+            return await Mediator.Send(new ListDiscussionQuery(paginationFilter, Request.Path.Value));
         }
 
         /// <summary>
         /// Fetches a single discussion by id with releted posts filtered pagination filter.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="filter"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
+        /// <param name="paginationFilter">Posts pagination filter</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<DiscussionWithPagedPostsDto>> Details(Guid id, [FromQuery] PaginationFilter filter)
+        public async Task<ActionResult<DiscussionWithPagedPostsDto>> Details(Guid id, [FromQuery] PaginationFilter paginationFilter)
         {
-            return await Mediator.Send(new DetailsDiscussionQuery(id, filter, Request.Path.Value));
+            return await Mediator.Send(new DetailsDiscussionQuery(id, paginationFilter, Request.Path.Value));
         }
 
         /// <summary>
@@ -59,19 +59,19 @@ namespace SK.API.Controllers
         /// <summary>
         /// Deletes a discussion with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await Mediator.Send(new DeleteDiscussionCommand { Id = id });
+            return await Mediator.Send(new DeleteDiscussionCommand(id));
         }
-        
+
         /// <summary>
         /// Updates an existing discussion selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize(Policy = "IsDiscussionOwner")]
@@ -85,49 +85,49 @@ namespace SK.API.Controllers
         /// <summary>
         /// Closes an existing open discussion selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/close")]
         public async Task<ActionResult<Unit>> Close(Guid id)
         {
-            return await Mediator.Send(new CloseDiscussionCommand { Id = id });
+            return await Mediator.Send(new CloseDiscussionCommand(id));
         }
 
         /// <summary>
         /// Opens an existing closed discussion selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/open")]
         public async Task<ActionResult<Unit>> Open(Guid id)
         {
-            return await Mediator.Send(new OpenDiscussionCommand { Id = id });
+            return await Mediator.Send(new OpenDiscussionCommand(id));
         }
 
         /// <summary>
         /// Pins an existing discussion selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
         public async Task<ActionResult<Unit>> Pin(Guid id)
         {
-            return await Mediator.Send(new PinDiscussionCommand { Id = id });
+            return await Mediator.Send(new PinDiscussionCommand(id));
         }
 
         /// <summary>
         /// Unpins an existing discussion selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
         public async Task<ActionResult<Unit>> Unpin(Guid id)
         {
-            return await Mediator.Send(new UnpinDiscussionCommand { Id = id });
+            return await Mediator.Send(new UnpinDiscussionCommand(id));
         }
     }
 }

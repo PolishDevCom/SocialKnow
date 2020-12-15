@@ -28,19 +28,19 @@ namespace SK.API.Controllers
         /// <summary>
         /// Deletes a post with selected id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Post ID</param>
         /// <returns></returns>
         [Authorize(Policy = "IsPostOwner")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await Mediator.Send(new DeletePostCommand { Id = id });
+            return await Mediator.Send(new DeletePostCommand(id));
         }
 
         /// <summary>
         /// Updates an existing post by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Post ID</param>
         /// <param name="command"></param>
         /// <returns></returns>
         [Authorize(Policy = "IsPostOwner")]
@@ -54,25 +54,25 @@ namespace SK.API.Controllers
         /// <summary>
         /// Pins an existing post selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Post ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/pin")]
         public async Task<ActionResult<Unit>> Pin(Guid id)
         {
-            return await Mediator.Send(new PinPostCommand { Id = id });
+            return await Mediator.Send(new PinPostCommand(id));
         }
 
         /// <summary>
         /// Unpins an existing post selected by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Post ID</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator, Moderator")]
         [HttpPut("{id}/unpin")]
         public async Task<ActionResult<Unit>> Unpin(Guid id)
         {
-            return await Mediator.Send(new UnpinPostCommand { Id = id });
+            return await Mediator.Send(new UnpinPostCommand(id));
         }
     }
 }
