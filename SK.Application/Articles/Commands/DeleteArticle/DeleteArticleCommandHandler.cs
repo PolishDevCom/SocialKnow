@@ -25,8 +25,8 @@ namespace SK.Application.Articles.Commands.DeleteArticle
         {
             var articleToDelete = await _context.Articles.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Article), request.Id);
             _context.Articles.Remove(articleToDelete);
-            var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
-            if (succes)
+            var success = await _context.SaveChangesAsync(cancellationToken) > 0;
+            if (success)
             {
                 return Unit.Value;
             }
