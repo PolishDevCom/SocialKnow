@@ -45,7 +45,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds new event.
         /// </summary>
-        /// <param name="newEvent">New event to add</param>
+        /// <param name="newEvent">New event</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] EventCreateOrEditDto newEvent)
@@ -56,7 +56,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Updates an existing event.
         /// </summary>
-        /// <param name="editedEvent"></param>
+        /// <param name="editedEvent">Edited event</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize(Policy = "IsEventHost")]

@@ -36,7 +36,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Sets photo with selected id as a main photo.
         /// </summary>
-        /// <param name="id">PhotoID</param>
+        /// <param name="id">Photo ID</param>
         /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult> SetMain(string id)

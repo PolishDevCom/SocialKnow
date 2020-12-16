@@ -52,7 +52,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Deletes a selected user by username.
         /// </summary>
-        /// <param name="username" example="Tom123">Username</param>
+        /// <param name="username" example="Bob">Username</param>
         /// <returns></returns>
         [Authorize]
         [HttpDelete]
@@ -65,7 +65,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds new role to selected user.
         /// </summary>
-        /// <param name="userRole">User and role to add</param>
+        /// <param name="userRole">User and new role to add</param>
         /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpPost("role")]

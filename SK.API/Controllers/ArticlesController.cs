@@ -22,7 +22,7 @@ namespace SK.API.Controllers
         /// Fetches lists of articles with selected pagination filter.
         /// </summary>
         /// <param name="paginationFilter">Pagination filter</param>
-        /// <returns></returns>
+        /// <returns>List of articles</returns>
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<PagedResponse<List<ArticleDto>>>> List([FromQuery] PaginationFilter paginationFilter)
@@ -45,7 +45,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds a new article.
         /// </summary>
-        /// <param name="newArticle">New article to add</param>
+        /// <param name="newArticle">New article</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] ArticleCreateOrEditDto newArticle)

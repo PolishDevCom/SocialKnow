@@ -12,7 +12,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Fetches a single user profile by username.
         /// </summary>
-        /// <param name="username" example="thor123">Username</param>
+        /// <param name="username" example="Bob">Username</param>
         /// <returns></returns>
         [HttpGet("{username}")]
         public async Task<ActionResult<ProfileDto>> Details(string username)

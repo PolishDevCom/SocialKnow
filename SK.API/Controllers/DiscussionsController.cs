@@ -48,7 +48,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds a new discussion.
         /// </summary>
-        /// <param name="newDiscussion">New discussion to add</param>
+        /// <param name="newDiscussion">New discussion</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] DiscussionCreateDto newDiscussion)

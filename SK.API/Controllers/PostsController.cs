@@ -17,7 +17,7 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds new post.
         /// </summary>
-        /// <param name="newPost">New post to add</param>
+        /// <param name="newPost">New post</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Guid>> Create([FromBody] PostCreateDto newPost)
