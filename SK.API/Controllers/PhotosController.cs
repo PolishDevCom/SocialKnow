@@ -16,9 +16,9 @@ namespace SK.API.Controllers
         /// <param name="newPhoto">New photo</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Photo>> Add([FromForm] IFormFile newPhoto)
+        public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand newPhoto)
         {
-            return Ok(await Mediator.Send(new AddPhotoCommand(newPhoto)));
+            return Ok(await Mediator.Send(newPhoto));
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
+using SK.Application.Discussions.Commands;
 using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.DeleteDiscussion;
@@ -48,12 +48,12 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds a new discussion.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="newDiscussion">New discussion to add</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateDiscussionCommand command)
+        public async Task<ActionResult<Guid>> Create([FromBody] DiscussionCreateDto newDiscussion)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new CreateDiscussionCommand(newDiscussion)));
         }
 
         /// <summary>
@@ -73,13 +73,16 @@ namespace SK.API.Controllers
         /// Updates an existing discussion selected by id.
         /// </summary>
         /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Discussion ID</param>
-        /// <param name="command"></param>
+        /// <param name="editedDiscussion">Edited discussion</param>
         /// <returns></returns>
         [Authorize(Policy = "IsDiscussionOwner")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(Guid id, [FromBody] EditDiscussionCommand command)
+        public async Task<ActionResult> Edit(Guid id, [FromBody] DiscussionEditDto editedDiscussion)
         {
-            command.Id = id;
+            var command = new EditDiscussionCommand(editedDiscussion)
+            {
+                Id = id
+            };
             await Mediator.Send(command);
             return NoContent();
         }

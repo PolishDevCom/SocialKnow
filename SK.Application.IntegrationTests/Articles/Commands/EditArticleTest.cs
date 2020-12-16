@@ -2,6 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using SK.Application.Articles.Commands;
 using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Articles.Commands.EditArticle;
 using SK.Application.Articles.Queries;
@@ -23,7 +24,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
 
-            var articleToCreate = new Faker<ArticleDto>("en")
+            var articleToCreate = new Faker<ArticleCreateOrEditDto>("en")
                 .RuleFor(a => a.Id, f => f.Random.Guid())
                 .RuleFor(a => a.Title, f => f.Lorem.Sentence())
                 .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())
@@ -33,7 +34,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             var articleId = await SendAsync(new CreateArticleCommand(articleToCreate));
 
-            var articleToModify = new Faker<ArticleDto>("en")
+            var articleToModify = new Faker<ArticleCreateOrEditDto>("en")
                 .RuleFor(a => a.Id, f => articleToCreate.Id)
                 .RuleFor(a => a.Title, f => f.Lorem.Sentence())
                 .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())

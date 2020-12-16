@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SK.Application.Discussions.Queries;
 using System;
 
 namespace SK.Application.Posts.Commands.CreatePost
@@ -9,5 +8,12 @@ namespace SK.Application.Posts.Commands.CreatePost
         public Guid Id { get; set; }
         public Guid DiscussionId { get; set; }
         public string Body { get; set; }
+        public CreatePostCommand() {}
+        public CreatePostCommand(PostCreateDto request)
+        {
+            Id = request.Id;
+            DiscussionId = request.DiscussionId;
+            Body = request.Body;
+        }
     }
 }

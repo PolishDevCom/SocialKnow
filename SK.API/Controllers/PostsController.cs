@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SK.Application.Posts.Commands;
 using SK.Application.Posts.Commands.CreatePost;
 using SK.Application.Posts.Commands.DeletePost;
-using MediatR;
 using SK.Application.Posts.Commands.EditPost;
-using SK.Application.Posts.Commands.UnpinPost;
 using SK.Application.Posts.Commands.PinPost;
-using Microsoft.AspNetCore.Authorization;
+using SK.Application.Posts.Commands.UnpinPost;
+using System;
+using System.Threading.Tasks;
 
 namespace SK.API.Controllers
 {
@@ -17,12 +17,12 @@ namespace SK.API.Controllers
         /// <summary>
         /// Adds new post.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="newPost">New post to add</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreatePostCommand command)
+        public async Task<ActionResult<Guid>> Create([FromBody] PostCreateDto newPost)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new CreatePostCommand(newPost)));
         }
 
         /// <summary>
@@ -42,13 +42,16 @@ namespace SK.API.Controllers
         /// Updates an existing post by id.
         /// </summary>
         /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Post ID</param>
-        /// <param name="command"></param>
+        /// <param name="editedPost">Edited post</param>
         /// <returns></returns>
         [Authorize(Policy = "IsPostOwner")]
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(Guid id, [FromBody] EditPostCommand command)
+        public async Task<ActionResult> Edit(Guid id, [FromBody] PostEditDto editedPost)
         {
-            command.Id = id;
+            var command = new EditPostCommand(editedPost)
+            {
+                Id = id
+            };
             await Mediator.Send(command);
             return NoContent();
         }

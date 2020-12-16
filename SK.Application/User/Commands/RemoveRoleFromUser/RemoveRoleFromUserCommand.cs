@@ -8,7 +8,7 @@ namespace SK.Application.User.Commands.RemoveRoleFromUser
         public string Username { get; set; }
         public string Role { get; set; }
         public RemoveRoleFromUserCommand() { }
-        public RemoveRoleFromUserCommand(UserRoleDto request)
+        public RemoveRoleFromUserCommand(UserAndRoleDto request)
         {
             Username = request.Username;
             Role = request.Role;

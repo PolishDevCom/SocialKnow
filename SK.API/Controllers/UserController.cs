@@ -69,7 +69,7 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpPost("role")]
-        public async Task<ActionResult> AddRoleToUser(UserRoleDto userRole)
+        public async Task<ActionResult> AddRoleToUser(UserAndRoleDto userRole)
         {
             await Mediator.Send(new AddRoleToUserCommand(userRole));
             return NoContent();
@@ -82,7 +82,7 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Administrator")]
         [HttpDelete("role")]
-        public async Task<ActionResult> RemoveRoleFromUser(UserRoleDto userRole)
+        public async Task<ActionResult> RemoveRoleFromUser(UserAndRoleDto userRole)
         {
             await Mediator.Send(new RemoveRoleFromUserCommand(userRole));
             return NoContent();

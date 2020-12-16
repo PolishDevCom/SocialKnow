@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
+using SK.Application.Events.Commands;
 using SK.Application.Events.Commands.CreateEvent;
 using SK.Application.Events.Commands.DeleteEvent;
 using SK.Application.Events.Commands.EditEvent;
@@ -47,7 +48,7 @@ namespace SK.API.Controllers
         /// <param name="newEvent">New event to add</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] EventDto newEvent)
+        public async Task<ActionResult<Guid>> Create([FromBody] EventCreateOrEditDto newEvent)
         {
             return Ok(await Mediator.Send(new CreateEventCommand(newEvent)));
         }
@@ -59,7 +60,7 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize(Policy = "IsEventHost")]
-        public async Task<ActionResult> Edit([FromBody] EventDto editedEvent)
+        public async Task<ActionResult> Edit([FromBody] EventCreateOrEditDto editedEvent)
         {
             await Mediator.Send(new EditEventCommand(editedEvent));
             return NoContent();

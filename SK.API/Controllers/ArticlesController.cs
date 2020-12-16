@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Articles.Commands;
 using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Articles.Commands.DeleteArticle;
 using SK.Application.Articles.Commands.EditArticle;
@@ -47,7 +48,7 @@ namespace SK.API.Controllers
         /// <param name="newArticle">New article to add</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create([FromBody] ArticleDto newArticle)
+        public async Task<ActionResult<Guid>> Create([FromBody] ArticleCreateOrEditDto newArticle)
         {
             return Ok(await Mediator.Send(new CreateArticleCommand(newArticle)));
         }
@@ -58,7 +59,7 @@ namespace SK.API.Controllers
         /// <param name="editArticle">Edited article</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult> Update([FromBody] ArticleDto editArticle)
+        public async Task<ActionResult> Update([FromBody] ArticleCreateOrEditDto editArticle)
         {
             await Mediator.Send(new EditArticleCommand(editArticle));
             return NoContent();
