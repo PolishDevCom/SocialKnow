@@ -55,7 +55,7 @@ namespace SK.Application.User.Commands.RegisterUser
                 return new User
                 {
                     Username = user.UserName,
-                    Token = _jwtGenerator.CreateToken(user),
+                    Token = await _jwtGenerator.CreateToken(user),
                     Image = user.Photos?.FirstOrDefault(x => x.IsMain)?.Url
                 };
             }

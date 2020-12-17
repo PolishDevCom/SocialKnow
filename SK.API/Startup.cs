@@ -42,6 +42,7 @@ namespace SK.API
             var builder = services.AddIdentityCore<AppUser>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddRoles<IdentityRole>();
+            identityBuilder.AddRoleManager<RoleManager<IdentityRole>>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -149,8 +150,11 @@ namespace SK.API
             app.UseRequestLocalization(localizeOptions.Value);
 
             app.UseRouting();
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
