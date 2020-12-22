@@ -9,10 +9,15 @@ namespace SK.API.Controllers
     [Authorize]
     public class ProfilesController : ApiController
     {
+        /// <summary>
+        /// Fetches a single user profile by username.
+        /// </summary>
+        /// <param name="username" example="Bob">Username</param>
+        /// <returns></returns>
         [HttpGet("{username}")]
         public async Task<ActionResult<ProfileDto>> Details(string username)
         {
-            return await Mediator.Send(new DetailsProfileQuery(username));
+            return Ok(await Mediator.Send(new DetailsProfileQuery(username)));
         }
     }
 }

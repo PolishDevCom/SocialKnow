@@ -1,12 +1,8 @@
-﻿using SK.Application.Common.Mapping;
-using SK.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System;
 
-namespace SK.Application.Events.Queries
+namespace SK.Application.Events.Commands
 {
-    public class EventDto : IMapFrom<Event>
+    public class EventCreateOrEditDto
     {
         public Guid Id { get; set; }
 
@@ -39,11 +35,5 @@ namespace SK.Application.Events.Queries
         /// Event venue
         /// </summary>
         public string Venue { get; set; }
-
-        /// <summary>
-        /// Event attendees collection
-        /// </summary>
-        [JsonPropertyName("attendees")]
-        public ICollection<AttendeeDto> UserEvents { get; set; }
     }
 }

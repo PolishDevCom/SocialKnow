@@ -1,10 +1,8 @@
-﻿using SK.Application.Common.Mapping;
-using SK.Domain.Entities;
-using System;
+﻿using System;
 
-namespace SK.Application.Articles.Queries
+namespace SK.Application.Articles.Commands
 {
-    public class ArticleDto : IMapFrom<Article>
+    public class ArticleCreateOrEditDto
     {
         public Guid Id { get; set; }
 
@@ -27,15 +25,5 @@ namespace SK.Application.Articles.Queries
         /// Article content
         /// </summary>
         public string Content { get; set; }
-
-        /// <summary>
-        /// Article author
-        /// </summary>
-        public string CreatedBy { get; set; }
-
-        /// <summary>
-        /// Date of creation
-        /// </summary>
-        public DateTime Created { get; set; }
     }
 }

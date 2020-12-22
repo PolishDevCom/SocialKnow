@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Photos.Commands.AddPhoto;
 using SK.Application.Photos.Commands.DeletePhoto;
@@ -10,22 +10,39 @@ namespace SK.API.Controllers
 {
     public class PhotosController : ApiController
     {
+        /// <summary>
+        /// Adds new photo.
+        /// </summary>
+        /// <param name="newPhoto">New photo</param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand command)
+        public async Task<ActionResult<Photo>> Add([FromForm] AddPhotoCommand newPhoto)
         {
-            return await Mediator.Send(command);
+            return Ok(await Mediator.Send(newPhoto));
         }
 
+        /// <summary>
+        /// Deletes a photo with selected id.
+        /// </summary>
+        /// <param name="id">Photo ID</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            return await Mediator.Send(new DeletePhotoCommand(id));
+            await Mediator.Send(new DeletePhotoCommand(id));
+            return NoContent();
         }
 
+        /// <summary>
+        /// Sets photo with selected id as a main photo.
+        /// </summary>
+        /// <param name="id">Photo ID</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> SetMain(string id)
+        public async Task<ActionResult> SetMain(string id)
         {
-            return await Mediator.Send(new SetMainPhotoCommand(id));
+            await Mediator.Send(new SetMainPhotoCommand(id));
+            return NoContent();
         }
     }
 }

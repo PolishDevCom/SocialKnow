@@ -32,7 +32,7 @@ namespace SK.Infrastructure.Security
             var currentUsername = _httpContextAccessor.HttpContext.User?.Claims?.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var postId = Guid.Parse(_httpContextAccessor.HttpContext.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value.ToString());
 
-            var foundPost = _context.Events
+            var foundPost = _context.Posts
                 .ProjectTo<PostDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == postId).Result;
 

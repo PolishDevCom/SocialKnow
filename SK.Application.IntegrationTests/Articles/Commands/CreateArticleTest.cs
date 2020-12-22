@@ -2,8 +2,8 @@
 using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using SK.Application.Articles.Commands;
 using SK.Application.Articles.Commands.CreateArticle;
-using SK.Application.Articles.Queries;
 using SK.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
 
-            var articleToCreate = new Faker<ArticleDto>("en")
+            var articleToCreate = new Faker<ArticleCreateOrEditDto>("en")
                 .RuleFor(a => a.Id, f => f.Random.Guid())
                 .RuleFor(a => a.Title, f => f.Lorem.Sentence())
                 .RuleFor(a => a.Abstract, f => f.Lorem.Paragraph())

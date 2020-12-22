@@ -12,5 +12,16 @@ namespace SK.Application.Events.Commands.CreateEvent
         public DateTime Date { get; set; }
         public string City { get; set; }
         public string Venue { get; set; }
+        public CreateEventCommand() {}
+        public CreateEventCommand(EventCreateOrEditDto request)
+        {
+            Id = request.Id;
+            Title = request.Title;
+            Description = request.Description;
+            Category = request.Category;
+            Date = request.Date;
+            City = request.City;
+            Venue = request.Venue;
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace SK.Infrastructure.Security
             var currentUsername = _httpContextAccessor.HttpContext.User?.Claims?.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var discussionId = Guid.Parse(_httpContextAccessor.HttpContext.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value.ToString());
 
-            var foundDiscussion = _context.Events
+            var foundDiscussion = _context.Discussions
                 .ProjectTo<DiscussionDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == discussionId).Result;
 

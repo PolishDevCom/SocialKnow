@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SK.Application.Articles.Queries;
 using System;
 
 namespace SK.Application.Articles.Commands.CreateArticle
@@ -12,7 +11,7 @@ namespace SK.Application.Articles.Commands.CreateArticle
         public string Abstract { get; set; }
         public string Content { get; set; }
         public CreateArticleCommand() {}
-        public CreateArticleCommand(ArticleDto request)
+        public CreateArticleCommand(ArticleCreateOrEditDto request)
         {
             Id = request.Id;
             Title = request.Title;

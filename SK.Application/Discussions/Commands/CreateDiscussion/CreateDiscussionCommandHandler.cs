@@ -37,6 +37,7 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
 
             var firstPost = new Post
             {
+                Id = Guid.NewGuid(),
                 Body = request.PostBody,
                 IsPinned = false,
                 DiscussionId = newDiscussion.Id,

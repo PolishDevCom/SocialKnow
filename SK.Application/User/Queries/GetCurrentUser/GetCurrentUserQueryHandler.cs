@@ -29,7 +29,7 @@ namespace SK.Application.User.Queries.GetCurrentUser
             {
                 Username = user.UserName,
                 Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                Token = _jwtGenerator.CreateToken(user)
+                Token = await _jwtGenerator.CreateToken(user)
             };
         }
     }

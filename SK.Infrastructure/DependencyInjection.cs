@@ -35,6 +35,8 @@ namespace SK.Infrastructure
                 });
             });
             services.AddTransient<IAuthorizationHandler, IsEventHostRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, IsDiscussionOwnerRequirementHandler>();
+            services.AddTransient<IAuthorizationHandler, IsPostOwnerRequirementHandler>();
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));

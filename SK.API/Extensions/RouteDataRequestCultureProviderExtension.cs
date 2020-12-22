@@ -1,22 +1,22 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using System;
+using System.Threading.Tasks;
 
 namespace SK.API.Extensions
 {
     public class RouteDataRequestCultureProvider : RequestCultureProvider
     {
         public int IndexOfCulture;
-        public int IndexofUICulture;
+        public int IndexOfUICulture;
 
         public override Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
         {
-            if (httpContext == null)
-                throw new ArgumentNullException(nameof(httpContext));
-
             string culture = null;
             string uiCulture = null;
+
+            if (httpContext == null)
+                throw new ArgumentNullException(nameof(httpContext));
 
             culture = uiCulture = httpContext.Request.Path.Value.Split('/')[IndexOfCulture]?.ToString();
 
