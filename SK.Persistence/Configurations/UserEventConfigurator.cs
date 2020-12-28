@@ -8,15 +8,15 @@ namespace SK.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserEvent> builder)
         {
-            builder.HasKey(ua => new { ua.AppUserId, ua.EventId });
+            builder.HasKey(ue => new { ue.AppUserId, ue.EventId });
 
             builder.HasOne(u => u.AppUser)
-                .WithMany(a => a.UserEvents)
+                .WithMany(e => e.UserEvents)
                 .HasForeignKey(u => u.AppUserId);
 
-            builder.HasOne(a => a.Event)
+            builder.HasOne(e => e.Event)
                 .WithMany(u => u.UserEvents)
-                .HasForeignKey(a => a.EventId);
+                .HasForeignKey(e => e.EventId);
         }
     }
 }
