@@ -85,7 +85,7 @@ This section will soon contain steps how to get a local and running copy...
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-This section will soon contain screens of application's parts with functionalities...
+For detailed information about SocialKnow usage please check [Developer Guide](https://github.com/UgzSourceCode/SocialKnow/wiki/Developer-Guide) from our project wiki.
 
 <!-- CONTRIBUTING -->
 ## Contributing
