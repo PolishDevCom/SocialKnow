@@ -6,18 +6,18 @@ namespace SK.Application.Events.Commands.CreateEvent
 {
     public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
     {
-        private readonly IStringLocalizer<EventsResource> _localize;
-        public CreateEventCommandValidator(IStringLocalizer<EventsResource> localize)
+        private readonly IStringLocalizer<EventsResource> _localizer;
+        public CreateEventCommandValidator(IStringLocalizer<EventsResource> localizer)
         {
-            _localize = localize;
+            _localizer = localizer;
 
-            RuleFor(x => x.Title).NotEmpty().WithMessage(_localize["EventValidatorTitleEmpty"])
-                .MaximumLength(200).WithMessage(_localize["EventValidatorTitleMaxLength"]);
-            RuleFor(x => x.Description).NotEmpty().WithMessage(_localize["EventValidatorDescriptionEmpty"]);
-            RuleFor(x => x.Category).NotEmpty().WithMessage(_localize["EventValidatorCategoryEmpty"]);
-            RuleFor(x => x.Date).NotEmpty().WithMessage(_localize["EventValidatorDateEmpty"]);
-            RuleFor(x => x.City).NotEmpty().WithMessage(_localize["EventValidatorCityEmpty"]);
-            RuleFor(x => x.Venue).NotEmpty().WithMessage(_localize["EventValidatorVenueEmpty"]);
+            RuleFor(x => x.Title).NotEmpty().WithMessage(_localizer["EventValidatorTitleEmpty"])
+                .MaximumLength(200).WithMessage(_localizer["EventValidatorTitleMaxLength"]);
+            RuleFor(x => x.Description).NotEmpty().WithMessage(_localizer["EventValidatorDescriptionEmpty"]);
+            RuleFor(x => x.Category).NotEmpty().WithMessage(_localizer["EventValidatorCategoryEmpty"]);
+            RuleFor(x => x.Date).NotEmpty().WithMessage(_localizer["EventValidatorDateEmpty"]);
+            RuleFor(x => x.City).NotEmpty().WithMessage(_localizer["EventValidatorCityEmpty"]);
+            RuleFor(x => x.Venue).NotEmpty().WithMessage(_localizer["EventValidatorVenueEmpty"]);
         }
     }
 }

@@ -16,14 +16,14 @@ namespace SK.Application.Events.Commands.SubscribeEvent
         private readonly IApplicationDbContext _context;
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
-        private readonly IStringLocalizer<EventsResource> _localize;
+        private readonly IStringLocalizer<EventsResource> _localizer;
 
-        public SubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IDateTime dateTime, IStringLocalizer<EventsResource> localize)
+        public SubscribeEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUserService, IDateTime dateTime, IStringLocalizer<EventsResource> localizer)
         {
             _context = context;
             _currentUserService = currentUserService;
             _dateTime = dateTime;
-            _localize = localize;
+            _localizer = localizer;
         }
         public async Task<Unit> Handle(SubscribeEventCommand request, CancellationToken cancellationToken)
         {
@@ -33,7 +33,7 @@ namespace SK.Application.Events.Commands.SubscribeEvent
             var subscription = await _context.UserEvents.SingleOrDefaultAsync(x => x.EventId == eventToSubscribe.Id && x.AppUserId == user.Id);
             if (subscription != null)
             {
-                throw new RestException(HttpStatusCode.BadRequest, new { Attendance = _localize["EventSubscribeError"] });
+                throw new RestException(HttpStatusCode.BadRequest, new { Attendance = _localizer["EventSubscribeError"] });
             }
 
             subscription = new UserEvent
@@ -52,7 +52,7 @@ namespace SK.Application.Events.Commands.SubscribeEvent
             {
                 return Unit.Value;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localize["EventSaveError"] });
+            throw new RestException(HttpStatusCode.BadRequest, new { Event = _localizer["EventSaveError"] });
         }
     }
 }

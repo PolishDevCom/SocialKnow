@@ -4,7 +4,7 @@ using SK.Domain.Entities;
 
 namespace SK.Persistence.Configurations
 {
-    public class PostConfiguration : IEntityTypeConfiguration<Post>
+    public class PostConfiguratior : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {

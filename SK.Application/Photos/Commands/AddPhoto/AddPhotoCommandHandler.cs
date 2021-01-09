@@ -52,8 +52,8 @@ namespace SK.Application.Photos.Commands.AddPhoto
 
             user.Photos.Add(photo);
 
-            var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
-            if (succes)
+            var success = await _context.SaveChangesAsync(cancellationToken) > 0;
+            if (success)
             {
                 return photo;
             }
