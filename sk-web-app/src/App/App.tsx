@@ -7,6 +7,7 @@ import {
 
 import AppBar from '../components/AppBar';
 import Home from '../views/Home';
+import Login from '../views/Login';
 
 const App: React.FC<unknown> = () => {
   return (
@@ -15,7 +16,7 @@ const App: React.FC<unknown> = () => {
         <AppBar />
         <Switch>
           <Route path="/login">
-            <div>login page</div>
+            <Login />
           </Route>
           <Route path="/">
             <Home />
