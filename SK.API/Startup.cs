@@ -131,7 +131,8 @@ namespace SK.API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+                        var corsOrigins = Configuration.GetSection("CorsOrigins").Get<List<string>>();
+                        builder.WithOrigins(corsOrigins.ToArray()).AllowAnyMethod().AllowAnyHeader();
                     });
             });
         }
