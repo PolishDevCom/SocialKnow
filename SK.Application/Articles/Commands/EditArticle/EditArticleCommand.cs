@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using SK.Application.Common.Mapping;
+using SK.Domain.Entities;
 using System;
 
 namespace SK.Application.Articles.Commands.EditArticle
 {
-    public class EditArticleCommand : IRequest
+    public class EditArticleCommand : IRequest, IMapTo<Article>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
