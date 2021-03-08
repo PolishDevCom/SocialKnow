@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -15,24 +16,18 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<DiscussionsResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public CreateDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer)
+        public CreateDiscussionCommandHandler(IApplicationDbContext context, IStringLocalizer<DiscussionsResource> localizer, IMapper mapper)
         {
             _context = context;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(CreateDiscussionCommand request, CancellationToken cancellationToken)
         {
-            var newDiscussion = new Discussion
-            {
-                Id = request.Id,
-                Title = request.Title,
-                Description = request.Description,
-                IsClosed = false,
-                IsPinned = false
-            };
-
+            var newDiscussion = _mapper.Map<Discussion>(request);
             await _context.Discussions.AddAsync(newDiscussion);
 
             var firstPost = new Post
