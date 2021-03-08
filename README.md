@@ -80,12 +80,40 @@ Currently, an MVP (Minimal Value Project) is being created, where the backend al
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This section will soon contain steps how to get a local and running copy...
+To get a local copy up and running follow these simple steps:
+
+* Download the latest stable version from the download tab and unzip it to your folder
+* Open the solution in Visual Studio 2019. 
+* Clean solution.
+* In `appsettings.json` change PostgreSQL DB connection string:
+
+```json
+"ConnectionStrings": 
+{
+    "DefaultConnection": "yourDatabaseConnectionString"
+}
+```
+* For SK.API project set user secrets using CLI or directly in `secrets.json`:
+
+```json
+{
+  "TokenKey": "yourSecretKeyForAuthorization",
+  "Cloudinary:CloudName": "yourCloudinaryCloudName",
+  "Cloudinary:ApiSecret": "yourCloudinaryApiSecret",
+  "Cloudinary:ApiKey": "yourCloudinaryApiKey"
+}
+```
+* Build the solution.
+* Run application
+* If you want to use SwaggerUI fire up your browser and open url `http://localhost:5000/`
+* Enjoy ;-)
+
+Please note that the app was tested in Chrome browser where no issues where discovered.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-For detailed information about SocialKnow usage please check [Developer Guide](https://github.com/UgzSourceCode/SocialKnow/wiki/Developer-Guide) from our project wiki.
+For usage instruction check project's Wiki: [https://github.com/UgzSourceCode/SocialKnow/wiki](https://github.com/UgzSourceCode/SocialKnow/wiki)
 
 <!-- CONTRIBUTING -->
 ## Contributing
