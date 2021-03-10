@@ -2,7 +2,7 @@
 
 [![](public/powered-by-vercel.svg 'Powered by Vercel')](https://vercel.com/?utm_source=PolishDev_TripPlanner&utm_campaign=oss)
 
-# TripPlanner Frontend
+# SocialKnow Frontend
 
 ## Getting Started
 
@@ -19,20 +19,20 @@ In [prerequisites](#prerequisites) there's a statement recommending
 
 > latest LTS or current version of node.js
 
-If for whatever reason your development environment is acting strange (dev server not starting, something's off, etc.), please ensure you're using the version of node.js specified in [.nvmrc](.nvmrc). If you have [nvm](https://github.com/nvm-sh/nvm) installed, all you have to do is to run `nvm use` while in `TripPlanner - Project/TripPlannerFrontend`. `nvm use` will install and use version of node.js specified in `.nvmrc`.
+If for whatever reason your development environment is acting strange (dev server not starting, something's off, etc.), please ensure you're using the version of node.js specified in [.nvmrc](.nvmrc). If you have [nvm](https://github.com/nvm-sh/nvm) installed, all you have to do is to run `nvm use` while in `SocialKnow/SK.WebApp`. `nvm use` will install and use version of node.js specified in `.nvmrc`.
 
 ### Installing
 
 1. Clone the repo:
 
 ```sh
-git clone git@github.com:UgzSourceCode/TripPlanner.git
+git clone git@github.com:PolishDevCom/SocialKnow.git
 ```
 
-2. Go to TripPlannerFrontend:
+2. Go to SK.WebApp:
 
 ```sh
-cd TripPlanner\ -\ Project/TripPlannerFrontend
+cd SocialKnow/SK.WebApp
 ```
 
 3. Install dependencies:
@@ -44,8 +44,8 @@ yarn
 tl;dr
 
 ```sh
-git clone git@github.com:UgzSourceCode/TripPlanner.git &&\
-cd TripPlanner/TripPlanner\ -\ Project/TripPlannerFrontend &&\
+git clone git@github.com:PolishDevCom/SocialKnow.git &&\
+cd SocialKnow/SK.WebApp &&\
 yarn
 ```
 
