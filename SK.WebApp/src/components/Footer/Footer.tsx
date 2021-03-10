@@ -15,7 +15,7 @@ export const Footer = () => (
       <a
         target="_blank"
         rel="noopener noreferrer"
-        href="https://vercel.com/?utm_source=PolishDev_TripPlanner&utm_campaign=oss"
+        href="https://vercel.com/?utm_source=PolishDev_SocialKnow&utm_campaign=oss"
       >
         <PoweredByVercelImg />
       </a>
