@@ -31,4 +31,6 @@
     <ProjectReference Include="..\SK.Persistence\SK.Persistence.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
