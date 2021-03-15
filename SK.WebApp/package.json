@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "atomic-layout": "^0.16.2",
     "date-fns": "^2.17.0",
+    "fetch": "^1.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
