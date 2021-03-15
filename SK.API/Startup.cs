@@ -27,6 +27,8 @@ namespace SK.API
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -123,6 +125,16 @@ namespace SK.API
 
             services.AddControllers(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        var corsOrigins = Configuration.GetSection("CorsOrigins").Get<List<string>>();
+                        builder.WithOrigins(corsOrigins.ToArray()).AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -150,7 +162,7 @@ namespace SK.API
             app.UseRequestLocalization(localizeOptions.Value);
 
             app.UseRouting();
-            app.UseCors();
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
