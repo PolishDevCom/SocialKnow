@@ -1,9 +1,9 @@
-import { ApiAdresses, Culture } from "../consts";
-import { getUrlWithCulture } from './../utils';
+import { anyEndpointKeys, anyLangageCodeKeys } from '../consts';
+import { getEndpointWithLanguageCode } from './../utils';
 import { LoginToApiRequest, LoginToApiResponse } from "./types";
 
 export const loginToApi = ({ email, password }: LoginToApiRequest): Promise<LoginToApiResponse> => {
-    const apiUrl = getUrlWithCulture(ApiAdresses.LOGIN, Culture.ENGLISH);
+    const apiUrl = getEndpointWithLanguageCode({ endpointKey: anyEndpointKeys.login, languageCodeKey: anyLangageCodeKeys.english});
     return fetch(apiUrl, {
         method: "POST",
         mode: "cors",

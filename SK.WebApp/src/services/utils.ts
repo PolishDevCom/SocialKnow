@@ -1,5 +1,15 @@
-import { ApiAdresses } from "./consts"
+import { apiAddress, anyEndpoint, anyLanguageCode, anyEndpointKeys, anyLangageCodeKeys } from "./consts";
 
-export const getUrlWithCulture = (address: string, culture: string): string => {
-    return ApiAdresses.BASE + address.replace("{culture}", culture);
+interface getEndpointWithLanguageCodeArgs {
+    endpointKey: anyEndpointKeys;
+    languageCodeKey: anyLangageCodeKeys;
+};
+
+export const getEndpointWithLanguageCode = ({
+    endpointKey,
+    languageCodeKey,
+  }: getEndpointWithLanguageCodeArgs) => {
+    const endpointAddress = anyEndpoint[endpointKey].replace('{languageCode}', anyLanguageCode[languageCodeKey]);
+
+    return `${apiAddress}${endpointAddress}`;
 };

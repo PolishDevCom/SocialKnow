@@ -1,18 +1,23 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { loginToApi } from "../services/UserService";
-import { sessionSelector, sessionSlice } from "../store/session/sessionSlice";
+import { sessionSlice } from "../store/session/sessionSlice";
 
-export const IntegrationDemo: React.FC<unknown> = () => {
+export const IntegrationDemo = () => {
     const dispatch = useAppDispatch();
-    const sessionData = useAppSelector(sessionSelector);
+    const sessionData = useAppSelector((state) => state.session);
     
     useEffect(() => {
-        loginToApi({ email: "administrator@localhost", password: "Administrator1!" }).then((result) => {
-            if (result) {
-                dispatch(sessionSlice.actions.saveLoginData(result));
-            }
-        });
+        const myFn = async () => {
+            loginToApi({ email: "administrator@localhost", password: "Administrator1!" }).then((result) => {
+                if (result) {
+                    dispatch(sessionSlice.actions.setSession(result));
+                }
+            }).catch(() => {
+                console.warn("Login was faild.");
+            });
+        }
+        myFn();
     }, [dispatch]);
 
     return (

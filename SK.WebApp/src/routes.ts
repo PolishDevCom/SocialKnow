@@ -3,6 +3,6 @@ import { IntegrationDemo } from './pages/IntegrationDemo';
 import { Home } from './pages/Home';
 
 export const routes: RouteProps[] = [
-    { path: '/integrationDemo', component: IntegrationDemo },
+    { path: '/integration-demo', component: IntegrationDemo },
     { path: '/', component: Home },
 ];

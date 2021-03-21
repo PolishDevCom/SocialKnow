@@ -1,5 +1,4 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { RootState } from '..';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SessionState {
   username: string;
@@ -17,7 +16,7 @@ export const sessionSlice = createSlice({
     initialState,
     name: 'session',
     reducers: {
-      saveLoginData: (state, action) => {
+      setSession: (state, action: PayloadAction<SessionState>) => {
         if (action?.payload) {
             state.username = action.payload.username;
             state.token = action.payload.token;
@@ -26,22 +25,3 @@ export const sessionSlice = createSlice({
       }
     },
   });
-
-export const sessionSelector = createSelector<
-  RootState,
-  SessionState['username'],
-  SessionState['token'],
-  SessionState['image'],
-  SessionState
->(
-  (state) => state.session.username,
-  (state) => state.session.token,
-  (state) => state.session.image,
-  (username, token, image) => {
-    return {
-      username,
-      token,
-      image,
-    };
-  },
-);

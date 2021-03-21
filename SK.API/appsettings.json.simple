@@ -1,6 +1,7 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=socialKnow;Username=postgres;Password=1234"
+    // replace <your-password> by password to your POSTGRESQL database
+    "DefaultConnection": "Host=localhost;Database=socialKnow;Username=postgres;Password=<your-password>"
   },
   "Logging": {
     "LogLevel": {
@@ -8,8 +9,7 @@
     }
   },
   "AllowedHosts": "*",
-  "CorsOrigins": [
-    "http://localhost:3000",
-    "https://localhost:3000"
-  ]
+  // Add to CorsOrigins your origins, like eg. http://localhost:3000
+  "CorsOrigins": []
 }
+  
