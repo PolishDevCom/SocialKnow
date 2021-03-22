@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -14,22 +15,18 @@ namespace SK.Application.Events.Commands.EditEvent
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<EventsResource> _localize;
+        private readonly IMapper _mapper;
 
-        public EditEventCommandHandler(IApplicationDbContext context, IStringLocalizer<EventsResource> localize)
+        public EditEventCommandHandler(IApplicationDbContext context, IStringLocalizer<EventsResource> localize, IMapper mapper)
         {
             _context = context;
             _localize = localize;
+            _mapper = mapper;
         }
         public async Task<Unit> Handle(EditEventCommand request, CancellationToken cancellationToken)
         {
             var eventToChange = await _context.Events.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Event), request.Id);
-
-            eventToChange.Title = request.Title ?? eventToChange.Title;
-            eventToChange.Description = request.Description ?? eventToChange.Description;
-            eventToChange.Category = request.Category ?? eventToChange.Category;
-            eventToChange.Date = request.Date ?? eventToChange.Date;
-            eventToChange.City = request.City ?? eventToChange.City;
-            eventToChange.Venue = request.Venue ?? eventToChange.Venue;
+            _mapper.Map(request, eventToChange);
 
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
             if (success)

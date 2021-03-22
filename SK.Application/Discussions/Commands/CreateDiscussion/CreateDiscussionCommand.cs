@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using SK.Application.Common.Mapping;
+using SK.Domain.Entities;
 using System;
 
 namespace SK.Application.Discussions.Commands.CreateDiscussion
 {
-    public class CreateDiscussionCommand : IRequest<Guid>
+    public class CreateDiscussionCommand : IRequest<Guid>, IMapTo<Discussion>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
