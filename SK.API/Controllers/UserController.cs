@@ -4,6 +4,7 @@ using SK.Application.User;
 using SK.Application.User.Commands;
 using SK.Application.User.Commands.AddRoleToUser;
 using SK.Application.User.Commands.DeleteUser;
+using SK.Application.User.Commands.LogoutUser;
 using SK.Application.User.Commands.RegisterUser;
 using SK.Application.User.Commands.RemoveRoleFromUser;
 using SK.Application.User.Queries;
@@ -47,6 +48,18 @@ namespace SK.API.Controllers
         public async Task<ActionResult<User>> Login(LoginUserDto loginCredentials)
         {
             return Ok(await Mediator.Send(new LoginUserQuery(loginCredentials)));
+        }
+
+        /// <summary>
+        /// Logs out current user.
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<ActionResult<User>> Logout()
+        {
+            await Mediator.Send(new LogoutUserCommand());
+            return NoContent();
         }
 
         /// <summary>
