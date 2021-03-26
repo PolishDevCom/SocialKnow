@@ -56,7 +56,7 @@ namespace SK.API.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpPost("logout")]
-        public async Task<ActionResult<User>> Logout()
+        public async Task<ActionResult> Logout()
         {
             await Mediator.Send(new LogoutUserCommand());
             return NoContent();

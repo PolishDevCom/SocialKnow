@@ -38,6 +38,10 @@ namespace SK.Infrastructure
             services.AddTransient<IAuthorizationHandler, IsDiscussionOwnerRequirementHandler>();
             services.AddTransient<IAuthorizationHandler, IsPostOwnerRequirementHandler>();
 
+            var jwtSection = configuration.GetSection("Jwt");
+            var jwtOptions = new JwtOptions();
+            jwtSection.Bind(jwtOptions);
+            services.Configure<JwtOptions>(jwtSection);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
 

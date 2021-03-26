@@ -17,6 +17,7 @@ using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Infrastructure;
 using SK.Infrastructure.Photos;
+using SK.Infrastructure.Security;
 using SK.Persistence;
 using System;
 using System.Collections.Generic;
