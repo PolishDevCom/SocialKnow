@@ -9,16 +9,18 @@ namespace SK.Persistence
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            //PostgreSQL configuration
+#region PostgreSQL configuration
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseLazyLoadingProxies();
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
             });
+#endregion
 
-            //Redis configuration
+# region Redis configuration
             services.AddStackExchangeRedisCache(options => options.Configuration = configuration["Redis:ConnectionString"]);
+#endregion
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
