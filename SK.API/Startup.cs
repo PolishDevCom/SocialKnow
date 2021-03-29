@@ -10,12 +10,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using SK.API.Extensions;
 using SK.API.Filters;
+using SK.API.Middlewares;
 using SK.API.Services;
 using SK.Application;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Infrastructure;
 using SK.Infrastructure.Photos;
+using SK.Infrastructure.Security;
 using SK.Persistence;
 using System;
 using System.Collections.Generic;
@@ -48,7 +50,8 @@ namespace SK.API
 
             services.AddPersistence(Configuration);
             services.AddInfrastructure(Configuration);
-            
+
+            services.AddTransient<TokenManagerMiddleware>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddHttpContextAccessor();
 
@@ -154,6 +157,7 @@ namespace SK.API
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<TokenManagerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
