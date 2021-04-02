@@ -1,29 +1,27 @@
-const apiAddress = "https://localhost:44324";
+export const apiAddress = 'https://localhost:44324';
 
-enum anyLangageCodeKeys {
-    polish = 'POLISH',
-    english = 'ENGLISH',
-};
-
-type languageCodeMap = {
-    [key in anyLangageCodeKeys] : string;
+export enum anyLangageCodeKeys {
+  polish = 'POLISH',
+  english = 'ENGLISH',
 }
 
-const anyLanguageCode: languageCodeMap = {
-    POLISH: "pl-PL",
-    ENGLISH: "en-US",
+export type languageCodeMap = {
+  [key in anyLangageCodeKeys]: string;
 };
 
-enum anyEndpointKeys {
-    login = 'LOGIN',
+export const anyLanguageCode: languageCodeMap = {
+  POLISH: 'pl-PL',
+  ENGLISH: 'en-US',
 };
 
-type endpointMap = {
-    [key in anyEndpointKeys]: string;
+export enum anyEndpointKeys {
+  login = 'LOGIN',
+}
+
+export type endpointMap = {
+  [key in anyEndpointKeys]: string;
 };
 
-const anyEndpoint: endpointMap = {
-    LOGIN: "/{languageCode}/api/User/login",
+export const anyEndpoint: endpointMap = {
+  LOGIN: '/{languageCode}/api/User/login',
 };
-
-export { anyLanguageCode, anyLangageCodeKeys, anyEndpoint, anyEndpointKeys, apiAddress };
