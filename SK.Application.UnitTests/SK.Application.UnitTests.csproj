@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SK.API\SK.API.csproj" />
     <ProjectReference Include="..\SK.Application\SK.Application.csproj" />
   </ItemGroup>
 
