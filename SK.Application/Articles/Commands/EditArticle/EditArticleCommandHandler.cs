@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -14,23 +15,20 @@ namespace SK.Application.Articles.Commands.EditArticle
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<ArticlesResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public EditArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer)
+        public EditArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer, IMapper mapper)
         {
             _context = context;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(EditArticleCommand request, CancellationToken cancellationToken)
         {
             var article = await _context.Articles.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Article), request.Id);
 
-            article.Id = request.Id;
-            article.Title = request.Title;
-            article.Abstract = request.Abstract;
-            article.Content = request.Content;
-            article.Image = request.Image;
-
+            _mapper.Map(request, article);
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
             if (success)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
@@ -16,11 +17,13 @@ namespace SK.Infrastructure.Security
     {
         private readonly SymmetricSecurityKey _key;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IOptions<JwtOptions> _options;
 
-        public JwtGenerator(IConfiguration configuration, UserManager<AppUser> userManager)
+        public JwtGenerator(IConfiguration configuration, UserManager<AppUser> userManager, IOptions<JwtOptions> options)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
             _userManager = userManager;
+            _options = options;
         }
         public async Task<string> CreateToken(AppUser user)
         {
@@ -41,7 +44,7 @@ namespace SK.Infrastructure.Security
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddMinutes(_options.Value.ExpiryMinutes),
                 SigningCredentials = creds
             };
 

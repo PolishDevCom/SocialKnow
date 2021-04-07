@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
@@ -18,28 +19,21 @@ namespace SK.Application.Events.Commands.CreateEvent
         private readonly ICurrentUserService _currentUser;
         private readonly IDateTime _dateTime;
         private readonly IStringLocalizer<EventsResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IDateTime dateTime, IStringLocalizer<EventsResource> localizer)
+        public CreateEventCommandHandler(IApplicationDbContext context, ICurrentUserService currentUser, IDateTime dateTime, IStringLocalizer<EventsResource> localizer,
+            IMapper mapper)
         {
             _context = context;
             _currentUser = currentUser;
             _dateTime = dateTime;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
         {
-            var newEvent = new Event
-            {
-                Id = request.Id,
-                Title = request.Title,
-                Description = request.Description,
-                Category = request.Category,
-                Date = request.Date,
-                City = request.City,
-                Venue = request.Venue
-            };
-
+            var newEvent = _mapper.Map<Event>(request);
             _context.Events.Add(newEvent);
 
             var hostUser = await _context.Users.SingleOrDefaultAsync(u => u.UserName == _currentUser.Username);

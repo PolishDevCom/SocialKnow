@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -15,22 +16,17 @@ namespace SK.Application.Articles.Commands.CreateArticle
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<ArticlesResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public CreateArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer)
+        public CreateArticleCommandHandler(IApplicationDbContext context, IStringLocalizer<ArticlesResource> localizer, IMapper mapper)
         {
             _context = context;
             _localizer = localizer;
+            _mapper = mapper;
         }
         public async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = new Article
-            {
-                Id = request.Id,
-                Title = request.Title,
-                Abstract = request.Abstract,
-                Content = request.Content,
-                Image = request.Image
-            };
+            var article = _mapper.Map<Article>(request);
 
             _context.Articles.Add(article);
             var succes = await _context.SaveChangesAsync(cancellationToken) > 0;

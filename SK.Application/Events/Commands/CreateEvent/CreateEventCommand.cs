@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using SK.Application.Common.Mapping;
+using SK.Domain.Entities;
 using System;
 
 namespace SK.Application.Events.Commands.CreateEvent
 {
-    public class CreateEventCommand : IRequest<Guid>
+    public class CreateEventCommand : IRequest<Guid>, IMapTo<Event>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

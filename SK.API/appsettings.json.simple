@@ -10,6 +10,14 @@
   },
   "AllowedHosts": "*",
   // Add to CorsOrigins your origins, like eg. http://localhost:3000
-  "CorsOrigins": []
+  "CorsOrigins": [],
+  // Jwt.ExpiryMinutes is life time for JWT token
+  "Jwt": {
+    "ExpiryMinutes": "720"
+  },
+  // Redis.ConnectionString it is address of Redis
+  "Redis": {
+    "ConnectionString": "localhost:6379"
+  }
 }
   

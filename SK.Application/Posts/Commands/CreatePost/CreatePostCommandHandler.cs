@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -15,11 +16,13 @@ namespace SK.Application.Posts.Commands.CreatePost
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<PostsResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public CreatePostCommandHandler(IApplicationDbContext context, IStringLocalizer<PostsResource> localizer)
+        public CreatePostCommandHandler(IApplicationDbContext context, IStringLocalizer<PostsResource> localizer, IMapper mapper)
         {
             _context = context;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(CreatePostCommand request, CancellationToken cancellationToken)
@@ -31,14 +34,7 @@ namespace SK.Application.Posts.Commands.CreatePost
                 throw new RestException(HttpStatusCode.BadRequest, new { Post = _localizer["PostClosedDiscussionError"] });
             }
 
-            var newPost = new Post()
-            {
-                Id = request.Id,
-                Body = request.Body,
-                IsPinned = false,
-                DiscussionId = request.DiscussionId
-            };
-
+            var newPost = _mapper.Map<Post>(request);
             await _context.Posts.AddAsync(newPost);
 
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;

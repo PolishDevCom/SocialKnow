@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
@@ -19,13 +20,16 @@ namespace SK.Application.User.Commands.RegisterUser
         private readonly IJwtGenerator _jwtGenerator;
         private readonly IIdentityService _identityService;
         private readonly IStringLocalizer<UsersResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public RegisterUserCommandHandler(IApplicationDbContext context, IJwtGenerator jwtGenerator, IIdentityService identityService, IStringLocalizer<UsersResource> localizer)
+        public RegisterUserCommandHandler(IApplicationDbContext context, IJwtGenerator jwtGenerator, IIdentityService identityService, IStringLocalizer<UsersResource> localizer,
+            IMapper mapper)
         {
             _context = context;
             _jwtGenerator = jwtGenerator;
             _identityService = identityService;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<User> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
@@ -40,13 +44,7 @@ namespace SK.Application.User.Commands.RegisterUser
                 throw new RestException(HttpStatusCode.BadRequest, new { Username = _localizer["UserRegisterUsernameExistsError"] });
             }
 
-            var user = new AppUser
-            {
-                Email = request.Email,
-                UserName = request.Username,
-                Photos = null
-            };
-
+            var user = _mapper.Map<AppUser>(request);
             var (Result, UserId) = await _identityService.CreateUserAsync(user, request.Password);
 
             if (Result.Succeeded)

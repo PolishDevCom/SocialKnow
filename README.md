@@ -14,9 +14,9 @@
     Social media platform with knowledge base and services for a given industry.
     <br />
     <br />
-    <a href="https://github.com/UgzSourceCode/SocialKnow/issues">Report Bug</a>
+    <a href="https://github.com/PolishDevCom/SocialKnow/issues">Report Bug</a>
     ·
-    <a href="https://github.com/UgzSourceCode/SocialKnow/issues">Request Feature</a>
+    <a href="https://github.com/PolishDevCom/SocialKnow/issues">Request Feature</a>
   </p>
 </p>
 
@@ -113,7 +113,7 @@ Please note that the app was tested in Chrome browser where no issues where disc
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-For usage instruction check project's Wiki: [https://github.com/UgzSourceCode/SocialKnow/wiki](https://github.com/UgzSourceCode/SocialKnow/wiki)
+For usage instruction check project's Wiki: [https://github.com/PolishDevCom/SocialKnow/wiki](https://github.com/PolishDevCom/SocialKnow/wiki)
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -130,13 +130,13 @@ Contributions are what make the open source community such an amazing place to b
 <!-- CONTACT -->
 ## Contact
 
-* Project Link: [https://github.com/UgzSourceCode/SocialKnow](https://github.com/UgzSourceCode/SocialKnow)
+* Project Link: [https://github.com/PolishDevCom/SocialKnow](https://github.com/PolishDevCom/SocialKnow)
 * Polishdev Team #1: [https://www.polishdev.com/](https://www.polishdev.com/?p=56)
 
 ### Project's main contributors:
 
-<a href="https://github.com/UgzSourceCode/SocialKnow/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=UgzSourceCode/SocialKnow" />
+<a href="https://github.com/PolishDevCom/SocialKnow/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=PolishDevCom/SocialKnow" />
 </a>
 
 <!-- Made with [contributors-img](https://contributors-img.web.app). -->
