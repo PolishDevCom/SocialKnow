@@ -1,6 +1,5 @@
-import { anyEndpointKeys } from './endpoints';
+import { anyEndpointKeys, getEndpointWithLanguageCode } from './endpoints';
 import { anyLangageCodeKeys } from './languages';
-import { getEndpointWithLanguageCode } from './utils';
 
 export type LoginToApiRequest = {
   email: string;

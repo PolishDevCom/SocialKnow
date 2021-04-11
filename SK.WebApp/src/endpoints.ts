@@ -1,5 +1,17 @@
-import { apiAddress, anyEndpointKeys, anyEndpoint } from './endpoints';
-import { anyLanguageCode, anyLangageCodeKeys } from './languages';
+import { anyLangageCodeKeys, anyLanguageCode } from './languages';
+export const apiAddress = 'https://localhost:44324';
+
+export enum anyEndpointKeys {
+  login = 'LOGIN',
+}
+
+export type endpointMap = {
+  [key in anyEndpointKeys]: string;
+};
+
+export const anyEndpoint: endpointMap = {
+  LOGIN: '/{languageCode}/api/User/login',
+};
 
 interface getEndpointWithLanguageCodeArgs {
   endpointKey: anyEndpointKeys;

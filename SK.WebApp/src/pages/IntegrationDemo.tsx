@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
-import { loginToApi } from '../services/UserService';
+import { loginToApi } from '../loginToApi';
 import { sessionSlice } from '../store/session/sessionSlice';
 
 export const IntegrationDemo = () => {
