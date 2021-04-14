@@ -1,5 +1,3 @@
-![](public/og.png 'Title')
-
 [![](public/powered-by-vercel.svg 'Powered by Vercel')](https://vercel.com/?utm_source=PolishDev_SocialKnow&utm_campaign=oss)
 
 # SocialKnow Frontend
