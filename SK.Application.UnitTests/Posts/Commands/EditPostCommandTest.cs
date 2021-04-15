@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -35,7 +36,10 @@ namespace SK.Application.UnitTests.Posts.Commands
             stringLocalizer = new Mock<IStringLocalizer<PostsResource>>();
          
             post = new Post { Id = id };
-            postDto = new PostEditDto { Id = id, Body = "Body" };
+            postDto = new Faker<PostEditDto>("en")
+                .RuleFor(p => p.Body, f => f.Random.String(10))
+                .RuleFor(p => p.Id, f => f.PickRandomParam(id))
+                .Generate();
         }
 
         [Test]

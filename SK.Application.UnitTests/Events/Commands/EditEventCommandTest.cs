@@ -27,7 +27,7 @@ namespace SK.Application.UnitTests.Events.Commands
         private readonly Mock<IStringLocalizer<EventsResource>> stringLocalizer;
         private readonly Mock<IMapper> mapper;
 
-        private readonly Event @event;
+        private readonly Event eventEntity;
         private readonly EventCreateOrEditDto eventDto;
 
         public EditEventCommandTest()
@@ -38,7 +38,7 @@ namespace SK.Application.UnitTests.Events.Commands
             stringLocalizer = new Mock<IStringLocalizer<EventsResource>>();
             mapper = new Mock<IMapper>();
 
-            @event = new Event { Id = id };
+            eventEntity = new Event { Id = id };
             eventDto = new EventCreateOrEditDto { Id = id };
         }
 
@@ -46,10 +46,10 @@ namespace SK.Application.UnitTests.Events.Commands
         public async Task ShouldCallHandle()
         {
             //Arrange
-            dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(@event)));
+            dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(eventEntity)));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
-            mapper.Setup(x => x.Map<Event>(eventDto)).Returns(@event);
+            mapper.Setup(x => x.Map<Event>(eventDto)).Returns(eventEntity);
 
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);
@@ -82,10 +82,10 @@ namespace SK.Application.UnitTests.Events.Commands
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
             //Arrange
-            dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(@event)));
+            dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(eventEntity)));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
-            mapper.Setup(x => x.Map<Event>(eventDto)).Returns(@event);
+            mapper.Setup(x => x.Map<Event>(eventDto)).Returns(eventEntity);
 
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);

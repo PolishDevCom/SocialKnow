@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -36,7 +37,11 @@ namespace SK.Application.UnitTests.Discussions.Commands
             stringLocalizer = new Mock<IStringLocalizer<DiscussionsResource>>();
 
             discussion = new Discussion { Id = id };
-            discussionDto = new DiscussionEditDto { Id = id, Title = "Title", Description = "Description" };
+            discussionDto = new Faker<DiscussionEditDto>("en")
+                .RuleFor(d => d.Id, f => f.PickRandomParam(id))
+                .RuleFor(d => d.Title, f => f.Random.String())
+                .RuleFor(d => d.Description, f => f.Random.String())
+                .Generate();
         }
 
         [Test]

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Bogus;
+using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Moq;
@@ -20,9 +21,6 @@ namespace SK.Application.UnitTests.User.Commands
 {
     public class AddRoleToUserCommandTest
     {
-        private const string userName = "User";
-        private const string role = "User";
-
         private readonly Mock<IIdentityService> identityService;
         private readonly Mock<IStringLocalizer<UsersResource>> stringLocalizer;
         private readonly Mock<RoleManager<IdentityRole>> roleManager;
@@ -32,20 +30,26 @@ namespace SK.Application.UnitTests.User.Commands
 
         public AddRoleToUserCommandTest()
         {
+            user = new Faker<AppUser>("en")
+                .RuleFor(u => u.UserName, f => f.Random.String(10))
+                .Generate();
+
+            userDto = new Faker<UserAndRoleDto>("en")
+                .RuleFor(u => u.Username, f => f.Random.String(10))
+                .RuleFor(u => u.Role, f => f.Random.String(10))
+                .Generate();
+
             identityService = new Mock<IIdentityService>();
             stringLocalizer = new Mock<IStringLocalizer<UsersResource>>();
             var roleStore = new Mock<IRoleStore<IdentityRole>>();
             roleManager = new Mock<RoleManager<IdentityRole>>(roleStore.Object, null, null, null, null);
-
-            user = new AppUser { UserName = userName };
-            userDto = new UserAndRoleDto { Role = role, Username = userName };
         }
 
         [Test]
         public async Task ShouldCallHandle()
         {
             //Arrange
-            identityService.Setup(x => x.GetUserByUsernameAsync(userName)).Returns(Task.FromResult(user));
+            identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
 
             AddRoleToUserCommandHandler addRoleToUserCommandHandler = new AddRoleToUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
             AddRoleToUserCommand addRoleToUserCommand = new AddRoleToUserCommand(userDto);
@@ -64,7 +68,7 @@ namespace SK.Application.UnitTests.User.Commands
         public void ShouldNotCallHandleIfUserNotExist()
         {
             //Arrange
-            identityService.Setup(x => x.GetUserByUsernameAsync(userName)).Returns(Task.FromResult((AppUser)null));
+            identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult((AppUser)null));
 
             AddRoleToUserCommandHandler addRoleToUserCommandHandler = new AddRoleToUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
             AddRoleToUserCommand addRoleToUserCommand = new AddRoleToUserCommand(userDto);
@@ -80,7 +84,7 @@ namespace SK.Application.UnitTests.User.Commands
         public void ShouldNotCallHandleIfRoleNotExist()
         {
             //Arrange
-            identityService.Setup(x => x.GetUserByUsernameAsync(userName)).Returns(Task.FromResult(user));
+            identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
 
             AddRoleToUserCommandHandler addRoleToUserCommandHandler = new AddRoleToUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
             AddRoleToUserCommand addRoleToUserCommand = new AddRoleToUserCommand(userDto);
