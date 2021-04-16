@@ -46,7 +46,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -56,17 +55,14 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             mapper.Setup(x => x.Map<Discussion>(createDiscussionCommand)).Returns(discussion);
 
-            //Act
             var result = await createDiscussionCommandHandler.Handle(createDiscussionCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(id);
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -76,10 +72,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             mapper.Setup(x => x.Map<Discussion>(createDiscussionCommand)).Returns(discussion);
 
-            //Act
             Func<Task> act = async () => await createDiscussionCommandHandler.Handle(createDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

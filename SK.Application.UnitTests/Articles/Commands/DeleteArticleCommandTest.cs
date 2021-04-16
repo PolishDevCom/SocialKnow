@@ -35,7 +35,6 @@ namespace SK.Application.UnitTests.Articles.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Article>(Task.FromResult(new Article { Id = id })));
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -43,17 +42,14 @@ namespace SK.Application.UnitTests.Articles.Commands
             DeleteArticleCommandHandler deleteArticleCommandHandler = new DeleteArticleCommandHandler(context.Object, stringLocalizer.Object);
             DeleteArticleCommand deleteArticleCommand = new DeleteArticleCommand(id);
 
-            //Act
             var result = await deleteArticleCommandHandler.Handle(deleteArticleCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Article>(Task.FromResult(new Article { Id = id })));
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -61,27 +57,22 @@ namespace SK.Application.UnitTests.Articles.Commands
             DeleteArticleCommandHandler deleteArticleCommandHandler = new DeleteArticleCommandHandler(context.Object, stringLocalizer.Object);
             DeleteArticleCommand deleteArticleCommand = new DeleteArticleCommand(id);
 
-            //Act
             Func<Task> act = async () => await deleteArticleCommandHandler.Handle(deleteArticleCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfArticleNotExist()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
 
             DeleteArticleCommandHandler deleteArticleCommandHandler = new DeleteArticleCommandHandler(context.Object, stringLocalizer.Object);
             DeleteArticleCommand deleteArticleCommand = new DeleteArticleCommand(id);
 
-            //Act
             Func<Task> act = async () => await deleteArticleCommandHandler.Handle(deleteArticleCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
     }

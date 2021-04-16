@@ -48,7 +48,6 @@ namespace SK.Application.UnitTests.User.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
 
             RemoveRoleFromUserCommandHandler removeRoleFromUserCommandHandler = new RemoveRoleFromUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
@@ -57,33 +56,27 @@ namespace SK.Application.UnitTests.User.Commands
             roleManager.Setup(x => x.RoleExistsAsync(removeRoleFromUserCommand.Role)).Returns(Task.FromResult(true));
             identityService.Setup(x => x.RemoveRoleFromUserAsync(user, removeRoleFromUserCommand.Role)).Returns(Task.FromResult(Result.Success()));
 
-            //Act
             var result = await removeRoleFromUserCommandHandler.Handle(removeRoleFromUserCommand, new CancellationToken());
 
-            //Assert
             result.Succeeded.Should().BeTrue();
         }
 
         [Test]
         public void ShouldNotCallHandleIfUserNotExist()
         {
-            //Arrange
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult((AppUser)null));
 
             RemoveRoleFromUserCommandHandler removeRoleFromUserCommandHandler = new RemoveRoleFromUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
             RemoveRoleFromUserCommand removeRoleFromUserCommand = new RemoveRoleFromUserCommand(userDto);
 
-            //Act
             Func<Task> act = async () => await removeRoleFromUserCommandHandler.Handle(removeRoleFromUserCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfRoleNotExist()
         {
-            //Arrange
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
 
             RemoveRoleFromUserCommandHandler removeRoleFromUserCommandHandler = new RemoveRoleFromUserCommandHandler(identityService.Object, roleManager.Object, stringLocalizer.Object);
@@ -91,10 +84,8 @@ namespace SK.Application.UnitTests.User.Commands
 
             roleManager.Setup(x => x.RoleExistsAsync(removeRoleFromUserCommand.Role)).Returns(Task.FromResult(false));
 
-            //Act
             Func<Task> act = async () => await removeRoleFromUserCommandHandler.Handle(removeRoleFromUserCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

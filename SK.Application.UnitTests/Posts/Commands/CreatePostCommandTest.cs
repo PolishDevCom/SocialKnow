@@ -47,7 +47,6 @@ namespace SK.Application.UnitTests.Posts.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
@@ -58,17 +57,14 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             mapper.Setup(x => x.Map<Post>(createPostCommand)).Returns(post);
 
-            //Act
             var result = await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(id);
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionNotExist()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
@@ -76,17 +72,14 @@ namespace SK.Application.UnitTests.Posts.Commands
             CreatePostCommandHandler createPostCommandHandler = new CreatePostCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             CreatePostCommand createPostCommand = new CreatePostCommand(postDto);
 
-            //Act
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionIsClosed()
         {
-            //Arrange
             discussion.IsClosed = true;
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
@@ -98,17 +91,14 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             mapper.Setup(x => x.Map<Post>(createPostCommand)).Returns(post);
 
-            //Act
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
@@ -119,10 +109,8 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             mapper.Setup(x => x.Map<Post>(createPostCommand)).Returns(post);
 
-            //Act
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

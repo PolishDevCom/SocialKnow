@@ -39,7 +39,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -47,10 +46,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             OpenDiscussionCommandHandler openDiscussionCommandHandler = new OpenDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             OpenDiscussionCommand openDiscussionCommand = new OpenDiscussionCommand(id);
 
-            //Act
             var result = await openDiscussionCommandHandler.Handle(openDiscussionCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
             discussion.IsClosed.Should().BeFalse();
         }
@@ -58,24 +55,20 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public void ShouldNotCallHandleIfDiscussionNotExist()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
 
             OpenDiscussionCommandHandler openDiscussionCommandHandler = new OpenDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             OpenDiscussionCommand openDiscussionCommand = new OpenDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await openDiscussionCommandHandler.Handle(openDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionIsNotClosed()
         {
-            //Arrange
             discussion.IsClosed = false;
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
@@ -84,17 +77,14 @@ namespace SK.Application.UnitTests.Discussions.Commands
             OpenDiscussionCommandHandler openDiscussionCommandHandler = new OpenDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             OpenDiscussionCommand openDiscussionCommand = new OpenDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await openDiscussionCommandHandler.Handle(openDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -102,10 +92,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             OpenDiscussionCommandHandler openDiscussionCommandHandler = new OpenDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             OpenDiscussionCommand openDiscussionCommand = new OpenDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await openDiscussionCommandHandler.Handle(openDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

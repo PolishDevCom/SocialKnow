@@ -35,7 +35,6 @@ namespace SK.Application.UnitTests.Events.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(new Event { Id = id })));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -43,34 +42,28 @@ namespace SK.Application.UnitTests.Events.Commands
             DeleteEventCommandHandler deleteEventCommandHandler = new DeleteEventCommandHandler(context.Object, stringLocalizer.Object);
             DeleteEventCommand deleteEventCommand = new DeleteEventCommand(id);
 
-            //Act
             var result = await deleteEventCommandHandler.Handle(deleteEventCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
 
         [Test]
         public void ShouldNotCallHandleIfEventNotExist()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
 
             DeleteEventCommandHandler deleteEventCommandHandler = new DeleteEventCommandHandler(context.Object, stringLocalizer.Object);
             DeleteEventCommand deleteEventCommand = new DeleteEventCommand(id);
 
-            //Act
             Func<Task> act = async() => await deleteEventCommandHandler.Handle(deleteEventCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(new Event { Id = id })));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -78,10 +71,8 @@ namespace SK.Application.UnitTests.Events.Commands
             DeleteEventCommandHandler deleteEventCommandHandler = new DeleteEventCommandHandler(context.Object, stringLocalizer.Object);
             DeleteEventCommand deleteEventCommand = new DeleteEventCommand(id);
 
-            //Act
             Func<Task> act = async () => await deleteEventCommandHandler.Handle(deleteEventCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

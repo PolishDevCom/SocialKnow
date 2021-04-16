@@ -36,7 +36,6 @@ namespace SK.Application.UnitTests.Articles.Commands.CreateArticle
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             var id = new Guid();
             var articleDto = new ArticleCreateOrEditDto { Id = id };
             var article = new Article { Id = id };
@@ -49,17 +48,14 @@ namespace SK.Application.UnitTests.Articles.Commands.CreateArticle
 
             mapper.Setup(x => x.Map<Article>(createArticleCommand)).Returns(article);
 
-            //Act
             var result = await createArticleCommandHandler.Handle(createArticleCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(id);
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
 
@@ -68,10 +64,8 @@ namespace SK.Application.UnitTests.Articles.Commands.CreateArticle
 
             mapper.Setup(x => x.Map<Article>(createArticleCommand)).Returns(new Article());
 
-            //Act
             Func<Task> act = async () => await createArticleCommandHandler.Handle(createArticleCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

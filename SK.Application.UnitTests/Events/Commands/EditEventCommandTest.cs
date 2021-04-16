@@ -45,7 +45,6 @@ namespace SK.Application.UnitTests.Events.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(eventEntity)));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -54,34 +53,28 @@ namespace SK.Application.UnitTests.Events.Commands
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);
 
-            //Act
             var result = await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
 
         [Test]
         public void ShouldNotCallHandleIfEventNotExist()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
 
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);
 
-            //Act
             Func<Task> act = async() => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetEvent.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Event>(Task.FromResult(eventEntity)));
             context.Setup(x => x.Events).Returns(dbSetEvent.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -90,10 +83,8 @@ namespace SK.Application.UnitTests.Events.Commands
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);
 
-            //Act
             Func<Task> act = async () => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

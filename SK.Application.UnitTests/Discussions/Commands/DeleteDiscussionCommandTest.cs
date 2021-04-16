@@ -39,7 +39,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -47,34 +46,28 @@ namespace SK.Application.UnitTests.Discussions.Commands
             DeleteDiscussionCommandHandler deleteDiscussionCommandHandler = new DeleteDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             DeleteDiscussionCommand deleteDiscussionCommand = new DeleteDiscussionCommand(id);
 
-            //Act
             var result = await deleteDiscussionCommandHandler.Handle(deleteDiscussionCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionNotExist()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
 
             DeleteDiscussionCommandHandler deleteDiscussionCommandHandler = new DeleteDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             DeleteDiscussionCommand deleteDiscussionCommand = new DeleteDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await deleteDiscussionCommandHandler.Handle(deleteDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -82,10 +75,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             DeleteDiscussionCommandHandler deleteDiscussionCommandHandler = new DeleteDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             DeleteDiscussionCommand deleteDiscussionCommand = new DeleteDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await deleteDiscussionCommandHandler.Handle(deleteDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

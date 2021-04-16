@@ -42,40 +42,33 @@ namespace SK.Application.UnitTests.User.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
             identityService.Setup(x => x.DeleteUserAsync(user.UserName)).Returns(Task.FromResult(Result.Success()));
 
             DeleteUserCommandHandler deleteUserCommandHandler = new DeleteUserCommandHandler(identityService.Object, currentUserService, stringLocalizer.Object);
             DeleteUserCommand deleteUserCommand = new DeleteUserCommand(user.UserName);
 
-            //Act
             var result = await deleteUserCommandHandler.Handle(deleteUserCommand, new CancellationToken());
 
-            //Assert
             result.Succeeded.Should().BeTrue();
         }
 
         [Test]
         public void ShouldNotCallHandleIfUserNotExist()
         {
-            //Arrange
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult((AppUser)null));
 
             DeleteUserCommandHandler deleteUserCommandHandler = new DeleteUserCommandHandler(identityService.Object, currentUserService, stringLocalizer.Object);
             DeleteUserCommand deleteUserCommand = new DeleteUserCommand(user.UserName);
 
-            //Act
             Func<Task> act = async () => await deleteUserCommandHandler.Handle(deleteUserCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfCurrentUserNotMatch()
         {
-            //Arrange
             user.UserName = It.IsAny<string>();
             identityService.Setup(x => x.GetUserByUsernameAsync(user.UserName)).Returns(Task.FromResult(user));
             identityService.Setup(x => x.DeleteUserAsync(user.UserName)).Returns(Task.FromResult(Result.Success()));
@@ -83,10 +76,8 @@ namespace SK.Application.UnitTests.User.Commands
             DeleteUserCommandHandler deleteUserCommandHandler = new DeleteUserCommandHandler(identityService.Object, currentUserService, stringLocalizer.Object);
             DeleteUserCommand deleteUserCommand = new DeleteUserCommand(user.UserName);
 
-            //Act
             Func<Task> act = async () => await deleteUserCommandHandler.Handle(deleteUserCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

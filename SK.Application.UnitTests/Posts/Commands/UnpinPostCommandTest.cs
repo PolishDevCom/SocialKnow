@@ -38,7 +38,6 @@ namespace SK.Application.UnitTests.Posts.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Post>(Task.FromResult(post)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -46,10 +45,8 @@ namespace SK.Application.UnitTests.Posts.Commands
             UnpinPostCommandHandler unpinPostCommandHandler = new UnpinPostCommandHandler(context.Object, stringLocalizer.Object);
             UnpinPostCommand unpinPostCommand = new UnpinPostCommand(id);
 
-            //Act
             var result = await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
             post.IsPinned.Should().BeFalse();
         }
@@ -57,24 +54,20 @@ namespace SK.Application.UnitTests.Posts.Commands
         [Test]
         public void ShouldNotCallHandleIfPostNotExist()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
 
             UnpinPostCommandHandler unpinPostCommandHandler = new UnpinPostCommandHandler(context.Object, stringLocalizer.Object);
             UnpinPostCommand unpinPostCommand = new UnpinPostCommand(id);
 
-            //Act
             Func<Task> act = async() => await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfPostIsNotPinned()
         {
-            //Arrange
             post.IsPinned = false;
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Post>(Task.FromResult(post)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
@@ -83,17 +76,14 @@ namespace SK.Application.UnitTests.Posts.Commands
             UnpinPostCommandHandler unpinPostCommandHandler = new UnpinPostCommandHandler(context.Object, stringLocalizer.Object);
             UnpinPostCommand unpinPostCommand = new UnpinPostCommand(id);
 
-            //Act
             Func<Task> act = async () => await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Post>(Task.FromResult(post)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -101,10 +91,8 @@ namespace SK.Application.UnitTests.Posts.Commands
             UnpinPostCommandHandler unpinPostCommandHandler = new UnpinPostCommandHandler(context.Object, stringLocalizer.Object);
             UnpinPostCommand unpinPostCommand = new UnpinPostCommand(id);
 
-            //Act
             Func<Task> act = async () => await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

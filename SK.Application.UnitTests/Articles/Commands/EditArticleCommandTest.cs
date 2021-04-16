@@ -45,7 +45,6 @@ namespace SK.Application.UnitTests.Articles.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Article>(Task.FromResult(article)));
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -53,10 +52,8 @@ namespace SK.Application.UnitTests.Articles.Commands
             EditArticleCommandHandler editArticleCommandHandler = new EditArticleCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditArticleCommand editArticleCommand = new EditArticleCommand(articleDto);
 
-            //Act
             var result = await editArticleCommandHandler.Handle(editArticleCommand, new CancellationToken());
 
-            //Assert
             mapper.Verify(x => x.Map(editArticleCommand, article), Times.Once);
             result.Should().Be(Unit.Value);
         }
@@ -64,7 +61,6 @@ namespace SK.Application.UnitTests.Articles.Commands
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Article>(Task.FromResult(new Article { Id = id })));
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -72,27 +68,22 @@ namespace SK.Application.UnitTests.Articles.Commands
             EditArticleCommandHandler editArticleCommandHandler = new EditArticleCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditArticleCommand editArticleCommand = new EditArticleCommand(articleDto);
 
-            //Act
             Func<Task> act = async () => await editArticleCommandHandler.Handle(editArticleCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfArticleNotExist()
         {
-            //Arrange
             dbSetArticle.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Articles).Returns(dbSetArticle.Object);
 
             EditArticleCommandHandler editArticleCommandHandler = new EditArticleCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditArticleCommand editArticleCommand = new EditArticleCommand(articleDto);
 
-            //Act
             Func<Task> act = async () => await editArticleCommandHandler.Handle(editArticleCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
     }

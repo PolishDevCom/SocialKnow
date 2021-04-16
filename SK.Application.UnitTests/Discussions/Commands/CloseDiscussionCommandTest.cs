@@ -39,7 +39,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             discussion.IsClosed = false;
 
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
@@ -49,10 +48,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             CloseDiscussionCommandHandler closeDiscussionCommandHandler = new CloseDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             CloseDiscussionCommand closeDiscussionCommand = new CloseDiscussionCommand(id);
 
-            //Act
             var result = await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
             discussion.IsClosed.Should().BeTrue();
         }
@@ -60,24 +57,20 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public void ShouldNotCallHandleIfDiscussionNotExist()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
 
             CloseDiscussionCommandHandler closeDiscussionCommandHandler = new CloseDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             CloseDiscussionCommand closeDiscussionCommand = new CloseDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionIsClosed()
         {
-            //Arrange
             discussion.IsClosed = true;
 
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
@@ -86,17 +79,14 @@ namespace SK.Application.UnitTests.Discussions.Commands
             CloseDiscussionCommandHandler closeDiscussionCommandHandler = new CloseDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             CloseDiscussionCommand closeDiscussionCommand = new CloseDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             discussion.IsClosed = false;
 
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
@@ -106,10 +96,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             CloseDiscussionCommandHandler closeDiscussionCommandHandler = new CloseDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             CloseDiscussionCommand closeDiscussionCommand = new CloseDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

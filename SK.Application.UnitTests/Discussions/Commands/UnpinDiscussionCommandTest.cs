@@ -39,7 +39,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -47,10 +46,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             UnpinDiscussionCommandHandler unpinDiscussionCommandHandler = new UnpinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             UnpinDiscussionCommand unpinDiscussionCommand = new UnpinDiscussionCommand(id);
 
-            //Act
             var result = await unpinDiscussionCommandHandler.Handle(unpinDiscussionCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
             discussion.IsPinned.Should().BeFalse();
         }
@@ -58,24 +55,20 @@ namespace SK.Application.UnitTests.Discussions.Commands
         [Test]
         public void ShouldNotCallHandleIfDiscussionNotExist()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
 
             UnpinDiscussionCommandHandler unpinDiscussionCommandHandler = new UnpinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             UnpinDiscussionCommand unpinDiscussionCommand = new UnpinDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await unpinDiscussionCommandHandler.Handle(unpinDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfDiscussionIsNotPinned()
         {
-            //Arrange
             discussion.IsPinned = false;
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
@@ -84,17 +77,14 @@ namespace SK.Application.UnitTests.Discussions.Commands
             UnpinDiscussionCommandHandler unpinDiscussionCommandHandler = new UnpinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             UnpinDiscussionCommand unpinDiscussionCommand = new UnpinDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await unpinDiscussionCommandHandler.Handle(unpinDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -102,10 +92,8 @@ namespace SK.Application.UnitTests.Discussions.Commands
             UnpinDiscussionCommandHandler unpinDiscussionCommandHandler = new UnpinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             UnpinDiscussionCommand unpinDiscussionCommand = new UnpinDiscussionCommand(id);
 
-            //Act
             Func<Task> act = async () => await unpinDiscussionCommandHandler.Handle(unpinDiscussionCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

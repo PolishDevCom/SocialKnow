@@ -38,7 +38,6 @@ namespace SK.Application.UnitTests.Posts.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Post>(Task.FromResult(post)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
@@ -46,34 +45,28 @@ namespace SK.Application.UnitTests.Posts.Commands
             DeletePostCommandHandler deletePostCommandHandler = new DeletePostCommandHandler(context.Object, stringLocalizer.Object);
             DeletePostCommand deletePostCommand = new DeletePostCommand(id);
 
-            //Act
             var result = await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
 
         [Test]
         public void ShouldNotCallHandleIfPostNotExist()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
 
             DeletePostCommandHandler deletePostCommandHandler = new DeletePostCommandHandler(context.Object, stringLocalizer.Object);
             DeletePostCommand deletePostCommand = new DeletePostCommand(id);
 
-            //Act
             Func<Task> act = async() => await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<NotFoundException>();
         }
 
         [Test]
         public void ShouldNotCallHandleIfNotSavedChanges()
         {
-            //Arrange
             dbSetPost.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Post>(Task.FromResult(post)));
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
@@ -81,10 +74,8 @@ namespace SK.Application.UnitTests.Posts.Commands
             DeletePostCommandHandler deletePostCommandHandler = new DeletePostCommandHandler(context.Object, stringLocalizer.Object);
             DeletePostCommand deletePostCommand = new DeletePostCommand(id);
 
-            //Act
             Func<Task> act = async () => await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
 
-            //Assert
             act.Should().Throw<RestException>();
         }
     }

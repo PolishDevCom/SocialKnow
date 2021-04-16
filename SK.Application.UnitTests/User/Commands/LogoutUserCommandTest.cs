@@ -24,14 +24,11 @@ namespace SK.Application.UnitTests.User.Commands
         [Test]
         public async Task ShouldCallHandle()
         {
-            //Arrange
             LogoutUserCommandHandler logoutUserCommandHandler = new LogoutUserCommandHandler(tokenManager.Object);
             LogoutUserCommand logoutUserCommand = new LogoutUserCommand();
 
-            //Act
             var result = await logoutUserCommandHandler.Handle(logoutUserCommand, new CancellationToken());
 
-            //Assert
             result.Should().Be(Unit.Value);
         }
     }
