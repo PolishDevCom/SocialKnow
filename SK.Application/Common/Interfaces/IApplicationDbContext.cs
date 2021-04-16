@@ -14,6 +14,7 @@ namespace SK.Application.Common.Interfaces
         DbSet<Discussion> Discussions { get; set; }
         DbSet<Post> Posts { get; set; }
         DbSet<Photo> Photos { get; set; }
+        DbSet<Tag> Tags { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
