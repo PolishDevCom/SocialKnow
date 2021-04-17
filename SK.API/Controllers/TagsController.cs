@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SK.Application.Common.Models;
+using SK.Application.Common.Wrappers;
 using SK.Application.Tags.Commands;
 using SK.Application.Tags.Commands.CreateTag;
 using SK.Application.Tags.Commands.EditTag;
+using SK.Application.Tags.Queries;
+using SK.Application.Tags.Queries.ListTag;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +18,17 @@ namespace SK.API.Controllers
     [Authorize(Roles = "Administrator")]
     public class TagsController : ApiController
     {
+        /// <summary>
+        /// Fetches lists of tags with selected pagination filter.
+        /// </summary>
+        /// <param name="paginationFilter">Pagination filter</param>
+        /// <returns>List of tags</returns>
+        [HttpGet]
+        public async Task<ActionResult<PagedResponse<List<TagDto>>>> List([FromQuery] PaginationFilter paginationFilter)
+        {
+            return Ok(await Mediator.Send(new ListTagQuery(paginationFilter, Request.Path.Value)));
+        }
+
         /// <summary>
         /// Adds a new tag.
         /// </summary>
