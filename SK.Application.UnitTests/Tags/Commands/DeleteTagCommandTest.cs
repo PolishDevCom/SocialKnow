@@ -63,7 +63,7 @@ namespace SK.Application.UnitTests.Tags.Commands
         }
 
         [Test]
-        public void ShouldNotCallHandleIfArticleNotExist()
+        public void ShouldNotCallHandleIfTagNotExist()
         {
             dbSetTag.Setup(x => x.FindAsync(id)).Returns(null);
             context.Setup(x => x.Tags).Returns(dbSetTag.Object);
