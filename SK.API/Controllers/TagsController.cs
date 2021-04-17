@@ -5,6 +5,7 @@ using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
 using SK.Application.Tags.Commands;
 using SK.Application.Tags.Commands.CreateTag;
+using SK.Application.Tags.Commands.DeleteTag;
 using SK.Application.Tags.Commands.EditTag;
 using SK.Application.Tags.Queries;
 using SK.Application.Tags.Queries.ListTag;
@@ -49,6 +50,18 @@ namespace SK.API.Controllers
         public async Task<ActionResult> Update([FromBody] TagCreateOrEditDto editTag)
         {
             await Mediator.Send(new EditTagCommand(editTag));
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes a tag with selected id.
+        /// </summary>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Tag ID</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await Mediator.Send(new DeleteTagCommand(id));
             return NoContent();
         }
     }

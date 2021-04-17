@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -12,30 +11,27 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SK.Application.Tags.Commands.CreateTag
+namespace SK.Application.Tags.Commands.DeleteTag
 {
-    public class CreateTagCommandHandler : IRequestHandler<CreateTagCommand, Guid>
+    public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommand>
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<TagsResource> _localizer;
-        private readonly IMapper _mapper;
 
-        public CreateTagCommandHandler(IApplicationDbContext context, IStringLocalizer<TagsResource> localizer, IMapper mapper)
+        public DeleteTagCommandHandler(IApplicationDbContext context, IStringLocalizer<TagsResource> localizer)
         {
             _context = context;
             _localizer = localizer;
-            _mapper = mapper;
         }
 
-        public async Task<Guid> Handle(CreateTagCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteTagCommand request, CancellationToken cancellationToken)
         {
-            var tag = _mapper.Map<Tag>(request);
-
-            _context.Tags.Add(tag);
-            var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
-            if (succes)
+            var tagToDelete = await _context.Tags.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Tag), request.Id);
+            _context.Tags.Remove(tagToDelete);
+            var success = await _context.SaveChangesAsync(cancellationToken) > 0;
+            if (success)
             {
-                return tag.Id;
+                return Unit.Value;
             }
             throw new RestException(HttpStatusCode.BadRequest, new { Tag = _localizer["TagSaveError"] });
         }
