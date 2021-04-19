@@ -30,26 +30,15 @@ namespace SK.Application.Discussions.Queries.ListDiscussion
             var route = request.Path;
             var validFilter = new PaginationFilter(request.Filter.PageNumber, request.Filter.PageSize);
 
-            var pinnedDiscussionList = await _context.Discussions
-                .Where(d => d.IsPinned)
+            var pagedData = await _context.Discussions
+                .OrderByDescending(d => d.IsPinned)
+                .ThenByDescending(d => d.Created)
                 .ProjectTo<DiscussionDto>(_mapper.ConfigurationProvider)
-                .OrderByDescending(d => d.Created)
-                .ToListAsync(cancellationToken);
-
-            var unpinnedDiscussionList = await _context.Discussions
-                .Where(d => d.IsPinned == false)
-                .ProjectTo<DiscussionDto>(_mapper.ConfigurationProvider)
-                .OrderByDescending(d => d.Created)
-                .ToListAsync(cancellationToken);
-
-            var allDiscussionsList = new List<DiscussionDto>(pinnedDiscussionList.Count + unpinnedDiscussionList.Count);
-            allDiscussionsList.AddRange(pinnedDiscussionList);
-            allDiscussionsList.AddRange(unpinnedDiscussionList);
-            allDiscussionsList.ForEach(d => d.NumberOfPosts = d.Posts?.Count ?? 0);
-
-            var pagedData = allDiscussionsList
                 .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-                .Take(validFilter.PageSize).ToList();
+                .Take(validFilter.PageSize)
+                .ToListAsync(cancellationToken);
+
+            pagedData.ForEach(d => d.NumberOfPosts = d.Posts?.Count ?? 0);
 
             var totalRecords = await _context.Discussions.CountAsync();
             var pagedResponse = PaginationHelper.CreatePagedReponse<DiscussionDto>(pagedData, validFilter, totalRecords, _uriService, route);
