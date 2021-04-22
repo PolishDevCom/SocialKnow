@@ -36,7 +36,6 @@ namespace SK.Application.Tags.Queries.ListTag
                 .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
                 .Take(validFilter.PageSize)
                 .ProjectTo<TagDto>(_mapper.ConfigurationProvider)
-                .OrderByDescending(a => a.Created)
                 .ToListAsync(cancellationToken);
             var totalRecords = await _context.Tags.CountAsync();
             var pagedResponse = PaginationHelper.CreatePagedReponse<TagDto>(pagedData, validFilter, totalRecords, _uriService, route);

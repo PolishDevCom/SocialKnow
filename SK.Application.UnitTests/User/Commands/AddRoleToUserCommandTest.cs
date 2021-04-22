@@ -30,14 +30,8 @@ namespace SK.Application.UnitTests.User.Commands
 
         public AddRoleToUserCommandTest()
         {
-            user = new Faker<AppUser>("en")
-                .RuleFor(u => u.UserName, f => f.Random.String(10))
-                .Generate();
-
-            userDto = new Faker<UserAndRoleDto>("en")
-                .RuleFor(u => u.Username, f => f.Random.String(10))
-                .RuleFor(u => u.Role, f => f.Random.String(10))
-                .Generate();
+            user = new AppUser { UserName = "" };
+            userDto = new UserAndRoleDto { Username = "", Role = "" };
 
             identityService = new Mock<IIdentityService>();
             stringLocalizer = new Mock<IStringLocalizer<UsersResource>>();
