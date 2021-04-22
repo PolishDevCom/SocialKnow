@@ -10,7 +10,5 @@ namespace SK.Application.Tags.Queries
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime Created { get; set; }
     }
 }
