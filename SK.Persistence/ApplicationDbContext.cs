@@ -30,6 +30,7 @@ namespace SK.Persistence
         public DbSet<Post> Posts { get; set; }
         public DbSet<AdditionalUserContent> AdditionalUserContents { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
