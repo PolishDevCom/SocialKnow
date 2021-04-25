@@ -64,6 +64,7 @@ namespace SK.Infrastructure
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IPhotoService, PhotoService>();
+            services.AddTransient(typeof(IPaginationService<,>), typeof(PaginationService<,>));
 
             services.AddSingleton<IUriService>(o =>
             {
