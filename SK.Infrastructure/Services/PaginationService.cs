@@ -46,16 +46,8 @@ namespace SK.Infrastructure.Services
         public async Task<PagedResponse<List<TDto>>> GetPagedData<TKey>(PaginationFilter validFilter, string route, CancellationToken cancellationToken,
             Expression<Func<TEntity, TKey>> additionalOrder, bool descending = true)
         {
-            IOrderedQueryable<TEntity> orderedQueryable;
-
-            if (descending)
-            {
-                orderedQueryable = _context.DbSet<TEntity>().OrderByDescending(additionalOrder);
-            }
-            else
-            {
-                orderedQueryable = _context.DbSet<TEntity>().OrderBy(additionalOrder);              
-            }
+            IOrderedQueryable<TEntity> orderedQueryable = descending ?
+                _context.DbSet<TEntity>().OrderByDescending(additionalOrder) : _context.DbSet<TEntity>().OrderBy(additionalOrder);
 
             var pagedData = await orderedQueryable
                 .ThenByDescending(a => a.Created)
