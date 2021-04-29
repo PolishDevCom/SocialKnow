@@ -31,6 +31,7 @@ namespace SK.Persistence
         public DbSet<AdditionalUserContent> AdditionalUserContents { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity
         {
