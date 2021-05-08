@@ -53,6 +53,7 @@ The application has been clearly divided into the backend and frontend parts. Th
 Backend
 * [ASP.NET Core 3.1](https://docs.microsoft.com/pl-pl/aspnet/core/?view=aspnetcore-3.1)
 * [PostgreSQL](https://www.postgresql.org/)
+* [Redis](https://redis.io/)
 * [Entity Framework Core](https://docs.microsoft.com/en-US/ef/core/)
 * [ASP.NET Core Identity](https://docs.microsoft.com/en-US/aspnet/core/security/authentication/identity?view=aspnetcore-5.0&tabs=visual-studio)
 * [MediatR](https://github.com/jbogard/MediatR)
@@ -91,6 +92,13 @@ To get a local copy up and running follow these simple steps:
 "ConnectionStrings": 
 {
     "DefaultConnection": "yourDatabaseConnectionString"
+}
+```
+* In `appsettings.json` change Redis connection string:
+
+```json
+"Redis": {
+    "ConnectionString": "yourRedisConnectionString"
 }
 ```
 * For SK.API project set user secrets using CLI or directly in `secrets.json`:
