@@ -32,6 +32,11 @@ namespace SK.Persistence
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity
+        {
+            return Set<TEntity>();
+        }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
