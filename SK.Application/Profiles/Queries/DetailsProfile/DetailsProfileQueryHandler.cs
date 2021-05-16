@@ -27,7 +27,7 @@ namespace SK.Application.Profiles.Queries.DetailsProfile
             {
                 Username = user.UserName,
                 Image = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
-                Bio = user.Bio,
+                ShortBio = user.ShortBio,
                 Photos = user.Photos
             };
         }
