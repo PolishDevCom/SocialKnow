@@ -1,10 +1,11 @@
-﻿using SK.Domain.Entities;
+﻿using SK.Application.Common.Mapping;
+using SK.Domain.Entities;
 using SK.Domain.Enums;
 using System.Collections.Generic;
 
 namespace SK.Application.Profiles.Queries
 {
-    public class ProfileDto
+    public class ProfileDto : IMapFrom<AppUser>
     {
         /// <summary>
         /// User username

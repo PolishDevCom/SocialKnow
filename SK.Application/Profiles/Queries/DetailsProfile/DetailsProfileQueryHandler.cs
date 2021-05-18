@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,21 +13,28 @@ namespace SK.Application.Profiles.Queries.DetailsProfile
     public class DetailsProfileQueryHandler : IRequestHandler<DetailsProfileQuery, ProfileDto>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public DetailsProfileQueryHandler(IApplicationDbContext context)
+        public DetailsProfileQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public async Task<ProfileDto> Handle(DetailsProfileQuery request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == request.Username) 
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.UserName == request.Username)
                 ??
                 throw new NotFoundException(nameof(User), request.Username);
 
             return new ProfileDto()
             {
                 Username = user.UserName,
+                Nickname = user.Nickname,
                 Image = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
+                Age = user.Age,
+                City = user.City,
+                UserGender = user.UserGender,
                 ShortBio = user.ShortBio,
                 Photos = user.Photos
             };
