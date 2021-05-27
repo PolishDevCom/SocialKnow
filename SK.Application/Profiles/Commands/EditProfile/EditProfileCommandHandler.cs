@@ -32,7 +32,7 @@ namespace SK.Application.Profiles.Commands.EditProfile
         public async Task<Unit> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
             var currentUser = _currentUserService.Username;
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == currentUser) ?? throw new NotFoundException(nameof(Profile), currentUser);
+            var user = await _context.Users.FindAsync(currentUser) ?? throw new NotFoundException(nameof(Profile), currentUser);
 
             _mapper.Map(request, user);
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
