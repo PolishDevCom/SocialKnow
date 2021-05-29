@@ -20,8 +20,6 @@ export const Home = () => {
     dispatch(motivatorSlice.actions.incrementSecondsEllapsed());
   }, 1000);
 
-  userRegister({'newTestUser', 'sebo44@gmail.com', 'pass'});
-
   return (
     <DefaultLayout gapRow={3} marginVertical={5} marginHorizontal="auto">
       <Typography.Heading as="h1">Hi, what's up?</Typography.Heading>
