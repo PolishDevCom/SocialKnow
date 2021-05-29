@@ -8,6 +8,7 @@ import {
 import { useInterval } from '../hooks/useInterval';
 import { DefaultLayout } from '../components/Layout/DefaultLayout';
 import { Typography } from '../components/Typography/Typography';
+import { userRegister } from '../userRegister';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,8 @@ export const Home = () => {
   useInterval(() => {
     dispatch(motivatorSlice.actions.incrementSecondsEllapsed());
   }, 1000);
+
+  userRegister({'newTestUser', 'sebo44@gmail.com', 'pass'});
 
   return (
     <DefaultLayout gapRow={3} marginVertical={5} marginHorizontal="auto">
