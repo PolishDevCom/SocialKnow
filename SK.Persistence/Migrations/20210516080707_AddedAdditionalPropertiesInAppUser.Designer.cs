@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SK.Persistence;
@@ -9,9 +10,10 @@ using SK.Persistence;
 namespace SK.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210516080707_AddedAdditionalPropertiesInAppUser")]
+    partial class AddedadditionalpropertiesinappUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,23 +149,6 @@ namespace SK.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SK.Domain.Entities.AdditionalInfo", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("InfoName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("InfoType")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdditionalInfos");
                 });
 
             modelBuilder.Entity("SK.Domain.Entities.AppUser", b =>

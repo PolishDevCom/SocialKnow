@@ -30,6 +30,7 @@ namespace SK.Persistence
         public DbSet<Post> Posts { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<AdditionalInfo> AdditionalInfos { get; set; }
 
         public DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity
         {

@@ -10,8 +10,8 @@ using SK.Persistence;
 namespace SK.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210516080707_Added additional properties in appUser")]
-    partial class AddedadditionalpropertiesinappUser
+    [Migration("20210530121204_AddedAdditionalInfoEntity")]
+    partial class AddedAdditionalInfoEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,6 +149,23 @@ namespace SK.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SK.Domain.Entities.AdditionalInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("InfoName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("InfoType")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdditionalInfos");
                 });
 
             modelBuilder.Entity("SK.Domain.Entities.AppUser", b =>
