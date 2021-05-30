@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Profiles;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace SK.Application.Profiles.Commands.EditProfile
         public async Task<Unit> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
             var currentUser = _currentUserService.Username;
-            var user = await _context.Users.FindAsync(currentUser) ?? throw new NotFoundException(nameof(Profile), currentUser);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == _currentUserService.Username) ?? throw new NotFoundException(nameof(Profile), currentUser);
 
             _mapper.Map(request, user);
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
