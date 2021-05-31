@@ -149,11 +149,17 @@ namespace SK.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SK.Domain.Entities.AdditionalInfo", b =>
+            modelBuilder.Entity("SK.Domain.Entities.AdditionalInfoDefinition", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("InfoName")
                         .HasColumnType("text");
@@ -161,9 +167,15 @@ namespace SK.Persistence.Migrations
                     b.Property<string>("InfoType")
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.ToTable("AdditionalInfos");
+                    b.ToTable("AdditionalInfoDefinitions");
                 });
 
             modelBuilder.Entity("SK.Domain.Entities.AppUser", b =>

@@ -271,24 +271,24 @@ namespace SK.Persistence
                 await context.Discussions.AddRangeAsync(discussions);
                 await context.SaveChangesAsync();
             }
-            if (!context.AdditionalInfos.Any())
+            if (!context.AdditionalInfoDefinitions.Any())
             {
-                var additionalInfos = new List<AdditionalInfo>
+                var additionalInfos = new List<AdditionalInfoDefinition>
                 {
-                    new AdditionalInfo
+                    new AdditionalInfoDefinition
                     {
                         Id=Guid.NewGuid(),
                         InfoName = "Interests",
                         InfoType = "string"
                     },
-                    new AdditionalInfo
+                    new AdditionalInfoDefinition
                     {
                         Id=Guid.NewGuid(),
                         InfoName = "Foot number",
                         InfoType = "int"
                     },
                 };
-                context.AdditionalInfos.AddRange(additionalInfos);
+                context.AdditionalInfoDefinitions.AddRange(additionalInfos);
                 await context.SaveChangesAsync();
             }
 

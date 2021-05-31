@@ -1,9 +1,9 @@
 ﻿using SK.Domain.Enums;
 using System;
 
-namespace SK.Application.AdditionalInfos.Queries
+namespace SK.Application.AdditionalInfoDefinitions.Queries
 {
-    public class AdditionalInfoDto
+    public class AdditionalInfoDefinitionDto
     {
         public Guid Id { get; set; }
         public string InfoName { get; set; }

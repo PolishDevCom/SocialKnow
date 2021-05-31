@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionalInfoSaveError" xml:space="preserve">
+  <data name="AdditionalInfoDefinitionSaveError" xml:space="preserve">
     <value>Problem saving changes to additional info.</value>
   </data>
-  <data name="AdditionalInfoValidatorNameEmpty" xml:space="preserve">
+  <data name="AdditionalInfoDefinitionValidatorNameEmpty" xml:space="preserve">
     <value>Additional info name is required.</value>
   </data>
-  <data name="AdditionalInfoValidatorTypeEmpty" xml:space="preserve">
+  <data name="AdditionalInfoDefinitionValidatorTypeEmpty" xml:space="preserve">
     <value>Additional info type is required.</value>
   </data>
 </root>
