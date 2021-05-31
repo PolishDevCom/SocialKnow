@@ -5,8 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200704120132_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200704120132_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200803092543_AddedIdentity.cs" />
+    <Compile Remove="Migrations\20200803092543_AddedIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200916103748_AddedEvents.cs" />
+    <Compile Remove="Migrations\20200916103748_AddedEvents.Designer.cs" />
+    <Compile Remove="Migrations\20200928085126_AddedArticles.cs" />
+    <Compile Remove="Migrations\20200928085126_AddedArticles.Designer.cs" />
+    <Compile Remove="Migrations\20201021053011_AddedDiscussionAndPost.cs" />
+    <Compile Remove="Migrations\20201021053011_AddedDiscussionAndPost.Designer.cs" />
+    <Compile Remove="Migrations\20201128135600_AddedPhotoEntity.cs" />
+    <Compile Remove="Migrations\20201128135600_AddedPhotoEntity.Designer.cs" />
+    <Compile Remove="Migrations\20201208193700_AddedBioToAppUser.cs" />
+    <Compile Remove="Migrations\20201208193700_AddedBioToAppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210414182428_AddedTags.cs" />
+    <Compile Remove="Migrations\20210414182428_AddedTags.Designer.cs" />
+    <Compile Remove="Migrations\20210516080707_AddedAdditionalPropertiesInAppUser.cs" />
+    <Compile Remove="Migrations\20210516080707_AddedAdditionalPropertiesInAppUser.Designer.cs" />
     <Compile Remove="Migrations\20210530121204_AddedAdditionalInfoEntity.cs" />
     <Compile Remove="Migrations\20210530121204_AddedAdditionalInfoEntity.Designer.cs" />
+    <Compile Remove="Migrations\20210531064956_AddedAdditionalInfoDefinitionEntity.cs" />
+    <Compile Remove="Migrations\20210531064956_AddedAdditionalInfoDefinitionEntity.Designer.cs" />
+    <Compile Remove="Migrations\20210531070731_TestMigration.cs" />
+    <Compile Remove="Migrations\20210531070731_TestMigration.Designer.cs" />
+    <Compile Remove="Migrations\20210531071646_AddedAdditionalInfoDefinitionEntity.cs" />
+    <Compile Remove="Migrations\20210531071646_AddedAdditionalInfoDefinitionEntity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +43,10 @@
   <ItemGroup>
     <ProjectReference Include="..\SK.Application\SK.Application.csproj" />
     <ProjectReference Include="..\SK.Domain\SK.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
