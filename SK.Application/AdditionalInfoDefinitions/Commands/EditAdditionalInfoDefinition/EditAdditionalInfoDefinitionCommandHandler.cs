@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Helpers;
@@ -16,20 +17,20 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDe
     {
         private readonly IApplicationDbContext _context;
         private readonly IStringLocalizer<AdditionalInfoDefinitionsResource> _localizer;
+        private readonly IMapper _mapper;
 
-        public EditAdditionalInfoDefinitionCommandHandler(IApplicationDbContext context, IStringLocalizer<AdditionalInfoDefinitionsResource> localizer)
+        public EditAdditionalInfoDefinitionCommandHandler(IApplicationDbContext context, IStringLocalizer<AdditionalInfoDefinitionsResource> localizer, IMapper mapper)
         {
             _context = context;
             _localizer = localizer;
+            _mapper = mapper;
         }
 
         public async Task<Guid> Handle(EditAdditionalInfoDefinitionCommand request, CancellationToken cancellationToken)
         {
             var additionalInfoDefinition = await _context.AdditionalInfoDefinitions.FindAsync(request.Id) ?? throw new NotFoundException(nameof(AdditionalInfoDefinition), request.Id);
 
-            additionalInfoDefinition.InfoName = request.InfoName;
-            additionalInfoDefinition.InfoType = ConvertHelper.ConvertTypeOfFieldEnumToStringType(request.TypeOfField);
-
+            _mapper.Map(request, additionalInfoDefinition);
             _context.AdditionalInfoDefinitions.Add(additionalInfoDefinition);
             var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
             if (succes)

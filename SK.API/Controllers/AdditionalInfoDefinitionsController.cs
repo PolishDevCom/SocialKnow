@@ -18,7 +18,7 @@ namespace SK.API.Controllers
     public class AdditionalInfoDefinitionsController : ApiController
     {
         /// <summary>
-        /// Fetches lists of additional info definition definitions with selected pagination filter.
+        /// Fetches lists of additional info definitions with selected pagination filter.
         /// </summary>
         /// <param name="paginationFilter">Pagination filter</param>
         /// <returns>List of additional info definition definitions</returns>
@@ -40,7 +40,7 @@ namespace SK.API.Controllers
         }
 
         /// <summary>
-        /// Updates additional info definition selected by id.
+        /// Updates a additional info definition selected by id.
         /// </summary>
         /// <param name="editAdditionalInfo">Edited additional info definition</param>
         /// <returns></returns>
@@ -52,7 +52,7 @@ namespace SK.API.Controllers
         }
 
         /// <summary>
-        /// Deletes an additional info definition with selected id.
+        /// Deletes a additional info definition with selected id.
         /// </summary>
         /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Additional info definition ID</param>
         /// <returns></returns>
