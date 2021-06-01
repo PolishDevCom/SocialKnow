@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
-using SK.Application.Common.Helpers;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.AdditionalInfoDefinitions;
 using SK.Domain.Entities;
@@ -31,7 +30,6 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDe
             var additionalInfoDefinition = await _context.AdditionalInfoDefinitions.FindAsync(request.Id) ?? throw new NotFoundException(nameof(AdditionalInfoDefinition), request.Id);
 
             _mapper.Map(request, additionalInfoDefinition);
-            _context.AdditionalInfoDefinitions.Add(additionalInfoDefinition);
             var succes = await _context.SaveChangesAsync(cancellationToken) > 0;
             if (succes)
             {
