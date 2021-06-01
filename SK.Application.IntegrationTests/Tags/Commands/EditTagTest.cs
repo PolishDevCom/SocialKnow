@@ -34,7 +34,6 @@ namespace SK.Application.IntegrationTests.Tags.Commands
 
             var modifiedTag = await FindByGuidAsync<Tag>(tagId);
 
-            //assert
             modifiedTag.Id.Should().Be(tagToModify.Id);
             modifiedTag.Title.Should().Be(tagToModify.Title);
             modifiedTag.LastModifiedBy.Should().Be(loggedUser);
