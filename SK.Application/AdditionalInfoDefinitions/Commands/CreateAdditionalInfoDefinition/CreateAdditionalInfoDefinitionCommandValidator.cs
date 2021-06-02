@@ -12,7 +12,7 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.CreateAdditionalInfo
             _localizer = localizer;
 
             RuleFor(a => a.InfoName).NotEmpty().WithMessage(_localizer["AdditionalInfoDefinitionValidatorNameEmpty"]);
-            RuleFor(a => a.TypeOfField).NotEmpty().WithMessage(_localizer["AdditionalInfoDefinitionValidatorTypeEmpty"]);
+            RuleFor(a => a.TypeOfField).NotNull().WithMessage(_localizer["AdditionalInfoDefinitionValidatorTypeEmpty"]);
         }
     }
 }

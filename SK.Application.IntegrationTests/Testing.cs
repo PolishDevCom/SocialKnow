@@ -141,6 +141,7 @@ public class Testing
         var allPosts = from c in context.Posts select c;
         var allPhotos = from c in context.Photos select c;
         var allTags = from c in context.Tags select c;
+        var allAdditionalInfoDefinitions = from c in context.AdditionalInfoDefinitions select c;
 
         context.Articles.RemoveRange(allArticles);
         context.Users.RemoveRange(allUsers);
@@ -149,6 +150,7 @@ public class Testing
         context.Posts.RemoveRange(allPosts);
         context.Photos.RemoveRange(allPhotos);
         context.Tags.RemoveRange(allTags);
+        context.AdditionalInfoDefinitions.RemoveRange(allAdditionalInfoDefinitions);
 
         await context.SaveChangesAsync();
 
