@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Categories.Commands;
 using SK.Application.Categories.Commands.CreateCategory;
+using SK.Application.Categories.Commands.DeleteCategory;
 using SK.Application.Categories.Commands.EditCategory;
 using SK.Application.Categories.Queries;
 using SK.Application.Categories.Queries.ListCategory;
@@ -48,6 +49,18 @@ namespace SK.API.Controllers
         public async Task<ActionResult> Update([FromBody] CategoryCreateOrEditDto editCategory)
         {
             await Mediator.Send(new EditCategoryCommand(editCategory));
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes a category with selected id.
+        /// </summary>
+        /// <param name="id" example="3fa85f64-5717-4562-b3fc-2c963f66afa6">Category ID</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await Mediator.Send(new DeleteCategoryCommand(id));
             return NoContent();
         }
     }
