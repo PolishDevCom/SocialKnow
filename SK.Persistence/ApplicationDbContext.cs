@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Common;
 using SK.Domain.Entities;
@@ -62,8 +63,6 @@ namespace SK.Persistence
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
-
-
         }
     }
 }

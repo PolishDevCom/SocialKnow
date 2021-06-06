@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
+using SK.Domain.Common;
 using SK.Domain.Entities;
 using SK.Domain.Enums;
 using SK.Persistence;
@@ -15,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -174,6 +176,16 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task<TEntity> FirstOrDefaultAsync<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> func)
+    where TEntity : AuditableEntity
+    {
+        using var scope = _scopeFactory.CreateScope();
+         
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.Set<TEntity>().Include(func).FirstOrDefaultAsync();
     }
 
     public static async Task<TEntity> FindByStringAsync<TEntity>(string id)

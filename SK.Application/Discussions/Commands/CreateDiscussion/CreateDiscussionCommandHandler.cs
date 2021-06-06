@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -28,6 +29,13 @@ namespace SK.Application.Discussions.Commands.CreateDiscussion
         public async Task<Guid> Handle(CreateDiscussionCommand request, CancellationToken cancellationToken)
         {
             var newDiscussion = _mapper.Map<Discussion>(request);
+
+            var category = await _context.Categories.FindAsync(request.CategoryId);
+            if (category != null)
+            {
+                newDiscussion.Category = category;
+            }
+
             await _context.Discussions.AddAsync(newDiscussion);
 
             var firstPost = new Post
