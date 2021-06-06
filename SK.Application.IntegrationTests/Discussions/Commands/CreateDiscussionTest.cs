@@ -34,7 +34,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             var createdDiscussionId = await SendAsync(createDiscussionCommand);
 
-            var createdDiscussion = await FirstOrDefaultAsync<Discussion, Category>(x => x.Category);
+            var createdDiscussion = await FirstOrDefaultWithIncludeAsync<Discussion, Category>(x => x.Category);
 
             var createdFirstPost = FindPostsByDiscussionGuidAsync(createdDiscussionId);
 

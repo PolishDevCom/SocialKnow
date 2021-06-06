@@ -69,6 +69,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
         {
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
+            context.Setup(x => x.Categories).Returns(dbSetCategory.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
 
             CreateDiscussionCommandHandler createDiscussionCommandHandler = new CreateDiscussionCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);

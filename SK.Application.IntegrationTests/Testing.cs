@@ -178,7 +178,7 @@ public class Testing
         return await context.FindAsync<TEntity>(id);
     }
 
-    public static async Task<TEntity> FirstOrDefaultAsync<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> func)
+    public static async Task<TEntity> FirstOrDefaultWithIncludeAsync<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> func)
     where TEntity : AuditableEntity
     {
         using var scope = _scopeFactory.CreateScope();
