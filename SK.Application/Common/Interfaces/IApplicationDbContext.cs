@@ -16,6 +16,7 @@ namespace SK.Application.Common.Interfaces
         DbSet<Post> Posts { get; set; }
         DbSet<Photo> Photos { get; set; }
         DbSet<Tag> Tags { get; set; }
+        DbSet<AdditionalInfoDefinition> AdditionalInfoDefinitions { get; set; }
         DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity;
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

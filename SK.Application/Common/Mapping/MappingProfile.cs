@@ -1,4 +1,9 @@
 ﻿using AutoMapper;
+using SK.Application.AdditionalInfoDefinitions.Commands.CreateAdditionalInfoDefinition;
+using SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDefinition;
+using SK.Application.AdditionalInfoDefinitions.Queries;
+using SK.Application.Common.Helpers;
+using SK.Domain.Entities;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +14,18 @@ namespace SK.Application.Common.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<AdditionalInfoDefinition, AdditionalInfoDefinitionDto>()
+                .ForMember(desc => desc.TypeOfField,
+                    opt => opt.MapFrom(src => ConvertHelper.ConvertStringTypeToTypeOfFieldEnum(src.InfoType)));
+
+            CreateMap<EditAdditionalInfoDefinitionCommand, AdditionalInfoDefinition>()
+                .ForMember(desc => desc.InfoType,
+                    opt => opt.MapFrom(src => ConvertHelper.ConvertTypeOfFieldEnumToStringType(src.TypeOfField)));
+
+            CreateMap<CreateAdditionalInfoDefinitionCommand, AdditionalInfoDefinition>()
+                .ForMember(desc => desc.InfoType,
+                    opt => opt.MapFrom(src => ConvertHelper.ConvertTypeOfFieldEnumToStringType(src.TypeOfField)));
+
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
         }
 

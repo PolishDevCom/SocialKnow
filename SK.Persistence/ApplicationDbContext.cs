@@ -28,9 +28,9 @@ namespace SK.Persistence
         public DbSet<UserEvent> UserEvents { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<AdditionalUserContent> AdditionalUserContents { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<AdditionalInfoDefinition> AdditionalInfoDefinitions { get; set; }
 
         public DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity
         {
