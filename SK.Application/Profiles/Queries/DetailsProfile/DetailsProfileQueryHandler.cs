@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
@@ -13,12 +11,10 @@ namespace SK.Application.Profiles.Queries.DetailsProfile
     public class DetailsProfileQueryHandler : IRequestHandler<DetailsProfileQuery, ProfileDto>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public DetailsProfileQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public DetailsProfileQueryHandler(IApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
         public async Task<ProfileDto> Handle(DetailsProfileQuery request, CancellationToken cancellationToken)
         {
