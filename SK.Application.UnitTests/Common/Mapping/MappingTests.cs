@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using NUnit.Framework;
+using SK.Application.AdditionalInfoDefinitions.Commands.CreateAdditionalInfoDefinition;
+using SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDefinition;
 using SK.Application.Articles.Queries;
 using SK.Application.Common.Mapping;
 using SK.Application.Events.Queries;
+using SK.Application.Profiles.Commands.EditProfile;
 using SK.Domain.Entities;
 using System;
 
@@ -27,6 +30,9 @@ namespace SK.Application.UnitTests.Common.Mapping
         [TestCase(typeof(Article), typeof(ArticleDto))]
         [TestCase(typeof(Event), typeof(EventDto))]
         [TestCase(typeof(UserEvent), typeof(AttendeeDto))]
+        [TestCase(typeof(EditProfileCommand), typeof(AppUser))]
+        [TestCase(typeof(CreateAdditionalInfoDefinitionCommand), typeof(AdditionalInfoDefinition))]
+        [TestCase(typeof(EditAdditionalInfoDefinitionCommand), typeof(AdditionalInfoDefinition))]
         public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
         {
             var instance = Activator.CreateInstance(source);

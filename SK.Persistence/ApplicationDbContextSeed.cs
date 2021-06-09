@@ -16,7 +16,7 @@ namespace SK.Persistence
             {
                 var articles = new List<Article>
                 {
-                    new Article 
+                    new Article
                     {
                         Id=Guid.NewGuid(),
                         Title="First Article",
@@ -50,7 +50,6 @@ namespace SK.Persistence
                 context.Articles.AddRange(articles);
                 await context.SaveChangesAsync();
             }
-
             if (!context.Events.Any())
             {
                 var events = new List<Event>
@@ -208,7 +207,7 @@ namespace SK.Persistence
                                 IsPinned = false,
                                 DiscussionId = discussion1Id
                             }
-                        }                        
+                        }
                     },
                     new Discussion()
                     {
@@ -272,6 +271,27 @@ namespace SK.Persistence
                 await context.Discussions.AddRangeAsync(discussions);
                 await context.SaveChangesAsync();
             }
+            if (!context.AdditionalInfoDefinitions.Any())
+            {
+                var additionalInfos = new List<AdditionalInfoDefinition>
+                {
+                    new AdditionalInfoDefinition
+                    {
+                        Id=Guid.NewGuid(),
+                        InfoName = "Interests",
+                        InfoType = "string"
+                    },
+                    new AdditionalInfoDefinition
+                    {
+                        Id=Guid.NewGuid(),
+                        InfoName = "Foot number",
+                        InfoType = "int"
+                    },
+                };
+                context.AdditionalInfoDefinitions.AddRange(additionalInfos);
+                await context.SaveChangesAsync();
+            }
+
         }
 
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -287,7 +307,7 @@ namespace SK.Persistence
 
         public static async Task SeedDefaultUserAsync(UserManager<AppUser> userManager)
         {
-            var defaultUser = new AppUser { Id="a", UserName = "administrator", Email = "administrator@localhost" };
+            var defaultUser = new AppUser { Id = "a", UserName = "administrator", Email = "administrator@localhost" };
             var bobUser = new AppUser { Id = "b", UserName = "bob", Email = "bob@localhost" };
             var tomUser = new AppUser { Id = "c", UserName = "tom", Email = "tom@localhost" };
             var janeUser = new AppUser { Id = "d", UserName = "jane", Email = "jane@localhost" };

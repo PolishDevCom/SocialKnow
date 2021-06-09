@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -143,6 +144,7 @@ public class Testing
         var allPhotos = from c in context.Photos select c;
         var allTags = from c in context.Tags select c;
         var allCategories = from c in context.Categories select c;
+        var allAdditionalInfoDefinitions = from c in context.AdditionalInfoDefinitions select c;
 
         context.Articles.RemoveRange(allArticles);
         context.Users.RemoveRange(allUsers);
@@ -152,6 +154,7 @@ public class Testing
         context.Photos.RemoveRange(allPhotos);
         context.Tags.RemoveRange(allTags);
         context.Categories.RemoveRange(allCategories);
+        context.AdditionalInfoDefinitions.RemoveRange(allAdditionalInfoDefinitions);
 
         await context.SaveChangesAsync();
 
@@ -212,6 +215,15 @@ public class Testing
         }
 
         return userEventsList;
+    }
+
+    public static async Task<AppUser> FindAppUserByUsername(string username)
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.Users.SingleOrDefaultAsync(u => u.UserName == username);
     }
 
     public static List<Post> FindPostsByDiscussionGuidAsync(Guid id)
