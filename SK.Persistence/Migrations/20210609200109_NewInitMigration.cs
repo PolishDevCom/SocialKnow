@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SK.Persistence.Migrations
 {
-    public partial class NewInitialMigration : Migration
+    public partial class NewInitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,7 +89,7 @@ namespace SK.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Discussions",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -97,14 +97,11 @@ namespace SK.Persistence.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    IsPinned = table.Column<bool>(nullable: false),
-                    IsClosed = table.Column<bool>(nullable: false)
+                    Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Discussions", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -271,7 +268,7 @@ namespace SK.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Discussions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -279,19 +276,21 @@ namespace SK.Persistence.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<string>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    Body = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     IsPinned = table.Column<bool>(nullable: false),
-                    DiscussionId = table.Column<Guid>(nullable: false)
+                    IsClosed = table.Column<bool>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Discussions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Discussions_DiscussionId",
-                        column: x => x.DiscussionId,
-                        principalTable: "Discussions",
+                        name: "FK_Discussions_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -320,6 +319,30 @@ namespace SK.Persistence.Migrations
                         name: "FK_UserEvents_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    LastModifiedBy = table.Column<string>(nullable: true),
+                    LastModified = table.Column<DateTime>(nullable: true),
+                    Body = table.Column<string>(nullable: true),
+                    IsPinned = table.Column<bool>(nullable: false),
+                    DiscussionId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Discussions_DiscussionId",
+                        column: x => x.DiscussionId,
+                        principalTable: "Discussions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -360,6 +383,11 @@ namespace SK.Persistence.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Discussions_CategoryId",
+                table: "Discussions",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Photos_AppUserId",
@@ -423,6 +451,9 @@ namespace SK.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

@@ -23,6 +23,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
     {
         private readonly Guid id;
         private readonly Mock<DbSet<Discussion>> dbSetDiscussion;
+        private readonly Mock<DbSet<Category>> dbSetCategory;
         private readonly Mock<IApplicationDbContext> context;
         private readonly Mock<IStringLocalizer<DiscussionsResource>> stringLocalizer;
 
@@ -33,6 +34,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
         {
             id = new Guid();
             dbSetDiscussion = new Mock<DbSet<Discussion>>();
+            dbSetCategory = new Mock<DbSet<Category>>();
             context = new Mock<IApplicationDbContext>();
             stringLocalizer = new Mock<IStringLocalizer<DiscussionsResource>>();
 
@@ -49,6 +51,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
         {
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
+            context.Setup(x => x.Categories).Returns(dbSetCategory.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
 
             EditDiscussionCommandHandler editDiscussionCommandHandler = new EditDiscussionCommandHandler(context.Object, stringLocalizer.Object);
@@ -80,6 +83,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
         {
             dbSetDiscussion.Setup(x => x.FindAsync(id)).Returns(new ValueTask<Discussion>(Task.FromResult(discussion)));
             context.Setup(x => x.Discussions).Returns(dbSetDiscussion.Object);
+            context.Setup(x => x.Categories).Returns(dbSetCategory.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(0));
 
             EditDiscussionCommandHandler editDiscussionCommandHandler = new EditDiscussionCommandHandler(context.Object, stringLocalizer.Object);

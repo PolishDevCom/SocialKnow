@@ -12,5 +12,6 @@ namespace SK.Domain.Entities
         public bool IsPinned { get; set; }
         public bool IsClosed { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

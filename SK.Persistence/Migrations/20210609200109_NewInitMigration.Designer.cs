@@ -10,8 +10,8 @@ using SK.Persistence;
 namespace SK.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210531073405_NewInitialMigration")]
-    partial class NewInitialMigration
+    [Migration("20210609200109_NewInitMigration")]
+    partial class NewInitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -298,10 +298,39 @@ namespace SK.Persistence.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("SK.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("SK.Domain.Entities.Discussion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
@@ -329,6 +358,8 @@ namespace SK.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Discussions");
                 });
@@ -537,6 +568,13 @@ namespace SK.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SK.Domain.Entities.Discussion", b =>
+                {
+                    b.HasOne("SK.Domain.Entities.Category", "Category")
+                        .WithMany("Discussions")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("SK.Domain.Entities.Photo", b =>

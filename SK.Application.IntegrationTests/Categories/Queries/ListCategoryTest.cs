@@ -1,0 +1,50 @@
+﻿using Bogus;
+using FluentAssertions;
+using NUnit.Framework;
+using SK.Application.Categories.Queries.ListCategory;
+using SK.Application.Common.Models;
+using SK.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SK.Application.IntegrationTests.Categories.Queries
+{
+    using static Testing;
+
+    public class ListCategoryTest : TestBase
+    {
+        [Test]
+        public async Task ShouldReturnAllCategoriesAsAList()
+        {
+            int numberOfCategories = 3;
+            await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+            for (int i = 0; i < numberOfCategories; i++)
+            {
+                await AddAsync(new Faker<Category>("en")
+                    .RuleFor(a => a.Id, f => f.Random.Guid())
+                    .RuleFor(a => a.Title, f => f.Lorem.Sentence())
+                    .Generate());
+            }
+
+            var filter = new PaginationFilter();
+            var path = String.Empty;
+
+            var query = new ListCategoryQuery(filter, path);
+
+            var result = await SendAsync(query);
+
+            result.FirstPage.Should().BeNull();
+            result.LastPage.Should().BeNull();
+            result.NextPage.Should().BeNull();
+            result.PreviousPage.Should().BeNull();
+
+            result.Succeeded.Should().BeTrue();
+            result.Errors.Should().BeNull();
+            result.TotalRecords.Should().Be(numberOfCategories);
+
+            result.Data.Should().HaveCount(numberOfCategories > filter.PageSize ? filter.PageSize : numberOfCategories);
+        }
+    }
+}

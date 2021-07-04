@@ -9,6 +9,7 @@ using Moq;
 using NUnit.Framework;
 using SK.API;
 using SK.Application.Common.Interfaces;
+using SK.Domain.Common;
 using SK.Domain.Entities;
 using SK.Domain.Enums;
 using SK.Persistence;
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -141,6 +143,7 @@ public class Testing
         var allPosts = from c in context.Posts select c;
         var allPhotos = from c in context.Photos select c;
         var allTags = from c in context.Tags select c;
+        var allCategories = from c in context.Categories select c;
         var allAdditionalInfoDefinitions = from c in context.AdditionalInfoDefinitions select c;
 
         context.Articles.RemoveRange(allArticles);
@@ -150,6 +153,7 @@ public class Testing
         context.Posts.RemoveRange(allPosts);
         context.Photos.RemoveRange(allPhotos);
         context.Tags.RemoveRange(allTags);
+        context.Categories.RemoveRange(allCategories);
         context.AdditionalInfoDefinitions.RemoveRange(allAdditionalInfoDefinitions);
 
         await context.SaveChangesAsync();
@@ -175,6 +179,16 @@ public class Testing
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.FindAsync<TEntity>(id);
+    }
+
+    public static async Task<TEntity> FirstOrDefaultWithIncludeAsync<TEntity, TProperty>(Expression<Func<TEntity, TProperty>> func)
+    where TEntity : AuditableEntity
+    {
+        using var scope = _scopeFactory.CreateScope();
+         
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+        return await context.Set<TEntity>().Include(func).FirstOrDefaultAsync();
     }
 
     public static async Task<TEntity> FindByStringAsync<TEntity>(string id)

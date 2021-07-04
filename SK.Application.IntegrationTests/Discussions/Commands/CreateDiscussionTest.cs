@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
+using SK.Application.Categories.Commands.CreateCategory;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Domain.Entities;
 using System;
@@ -16,23 +17,27 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
         [Test]
         public async Task ShouldCreateDiscussionWithFirstPost()
         {
-            //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
+            var categoryId = Guid.NewGuid();
+            var createCategoryCommand = new Faker<CreateCategoryCommand>("en")
+                .RuleFor(c => c.Id, f => f.PickRandomParam(categoryId))
+                .RuleFor(c => c.Title, f => f.Lorem.Sentence(wordCount: 3)).Generate();
+            await SendAsync(createCategoryCommand);
 
             var createDiscussionCommand = new Faker<CreateDiscussionCommand>("en")
                 .RuleFor(d => d.Id, f => f.Random.Guid())
+                .RuleFor(d => d.CategoryId, f => f.PickRandom(categoryId))
                 .RuleFor(d => d.Title, f => f.Lorem.Sentence(wordCount: 3))
                 .RuleFor(d => d.Description, f => f.Lorem.Sentences(sentenceCount: 2))
                 .RuleFor(d => d.PostBody, f => f.Lorem.Paragraph()).Generate();
 
-            //act
             var createdDiscussionId = await SendAsync(createDiscussionCommand);
 
-            var createdDiscussion = await FindByGuidAsync<Discussion>(createdDiscussionId);
+            var createdDiscussion = await FirstOrDefaultWithIncludeAsync<Discussion, Category>(x => x.Category);
 
             var createdFirstPost = FindPostsByDiscussionGuidAsync(createdDiscussionId);
 
-            //assert
             createdDiscussion.Should().NotBeNull();
             createdDiscussion.Id.Should().Be(createDiscussionCommand.Id);
             createdDiscussion.Title.Should().Be(createDiscussionCommand.Title);
@@ -41,6 +46,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             createdDiscussion.IsPinned.Should().Be(false);
             createdDiscussion.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
             createdDiscussion.CreatedBy.Should().Be(loggedUser);
+            createdDiscussion.Category.Id.Should().Be(categoryId);
 
             createdFirstPost.Should().HaveCount(1);
             createdFirstPost.First().IsPinned.Should().Be(false);

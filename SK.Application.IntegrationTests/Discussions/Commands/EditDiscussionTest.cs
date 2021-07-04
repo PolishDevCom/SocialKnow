@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
+using SK.Application.Categories.Commands.CreateCategory;
 using SK.Application.Common.Exceptions;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Application.Discussions.Commands.EditDiscussion;
@@ -17,8 +18,13 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
         [Test]
         public async Task ShouldUpdateDiscussion()
         {
-            //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
+
+            var categoryId = Guid.NewGuid();
+            var createCategoryCommand = new Faker<CreateCategoryCommand>("en")
+                .RuleFor(c => c.Id, f => f.PickRandomParam(categoryId))
+                .RuleFor(c => c.Title, f => f.Lorem.Sentence(wordCount: 3)).Generate();
+            await SendAsync(createCategoryCommand);
 
             var createdDiscussionId = await SendAsync(new Faker<CreateDiscussionCommand>("en")
                 .RuleFor(d => d.Id, f => f.Random.Guid())
@@ -28,15 +34,14 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             var editCommand = new Faker<EditDiscussionCommand>("en")
                 .RuleFor(d => d.Id, f => createdDiscussionId)
+                .RuleFor(d => d.CategoryId, f => f.PickRandom(categoryId))
                 .RuleFor(d => d.Title, f => f.Lorem.Sentence(wordCount: 3))
                 .RuleFor(d => d.Description, f => f.Lorem.Sentences(sentenceCount: 2)).Generate();
 
-            //act
             await SendAsync(editCommand);
 
-            var editedDiscussion = await FindByGuidAsync<Discussion>(createdDiscussionId);
+            var editedDiscussion = await FirstOrDefaultWithIncludeAsync<Discussion, Category>(x => x.Category);
 
-            //assert
             editedDiscussion.Should().NotBeNull();
             editedDiscussion.Id.Should().Be(editCommand.Id);
             editedDiscussion.Title.Should().Be(editCommand.Title);
@@ -45,6 +50,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             editedDiscussion.IsPinned.Should().Be(false);
             editedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
             editedDiscussion.LastModifiedBy.Should().Be(loggedUser);
+            editedDiscussion.Category.Id.Should().Be(categoryId);
         }
 
         [Test]

@@ -28,6 +28,12 @@ namespace SK.Application.Discussions.Commands.EditDiscussion
             discussionToFind.Title = request.Title ?? discussionToFind.Title;
             discussionToFind.Description = request.Description ?? discussionToFind.Description;
 
+            var category = await _context.Categories.FindAsync(request.CategoryId);
+            if (category != null)
+            {
+                discussionToFind.Category = category;
+            }
+
             var success = await _context.SaveChangesAsync(cancellationToken) > 0;
             if (success)
             {

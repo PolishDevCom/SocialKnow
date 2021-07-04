@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Common;
 using SK.Domain.Entities;
@@ -30,6 +31,7 @@ namespace SK.Persistence
         public DbSet<Post> Posts { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<AdditionalInfoDefinition> AdditionalInfoDefinitions { get; set; }
 
         public DbSet<TEntity> DbSet<TEntity>() where TEntity : AuditableEntity
@@ -61,8 +63,6 @@ namespace SK.Persistence
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
-
-
         }
     }
 }
