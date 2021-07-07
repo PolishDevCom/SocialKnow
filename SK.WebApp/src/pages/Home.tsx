@@ -8,6 +8,7 @@ import {
 import { useInterval } from '../hooks/useInterval';
 import { DefaultLayout } from '../components/Layout/DefaultLayout';
 import { Typography } from '../components/Typography/Typography';
+import { userRegister } from '../userRegister';
 
 export const Home = () => {
   const dispatch = useAppDispatch();
