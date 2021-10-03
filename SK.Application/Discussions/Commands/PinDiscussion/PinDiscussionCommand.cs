@@ -7,7 +7,10 @@ namespace SK.Application.Discussions.Commands.PinDiscussion
     {
         public Guid Id { get; set; }
 
-        public PinDiscussionCommand() {}
+        public PinDiscussionCommand()
+        {
+        }
+
         public PinDiscussionCommand(Guid id)
         {
             Id = id;

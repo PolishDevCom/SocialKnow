@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentValidation.TestHelper;
 using NUnit.Framework;
 using SK.Application.Common.Exceptions;
 using SK.Application.User.Commands.RegisterUser;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.User.Commands
 {
     using static Testing;
+
     public class RegisterUserTests : TestBase
     {
         [Test]

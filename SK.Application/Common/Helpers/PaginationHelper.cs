@@ -9,10 +9,10 @@ namespace SK.Application.Common.Helpers
     public static class PaginationHelper
     {
         public static PagedResponse<List<T>> CreatePagedReponse<T>(
-                List<T> pagedData, 
-                PaginationFilter validFilter, 
-                int totalRecords, 
-                IUriService uriService, 
+                List<T> pagedData,
+                PaginationFilter validFilter,
+                int totalRecords,
+                IUriService uriService,
                 string route
             )
         {

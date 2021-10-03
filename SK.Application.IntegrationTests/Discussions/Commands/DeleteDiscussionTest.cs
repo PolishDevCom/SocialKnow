@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class DeleteDiscussionTest : TestBase
     {
         [Test]

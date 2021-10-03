@@ -10,11 +10,8 @@ using SK.Application.Categories.Commands.EditCategory;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Categories;
-using SK.Application.Tags.Commands.EditTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

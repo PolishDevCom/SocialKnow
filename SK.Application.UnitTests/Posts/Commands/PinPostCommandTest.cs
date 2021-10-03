@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Posts;
 using SK.Application.Posts.Commands.PinPost;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +58,7 @@ namespace SK.Application.UnitTests.Posts.Commands
             PinPostCommandHandler pinPostCommandHandler = new PinPostCommandHandler(context.Object, stringLocalizer.Object);
             PinPostCommand pinPostCommand = new PinPostCommand(id);
 
-            Func<Task> act = async() => await pinPostCommandHandler.Handle(pinPostCommand, new CancellationToken());
+            Func<Task> act = async () => await pinPostCommandHandler.Handle(pinPostCommand, new CancellationToken());
 
             act.Should().ThrowAsync<NotFoundException>();
         }

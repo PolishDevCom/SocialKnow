@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Articles.Commands
 {
-
     using static Testing;
 
     public class DeleteTestValueTest : TestBase

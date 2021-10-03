@@ -4,7 +4,9 @@ namespace SK.Application.Photos.Commands.SetMainPhoto
 {
     public class SetMainPhotoCommand : IRequest
     {
-        public SetMainPhotoCommand() {}
+        public SetMainPhotoCommand()
+        {
+        }
 
         public SetMainPhotoCommand(string id)
         {

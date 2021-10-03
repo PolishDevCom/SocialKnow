@@ -1,5 +1,4 @@
-﻿using Bogus;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Moq;
@@ -12,8 +11,6 @@ using SK.Application.User.Commands;
 using SK.Application.User.Commands.RemoveRoleFromUser;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

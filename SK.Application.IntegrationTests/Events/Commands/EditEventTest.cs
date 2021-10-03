@@ -48,12 +48,12 @@ namespace SK.Application.IntegrationTests.Events.Commands
             actualEvent.Should().NotBeNull();
             actualEvent.Id.Should().Be(command.Id);
             actualEvent.Title.Should().Be(command.Title);
-            actualEvent.Date.Should().BeCloseTo(command.Date.GetValueOrDefault(), new TimeSpan(1000));
+            actualEvent.Date.Should().BeCloseTo(command.Date.GetValueOrDefault(), new TimeSpan(0,0,1));
             actualEvent.Description.Should().Be(command.Description);
             actualEvent.Category.Should().Be(command.Category);
             actualEvent.City.Should().Be(command.City);
             actualEvent.Venue.Should().Be(command.Venue);
-            actualEvent.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            actualEvent.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringEditingEventTestCases

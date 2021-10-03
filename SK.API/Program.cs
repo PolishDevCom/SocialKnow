@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +20,7 @@ namespace SK.API
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                
+
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();

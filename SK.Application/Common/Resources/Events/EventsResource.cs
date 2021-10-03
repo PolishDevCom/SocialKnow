@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group events resource
     /// </summary>
-    public class EventsResource {}
+    public class EventsResource { }
 }

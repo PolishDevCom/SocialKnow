@@ -2,8 +2,6 @@
 using SK.Application.Common.Mapping;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SK.Application.Categories.Commands.CreateCategory
 {
@@ -12,7 +10,10 @@ namespace SK.Application.Categories.Commands.CreateCategory
         public Guid Id { get; set; }
         public string Title { get; set; }
 
-        public CreateCategoryCommand() { }
+        public CreateCategoryCommand()
+        {
+        }
+
         public CreateCategoryCommand(CategoryCreateOrEditDto categoryCreateOrEditDto)
         {
             Id = categoryCreateOrEditDto.Id;

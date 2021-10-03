@@ -48,7 +48,7 @@ namespace SK.API.Filters
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An error occurred while processing your request.",
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
-                Detail = "MESSAGE: " +  context.Exception.Message + " STACK TRACE: " + context.Exception.StackTrace + " SOURCE: " + context.Exception.Source
+                Detail = "MESSAGE: " + context.Exception.Message + " STACK TRACE: " + context.Exception.StackTrace + " SOURCE: " + context.Exception.Source
             };
 
             context.Result = new ObjectResult(details)

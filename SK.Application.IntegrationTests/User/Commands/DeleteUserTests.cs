@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.User.Commands
 {
-
     using static Testing;
+
     public class DeleteUserTests : TestBase
     {
         [Test]

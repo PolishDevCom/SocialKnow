@@ -1,5 +1,4 @@
-﻿
-using MediatR;
+﻿using MediatR;
 
 namespace SK.Application.Profiles.Queries.DetailsProfile
 {
@@ -9,6 +8,7 @@ namespace SK.Application.Profiles.Queries.DetailsProfile
         {
             Username = username;
         }
+
         public string Username { get; set; }
     }
 }

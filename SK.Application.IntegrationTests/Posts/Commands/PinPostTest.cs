@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Posts.Commands
 {
     using static Testing;
+
     public class PinPostTest : TestBase
     {
         [Test]
@@ -37,12 +38,12 @@ namespace SK.Application.IntegrationTests.Posts.Commands
             //act
             await SendAsync(pinCommand);
 
-            var pinnedPost= await FindByGuidAsync<Post>(postToAdd.Id);
+            var pinnedPost = await FindByGuidAsync<Post>(postToAdd.Id);
 
             //assert
             pinnedPost.Should().NotBeNull();
             pinnedPost.IsPinned.Should().Be(true);
-            pinnedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            pinnedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             pinnedPost.LastModifiedBy.Should().Be(loggedUser);
         }
 

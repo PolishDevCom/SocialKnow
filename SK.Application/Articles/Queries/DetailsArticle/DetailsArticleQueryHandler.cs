@@ -9,10 +9,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace SK.Application.Articles.Queries.DetailsArticle
-{ 
+{
     public class DetailsArticleQueryHandler : IRequestHandler<DetailsArticleQuery, ArticleDto>
     {
-
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 

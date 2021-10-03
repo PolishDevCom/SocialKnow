@@ -38,7 +38,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
                     .RuleFor(a => a.Content, f => f.Lorem.Paragraphs(5))
                     .Generate();
 
-            await AddAsync(detailedArticle);            
+            await AddAsync(detailedArticle);
 
             var query = new DetailsArticleQuery() { Id = expectedId };
 
@@ -52,7 +52,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
             result.Image.Should().BeNull();
             result.Content.Should().Be(detailedArticle.Content);
             result.CreatedBy.Should().Be("scott101@localhost");
-            result.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            result.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         [Test]

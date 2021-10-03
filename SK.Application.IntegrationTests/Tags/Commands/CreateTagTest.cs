@@ -5,8 +5,6 @@ using SK.Application.Tags.Commands;
 using SK.Application.Tags.Commands.CreateTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Tags.Commands
@@ -33,7 +31,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
             createdTag.Id.Should().Be(createdId);
             createdTag.Title.Should().Be(tagToCreate.Title);
             createdTag.CreatedBy.Should().Be(loggedUser);
-            createdTag.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            createdTag.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         [Test]

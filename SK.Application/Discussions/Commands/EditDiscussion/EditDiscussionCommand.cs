@@ -10,8 +10,11 @@ namespace SK.Application.Discussions.Commands.EditDiscussion
         public string Title { get; set; }
         public string Description { get; set; }
 
-        public EditDiscussionCommand() {}
-        public EditDiscussionCommand(DiscussionEditDto request )
+        public EditDiscussionCommand()
+        {
+        }
+
+        public EditDiscussionCommand(DiscussionEditDto request)
         {
             Id = request.Id;
             CategoryId = request.CategoryId;

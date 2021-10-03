@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group photos resource
     /// </summary>
-    public class PhotosResource {}
+    public class PhotosResource { }
 }

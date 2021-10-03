@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class EditDiscussionTest : TestBase
     {
         [Test]
@@ -48,7 +49,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             editedDiscussion.Description.Should().Be(editCommand.Description);
             editedDiscussion.IsClosed.Should().Be(false);
             editedDiscussion.IsPinned.Should().Be(false);
-            editedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            editedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             editedDiscussion.LastModifiedBy.Should().Be(loggedUser);
             editedDiscussion.Category.Id.Should().Be(categoryId);
         }

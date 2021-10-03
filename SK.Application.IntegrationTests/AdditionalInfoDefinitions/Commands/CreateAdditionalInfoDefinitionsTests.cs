@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
 {
     using static Testing;
+
     public class CreateAdditionalInfoDefinitionsTests : TestBase
     {
         [Test]
@@ -34,7 +35,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
             createdAdditionalInfoDefinition.InfoType.Should().Be("string");
             createdAdditionalInfoDefinition.InfoName.Should().Be(additionalInfoDefinitionToCreate.InfoName);
             createdAdditionalInfoDefinition.CreatedBy.Should().Be(loggedUser);
-            createdAdditionalInfoDefinition.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            createdAdditionalInfoDefinition.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0, 0, 1));
         }
 
         private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringCreatingAdditionalInfoDefinitionTestCases

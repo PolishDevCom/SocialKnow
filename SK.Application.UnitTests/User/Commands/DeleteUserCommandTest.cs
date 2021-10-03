@@ -1,10 +1,8 @@
 ﻿using Bogus;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Moq;
 using NUnit.Framework;
-using SK.API.Services;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Models;
@@ -12,9 +10,6 @@ using SK.Application.Common.Resources.Users;
 using SK.Application.User.Commands.DeleteUser;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

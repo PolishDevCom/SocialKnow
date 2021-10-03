@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Posts;
 using SK.Application.Posts.Commands.UnpinPost;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +58,7 @@ namespace SK.Application.UnitTests.Posts.Commands
             UnpinPostCommandHandler unpinPostCommandHandler = new UnpinPostCommandHandler(context.Object, stringLocalizer.Object);
             UnpinPostCommand unpinPostCommand = new UnpinPostCommand(id);
 
-            Func<Task> act = async() => await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
+            Func<Task> act = async () => await unpinPostCommandHandler.Handle(unpinPostCommand, new CancellationToken());
 
             act.Should().ThrowAsync<NotFoundException>();
         }

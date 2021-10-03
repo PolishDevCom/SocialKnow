@@ -1,16 +1,17 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using SK.Application.Common.Interfaces;
 using SK.Application.Photos.Commands.AddPhoto;
 using System;
-using Microsoft.Extensions.Options;
 
 namespace SK.Infrastructure.Photos
 {
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
+
         public PhotoService(IOptions<CloudinarySettings> config)
         {
             var acc = new Account(

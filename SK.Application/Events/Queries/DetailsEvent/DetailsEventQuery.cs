@@ -7,7 +7,10 @@ namespace SK.Application.Events.Queries.DetailsEvent
     {
         public Guid Id { get; set; }
 
-        public DetailsEventQuery() {}
+        public DetailsEventQuery()
+        {
+        }
+
         public DetailsEventQuery(Guid id)
         {
             Id = id;

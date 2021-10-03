@@ -12,8 +12,6 @@ using SK.Application.Discussions.Commands;
 using SK.Application.Discussions.Commands.EditDiscussion;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

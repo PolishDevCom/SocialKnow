@@ -7,6 +7,7 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.CreateAdditionalInfo
     public class CreateAdditionalInfoDefinitionCommandValidator : AbstractValidator<CreateAdditionalInfoDefinitionCommand>
     {
         private readonly IStringLocalizer<AdditionalInfoDefinitionsResource> _localizer;
+
         public CreateAdditionalInfoDefinitionCommandValidator(IStringLocalizer<AdditionalInfoDefinitionsResource> localizer)
         {
             _localizer = localizer;

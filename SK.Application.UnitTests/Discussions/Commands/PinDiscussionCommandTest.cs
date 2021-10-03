@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Discussions;
 using SK.Application.Discussions.Commands.PinDiscussion;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -61,7 +59,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
             PinDiscussionCommandHandler pinDiscussionCommandHandler = new PinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             PinDiscussionCommand pinDiscussionCommand = new PinDiscussionCommand(id);
 
-            Func<Task> act = async() => await pinDiscussionCommandHandler.Handle(pinDiscussionCommand, new CancellationToken());
+            Func<Task> act = async () => await pinDiscussionCommandHandler.Handle(pinDiscussionCommand, new CancellationToken());
 
             act.Should().ThrowAsync<NotFoundException>();
         }
@@ -92,7 +90,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
             PinDiscussionCommandHandler pinDiscussionCommandHandler = new PinDiscussionCommandHandler(context.Object, stringLocalizer.Object);
             PinDiscussionCommand pinDiscussionCommand = new PinDiscussionCommand(id);
 
-            Func<Task> act = async() => await pinDiscussionCommandHandler.Handle(pinDiscussionCommand, new CancellationToken());
+            Func<Task> act = async () => await pinDiscussionCommandHandler.Handle(pinDiscussionCommand, new CancellationToken());
 
             act.Should().ThrowAsync<RestException>();
         }

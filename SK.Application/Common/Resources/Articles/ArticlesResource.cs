@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group articles resource
     /// </summary>
-    public class ArticlesResource {}
+    public class ArticlesResource { }
 }

@@ -1,12 +1,12 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Resources.Posts;
 using SK.Domain.Entities;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Net;
-using Microsoft.Extensions.Localization;
-using SK.Application.Common.Resources.Posts;
 
 namespace SK.Application.Posts.Commands.UnpinPost
 {

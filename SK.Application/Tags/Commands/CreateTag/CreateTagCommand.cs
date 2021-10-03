@@ -10,7 +10,10 @@ namespace SK.Application.Tags.Commands.CreateTag
         public Guid Id { get; set; }
         public string Title { get; set; }
 
-        public CreateTagCommand(){}
+        public CreateTagCommand()
+        {
+        }
+
         public CreateTagCommand(TagCreateOrEditDto tagCreateOrEditDto)
         {
             Id = tagCreateOrEditDto.Id;

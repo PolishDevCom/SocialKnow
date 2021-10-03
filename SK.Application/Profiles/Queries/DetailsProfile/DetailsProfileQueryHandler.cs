@@ -16,6 +16,7 @@ namespace SK.Application.Profiles.Queries.DetailsProfile
         {
             _context = context;
         }
+
         public async Task<ProfileDto> Handle(DetailsProfileQuery request, CancellationToken cancellationToken)
         {
             var user = await _context.Users

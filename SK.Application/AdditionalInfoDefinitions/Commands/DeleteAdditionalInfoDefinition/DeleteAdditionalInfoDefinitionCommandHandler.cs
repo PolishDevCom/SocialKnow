@@ -20,6 +20,7 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.DeleteAdditionalInfo
             _context = context;
             _localizer = localizer;
         }
+
         public async Task<Unit> Handle(DeleteAdditionalInfoDefinitionCommand request, CancellationToken cancellationToken)
         {
             var additionalInfoDefinitionToDelete = await _context.AdditionalInfoDefinitions.FindAsync(request.Id) ?? throw new NotFoundException(nameof(AdditionalInfoDefinition), request.Id);
@@ -30,7 +31,6 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.DeleteAdditionalInfo
                 return Unit.Value;
             }
             throw new RestException(HttpStatusCode.BadRequest, new { AdditionalInfoDefinition = _localizer["AditionalInfoDefinitionSaveError"] });
-
         }
     }
 }

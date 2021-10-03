@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group profiles resource
     /// </summary>
-    public class ProfilesResource {}
+    public class ProfilesResource { }
 }

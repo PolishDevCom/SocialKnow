@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
 
 [SetUpFixture]
 public class Testing
@@ -185,7 +183,7 @@ public class Testing
     where TEntity : AuditableEntity
     {
         using var scope = _scopeFactory.CreateScope();
-         
+
         var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().Include(func).FirstOrDefaultAsync();

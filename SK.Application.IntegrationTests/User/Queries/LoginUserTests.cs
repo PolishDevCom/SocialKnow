@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentValidation.TestHelper;
 using NUnit.Framework;
 using SK.Application.Common.Exceptions;
 using SK.Application.User.Commands.RegisterUser;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.User.Queries
 {
-
     using static Testing;
+
     public class LoginUserTests : TestBase
     {
         [Test]
@@ -30,7 +29,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Password = "Pa$$w0rd!"
             };
 
-            //act 
+            //act
             var loginUser = await SendAsync(query);
 
             //assert
@@ -47,7 +46,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Password = "Pa$$w0rd!"
             };
 
-            //act 
+            //act
 
             //assert
             FluentActions.Invoking(() =>
@@ -63,7 +62,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Email = "scott@localhost"
             };
 
-            //act 
+            //act
 
             //assert
             FluentActions.Invoking(() =>
@@ -88,7 +87,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Password = "WrongPassword"
             };
 
-            //act 
+            //act
 
             //assert
             FluentActions.Invoking(() =>
@@ -113,7 +112,7 @@ namespace SK.Application.IntegrationTests.User.Queries
                 Password = "Pa$$w0rd!"
             };
 
-            //act 
+            //act
 
             //assert
             FluentActions.Invoking(() =>

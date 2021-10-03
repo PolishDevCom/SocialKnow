@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-using FluentAssertions.Common;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
@@ -43,7 +41,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 Abstract = "Article Abstract",
                 Image = null,
                 Content = "Article Content"
-            }, 
+            },
             new CancellationToken(), _responseLong.Object);
             _logger.Verify(
             l => l.Log(
@@ -67,7 +65,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 Abstract = "Article Abstract",
                 Image = null,
                 Content = "Article Content"
-            }, 
+            },
             new CancellationToken(), _responseShort.Object);
             _logger.Verify(
             l => l.Log(
@@ -76,7 +74,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 It.Is<It.IsAnyType>((v, t) => true),
                 It.IsAny<Exception>(),
                 It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
-                Times.Never
+                Times.Once
             );
         }
     }

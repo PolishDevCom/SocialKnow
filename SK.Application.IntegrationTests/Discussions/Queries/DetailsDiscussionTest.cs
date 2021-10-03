@@ -59,7 +59,7 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
             result.Description.Should().Be(discussionToAdd2.Description);
             result.Title.Should().Be(discussionToAdd2.Title);
             result.NumberOfPosts.Should().Be(numberOfPosts);
-            result.Posts.Data.Should().HaveCount(numberOfPosts > filter.PageSize? filter.PageSize : numberOfPosts);
+            result.Posts.Data.Should().HaveCount(numberOfPosts > filter.PageSize ? filter.PageSize : numberOfPosts);
         }
 
         [Test]
@@ -151,7 +151,7 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
             var result = await SendAsync(detailsDiscussionQuery);
 
             //assert
-            result.NumberOfPosts.Should().Be(numberOfPosts+1);
+            result.NumberOfPosts.Should().Be(numberOfPosts + 1);
             result.Posts.Data.Should().HaveCount(numberOfPosts + 1 > filter.PageSize ? filter.PageSize : numberOfPosts + 1);
             result.Posts.Data.First().Id.Should().Be(postPinned.Id);
             result.Posts.Data.Skip(1).Should().BeInDescendingOrder(p => p.Created);

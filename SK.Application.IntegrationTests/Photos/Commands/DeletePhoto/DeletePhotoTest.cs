@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Photos.Commands.DeletePhoto
 {
     using static Testing;
+
     public class DeletePhotoTest : TestBase
     {
         [Test]

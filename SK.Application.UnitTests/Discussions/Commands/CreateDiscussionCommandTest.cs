@@ -11,8 +11,6 @@ using SK.Application.Discussions.Commands;
 using SK.Application.Discussions.Commands.CreateDiscussion;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -52,7 +50,6 @@ namespace SK.Application.UnitTests.Discussions.Commands
             context.Setup(x => x.Posts).Returns(dbSetPost.Object);
             context.Setup(x => x.Categories).Returns(dbSetCategory.Object);
             context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(1));
-
 
             CreateDiscussionCommandHandler createDiscussionCommandHandler = new CreateDiscussionCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             CreateDiscussionCommand createDiscussionCommand = new CreateDiscussionCommand(discussionDto);

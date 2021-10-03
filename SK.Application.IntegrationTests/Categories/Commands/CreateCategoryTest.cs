@@ -5,8 +5,6 @@ using SK.Application.Categories.Commands;
 using SK.Application.Categories.Commands.CreateCategory;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Categories.Commands
@@ -33,7 +31,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
             createdCategory.Id.Should().Be(createdId);
             createdCategory.Title.Should().Be(categoryToCreate.Title);
             createdCategory.CreatedBy.Should().Be(loggedUser);
-            createdCategory.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            createdCategory.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         [Test]

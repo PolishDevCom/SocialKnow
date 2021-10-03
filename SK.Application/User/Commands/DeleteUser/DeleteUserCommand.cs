@@ -6,7 +6,11 @@ namespace SK.Application.User.Commands.DeleteUser
     public class DeleteUserCommand : IRequest<Result>
     {
         public string Username { get; set; }
-        public DeleteUserCommand() {}
+
+        public DeleteUserCommand()
+        {
+        }
+
         public DeleteUserCommand(string username)
         {
             Username = username;

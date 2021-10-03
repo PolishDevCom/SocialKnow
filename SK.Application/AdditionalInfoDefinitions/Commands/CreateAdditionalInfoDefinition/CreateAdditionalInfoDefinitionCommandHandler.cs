@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
-using SK.Application.Common.Helpers;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.AdditionalInfoDefinitions;
 using SK.Domain.Entities;

@@ -7,8 +7,6 @@ using SK.Application.Categories.Commands.EditCategory;
 using SK.Application.Common.Exceptions;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Categories.Commands
@@ -37,7 +35,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
             modifiedCategory.Id.Should().Be(categoryToModify.Id);
             modifiedCategory.Title.Should().Be(categoryToModify.Title);
             modifiedCategory.LastModifiedBy.Should().Be(loggedUser);
-            modifiedCategory.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            modifiedCategory.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         [Test]

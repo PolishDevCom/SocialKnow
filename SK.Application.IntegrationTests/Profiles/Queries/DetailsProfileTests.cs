@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
-using System.Threading.Tasks;
-using FluentAssertions;
-using SK.Application.Profiles.Queries.DetailsProfile;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using SK.Application.Common.Exceptions;
+using SK.Application.Profiles.Queries.DetailsProfile;
+using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Profiles.Queries
 {
     using static Testing;
+
     public class DetailsProfileTests : TestBase
     {
         [Test]

@@ -47,7 +47,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
             modifiedAdditionalInfoDefinition.InfoName.Should().Be(additionalInfoDefinitionToModify.InfoName);
             modifiedAdditionalInfoDefinition.InfoType.Should().Be("int");
             modifiedAdditionalInfoDefinition.LastModifiedBy.Should().Be(loggedUser);
-            modifiedAdditionalInfoDefinition.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            modifiedAdditionalInfoDefinition.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         [Test]

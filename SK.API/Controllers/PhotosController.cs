@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SK.Application.Photos.Commands.AddPhoto;
 using SK.Application.Photos.Commands.DeletePhoto;
 using SK.Application.Photos.Commands.SetMainPhoto;

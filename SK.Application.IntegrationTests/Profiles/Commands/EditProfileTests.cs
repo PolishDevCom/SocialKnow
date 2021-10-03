@@ -3,13 +3,8 @@ using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using SK.Application.Common.Exceptions;
-using SK.Application.Events.Commands.CreateEvent;
-using SK.Application.Events.Commands.EditEvent;
 using SK.Application.Profiles.Commands.EditProfile;
-using SK.Application.User.Commands.RegisterUser;
-using SK.Domain.Entities;
 using SK.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

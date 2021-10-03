@@ -5,7 +5,6 @@ using Microsoft.Extensions.Localization;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Profiles;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,6 +29,7 @@ namespace SK.Application.Profiles.Commands.EditProfile
             _mapper = mapper;
             _currentUserService = currentUserService;
         }
+
         public async Task<Unit> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
             var currentUser = _currentUserService.Username;

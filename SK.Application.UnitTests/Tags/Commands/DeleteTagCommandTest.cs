@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Tags;
 using SK.Application.Tags.Commands.DeleteTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

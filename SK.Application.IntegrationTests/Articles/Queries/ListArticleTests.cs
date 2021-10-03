@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Articles.Queries
 {
-
     using static Testing;
 
     public class ListArticleTests : TestBase
@@ -34,7 +33,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
             var filter = new PaginationFilter();
             var path = String.Empty;
 
-            var query = new ListArticleQuery(filter,path);
+            var query = new ListArticleQuery(filter, path);
 
             //act
             var result = await SendAsync(query);

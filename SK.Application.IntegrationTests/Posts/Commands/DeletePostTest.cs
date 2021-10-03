@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Posts.Commands
 {
     using static Testing;
+
     public class DeletePostTest : TestBase
     {
         [Test]

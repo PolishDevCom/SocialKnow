@@ -7,7 +7,10 @@ namespace SK.Application.Discussions.Commands.UnpinDiscussion
     {
         public Guid Id { get; set; }
 
-        public UnpinDiscussionCommand() {}
+        public UnpinDiscussionCommand()
+        {
+        }
+
         public UnpinDiscussionCommand(Guid id)
         {
             Id = id;

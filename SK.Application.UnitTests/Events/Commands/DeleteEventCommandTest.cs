@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Events;
 using SK.Application.Events.Commands.DeleteEvent;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,7 +54,7 @@ namespace SK.Application.UnitTests.Events.Commands
             DeleteEventCommandHandler deleteEventCommandHandler = new DeleteEventCommandHandler(context.Object, stringLocalizer.Object);
             DeleteEventCommand deleteEventCommand = new DeleteEventCommand(id);
 
-            Func<Task> act = async() => await deleteEventCommandHandler.Handle(deleteEventCommand, new CancellationToken());
+            Func<Task> act = async () => await deleteEventCommandHandler.Handle(deleteEventCommand, new CancellationToken());
 
             act.Should().ThrowAsync<NotFoundException>();
         }

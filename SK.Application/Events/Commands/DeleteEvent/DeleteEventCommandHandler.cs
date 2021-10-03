@@ -20,6 +20,7 @@ namespace SK.Application.Events.Commands.DeleteEvent
             _context = context;
             _localizer = localizer;
         }
+
         public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
             var eventToDelete = await _context.Events.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Event), request.Id);
@@ -33,7 +34,6 @@ namespace SK.Application.Events.Commands.DeleteEvent
                 return Unit.Value;
             }
             throw new RestException(HttpStatusCode.BadRequest, new { Event = _localizer["EventSaveError"] });
-
         }
     }
 }

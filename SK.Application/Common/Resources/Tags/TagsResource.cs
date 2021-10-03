@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group tags resource
     /// </summary>
-    public class TagsResource {}
+    public class TagsResource { }
 }

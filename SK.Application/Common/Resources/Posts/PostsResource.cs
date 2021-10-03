@@ -3,5 +3,5 @@
     /// <summary>
     /// Dummy class to group posts resource
     /// </summary>
-    public class PostsResource {}
+    public class PostsResource { }
 }

@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using SK.Application.Common.Interfaces;
-using SK.Infrastructure.Security;
-using SK.Persistence.Services;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using SK.Infrastructure.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using SK.Application.Common.Interfaces;
 using SK.Infrastructure.Photos;
+using SK.Infrastructure.Security;
+using SK.Infrastructure.Services;
+using SK.Persistence.Services;
+using System.Text;
 
 namespace SK.Infrastructure
 {

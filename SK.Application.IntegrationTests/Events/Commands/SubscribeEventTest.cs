@@ -102,6 +102,5 @@ namespace SK.Application.IntegrationTests.Events.Commands
             FluentActions.Invoking(() =>
                 SendAsync(new SubscribeEventCommand() { Id = createdEventId })).Should().ThrowAsync<RestException>();
         }
-        
     }
 }

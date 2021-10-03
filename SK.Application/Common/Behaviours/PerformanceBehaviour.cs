@@ -14,7 +14,6 @@ namespace SK.Application.Common.Behaviours
         private readonly ICurrentUserService _currentUserService;
         private readonly IIdentityService _identityService;
 
-
         public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
         {
             _timer = new Stopwatch();

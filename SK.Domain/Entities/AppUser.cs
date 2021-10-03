@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SK.Domain.Entities
 {
-    public class AppUser : IdentityUser 
+    public class AppUser : IdentityUser
     {
         public string Nickname { get; set; }
         public Gender UserGender { get; set; }

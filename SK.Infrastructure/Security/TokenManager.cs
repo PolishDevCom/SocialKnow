@@ -48,8 +48,8 @@ namespace SK.Infrastructure.Security
         {
             var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
 
-            return authorizationHeader == StringValues.Empty 
-                ? string.Empty 
+            return authorizationHeader == StringValues.Empty
+                ? string.Empty
                 : authorizationHeader.Single().Split(" ").Last();
         }
 

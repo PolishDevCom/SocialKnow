@@ -28,14 +28,14 @@ namespace SK.Application.UnitTests.Common.Behaviours
         public async Task ShouldLogRequest()
         {
             var requestlogger = new LoggingBehaviour<CreateArticleCommand>(_logger.Object, _currentUserService.Object, _identityService.Object);
-            await requestlogger.Process(new CreateArticleCommand 
+            await requestlogger.Process(new CreateArticleCommand
             {
                 Id = Guid.NewGuid(),
                 Title = "Article Title",
                 Abstract = "Article Abstract",
                 Image = null,
                 Content = "Article Content"
-            }, 
+            },
             new CancellationToken());
             _logger.Verify(
                 l => l.Log(
@@ -62,7 +62,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 Abstract = "Article Abstract",
                 Image = null,
                 Content = "Article Content"
-            }, 
+            },
             new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(It.IsAny<string>()), Times.Once);
@@ -80,7 +80,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 Abstract = "Article Abstract",
                 Image = null,
                 Content = "Article Content"
-            }, 
+            },
             new CancellationToken());
 
             _identityService.Verify(i => i.GetUserByUsernameAsync(null), Times.Never);

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class CreateDiscussionTest : TestBase
     {
         [Test]
@@ -44,7 +45,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             createdDiscussion.Description.Should().Be(createDiscussionCommand.Description);
             createdDiscussion.IsClosed.Should().Be(false);
             createdDiscussion.IsPinned.Should().Be(false);
-            createdDiscussion.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            createdDiscussion.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             createdDiscussion.CreatedBy.Should().Be(loggedUser);
             createdDiscussion.Category.Id.Should().Be(categoryId);
 

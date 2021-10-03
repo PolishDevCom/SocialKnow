@@ -1,5 +1,4 @@
-﻿using Bogus;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Moq;
@@ -12,8 +11,6 @@ using SK.Application.User.Commands;
 using SK.Application.User.Commands.AddRoleToUser;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -78,7 +75,7 @@ namespace SK.Application.UnitTests.User.Commands
 
             roleManager.Setup(x => x.RoleExistsAsync(addRoleToUserCommand.Role)).Returns(Task.FromResult(false));
 
-            Func<Task> act = async() => await addRoleToUserCommandHandler.Handle(addRoleToUserCommand, new CancellationToken());
+            Func<Task> act = async () => await addRoleToUserCommandHandler.Handle(addRoleToUserCommand, new CancellationToken());
 
             act.Should().ThrowAsync<RestException>();
         }

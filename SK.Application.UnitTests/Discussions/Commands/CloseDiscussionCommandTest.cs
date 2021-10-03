@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Discussions;
 using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

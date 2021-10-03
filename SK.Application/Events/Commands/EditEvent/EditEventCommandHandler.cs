@@ -23,6 +23,7 @@ namespace SK.Application.Events.Commands.EditEvent
             _localize = localize;
             _mapper = mapper;
         }
+
         public async Task<Unit> Handle(EditEventCommand request, CancellationToken cancellationToken)
         {
             var eventToChange = await _context.Events.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Event), request.Id);
@@ -34,7 +35,6 @@ namespace SK.Application.Events.Commands.EditEvent
                 return Unit.Value;
             }
             throw new RestException(HttpStatusCode.BadRequest, new { Event = _localize["EventSaveError"] });
-
         }
     }
 }

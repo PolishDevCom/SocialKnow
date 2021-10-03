@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class PinDiscussionTest : TestBase
     {
         [Test]
@@ -35,7 +36,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             //assert
             pinnedDiscussion.Should().NotBeNull();
             pinnedDiscussion.IsPinned.Should().Be(true);
-            pinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            pinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             pinnedDiscussion.LastModifiedBy.Should().Be(loggedUser);
         }
 

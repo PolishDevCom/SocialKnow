@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class CloseDiscussionTest : TestBase
     {
         [Test]
@@ -35,7 +36,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             //assert
             closedDiscussion.Should().NotBeNull();
             closedDiscussion.IsClosed.Should().Be(true);
-            closedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
+            closedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             closedDiscussion.LastModifiedBy.Should().Be(loggedUser);
         }
 

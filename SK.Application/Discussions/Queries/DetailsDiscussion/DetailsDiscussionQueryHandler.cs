@@ -4,13 +4,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
+using SK.Application.Common.Models;
 using SK.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-using SK.Application.Common.Models;
-using System;
 
 namespace SK.Application.Discussions.Queries.DetailsDiscussion
 {
@@ -50,7 +50,6 @@ namespace SK.Application.Discussions.Queries.DetailsDiscussion
             var orderedPosts = new List<PostDto>(pinnedPosts.Count + unpinnedPosts.Count);
             orderedPosts.AddRange(pinnedPosts);
             orderedPosts.AddRange(unpinnedPosts);
-
 
             //data for paged posts
             var pagedData = orderedPosts
