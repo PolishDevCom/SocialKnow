@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Moq;
@@ -67,7 +66,7 @@ namespace SK.Application.UnitTests.AdditionalInfoDefinitions.Commands
             EditAdditionalInfoDefinitionCommand editAdditionalInfoDefinitionCommand = new EditAdditionalInfoDefinitionCommand(additionalInfoDefinitionDto);
             Func<Task> act = async () => await editAdditionalInfoDefinitionCommandHandler.Handle(editAdditionalInfoDefinitionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -81,7 +80,7 @@ namespace SK.Application.UnitTests.AdditionalInfoDefinitions.Commands
 
             Func<Task> act = async () => await editAdditionalInfoDefinitionCommandHandler.Handle(editAdditionalInfoDefinitionCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

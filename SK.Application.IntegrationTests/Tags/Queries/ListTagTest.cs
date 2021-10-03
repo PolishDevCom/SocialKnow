@@ -5,8 +5,6 @@ using SK.Application.Common.Models;
 using SK.Application.Tags.Queries.ListTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Tags.Queries

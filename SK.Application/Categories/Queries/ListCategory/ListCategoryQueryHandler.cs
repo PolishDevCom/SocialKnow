@@ -3,9 +3,7 @@ using SK.Application.Common.Interfaces;
 using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
 using SK.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

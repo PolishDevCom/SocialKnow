@@ -4,7 +4,9 @@ namespace SK.Application.Photos.Commands.DeletePhoto
 {
     public class DeletePhotoCommand : IRequest
     {
-        public DeletePhotoCommand() {}
+        public DeletePhotoCommand()
+        {
+        }
 
         public DeletePhotoCommand(string id)
         {

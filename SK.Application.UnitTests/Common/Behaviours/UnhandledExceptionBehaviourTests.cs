@@ -15,7 +15,6 @@ namespace SK.Application.UnitTests.Common.Behaviours
         private readonly Mock<ILogger<CreateArticleCommand>> _logger;
         private readonly Mock<RequestHandlerDelegate<CreateArticleCommandHandler>> _response;
 
-
         public UnhandledExceptionBehaviourTests()
         {
             _logger = new Mock<ILogger<CreateArticleCommand>>();
@@ -36,7 +35,7 @@ namespace SK.Application.UnitTests.Common.Behaviours
                     Abstract = "Article Abstract",
                     Image = null,
                     Content = "Article Content"
-                }, 
+                },
                 new CancellationToken(), _response.Object);
             }
             catch (Exception)

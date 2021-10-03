@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SK.Application.Common.Models;
 using SK.Application.Common.Wrappers;
@@ -11,7 +10,6 @@ using SK.Application.Tags.Queries;
 using SK.Application.Tags.Queries.ListTag;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SK.API.Controllers

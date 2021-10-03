@@ -25,6 +25,7 @@ namespace SK.Application.Events.Commands.SubscribeEvent
             _dateTime = dateTime;
             _localizer = localizer;
         }
+
         public async Task<Unit> Handle(SubscribeEventCommand request, CancellationToken cancellationToken)
         {
             var eventToSubscribe = await _context.Events.FindAsync(request.Id) ?? throw new NotFoundException(nameof(Event), request.Id);

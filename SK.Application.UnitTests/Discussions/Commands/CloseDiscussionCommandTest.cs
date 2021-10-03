@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Discussions;
 using SK.Application.Discussions.Commands.CloseDiscussion;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -65,7 +63,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -81,7 +79,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -98,7 +96,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             Func<Task> act = async () => await closeDiscussionCommandHandler.Handle(closeDiscussionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

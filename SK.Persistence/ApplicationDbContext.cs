@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using SK.Application.Common.Interfaces;
 using SK.Domain.Common;
 using SK.Domain.Entities;
@@ -49,6 +48,7 @@ namespace SK.Persistence
                         entry.Entity.LastModified = _dateTime.Now;
                         entry.Entity.LastModifiedBy = _currentUserService.Username;
                         break;
+
                     case EntityState.Added:
                         entry.Entity.Created = _dateTime.Now;
                         entry.Entity.CreatedBy = _currentUserService.Username;

@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace SK.Application.Articles.Commands.CreateArticle
-{ 
+{
     public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Guid>
     {
         private readonly IApplicationDbContext _context;
@@ -24,6 +24,7 @@ namespace SK.Application.Articles.Commands.CreateArticle
             _localizer = localizer;
             _mapper = mapper;
         }
+
         public async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = _mapper.Map<Article>(request);

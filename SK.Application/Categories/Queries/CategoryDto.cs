@@ -1,8 +1,6 @@
 ﻿using SK.Application.Common.Mapping;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SK.Application.Categories.Queries
 {

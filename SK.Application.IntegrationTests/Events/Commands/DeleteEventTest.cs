@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Events.Commands
 {
     using static Testing;
-    class DeleteEventTest : TestBase
+
+    internal class DeleteEventTest : TestBase
     {
         [Test]
         public void ShouldRequireValidEventId()
@@ -21,7 +22,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -29,7 +30,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
         {
             //arrange
             var loggedUser = await RunAsUserAsync("scott101@localhost", "Pa$$w0rd!");
-            
+
             var command = new Faker<CreateEventCommand>("en")
                 .RuleFor(e => e.Id, f => f.Random.Guid())
                 .RuleFor(e => e.Title, f => f.Lorem.Sentence())

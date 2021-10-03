@@ -58,7 +58,7 @@ namespace SK.Application.IntegrationTests.Events.Queries
             //assert
             result.Id.Should().Be(expectedId);
             result.Title.Should().Be(event2.Title);
-            result.Date.Should().BeCloseTo(event2.Date, 1000);
+            result.Date.Should().BeCloseTo(event2.Date, new TimeSpan(0,0,1));
             result.Description.Should().Be(event2.Description);
             result.Category.Should().Be(event2.Category);
             result.City.Should().Be(event2.City);
@@ -86,7 +86,7 @@ namespace SK.Application.IntegrationTests.Events.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<NotFoundException>();
+                SendAsync(query)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

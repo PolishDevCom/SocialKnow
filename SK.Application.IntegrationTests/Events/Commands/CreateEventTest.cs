@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NUnit.Framework;
-using SK.Application.Common.Exceptions;
 using SK.Application.Events.Commands.CreateEvent;
 using SK.Domain.Entities;
 using System;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Events.Commands
 {
     using static Testing;
+
     public class CreateEventTest : TestBase
     {
         [Test]
@@ -37,12 +37,12 @@ namespace SK.Application.IntegrationTests.Events.Commands
             createdTestEvent.Should().NotBeNull();
             createdTestEvent.Id.Should().Be(command.Id);
             createdTestEvent.Title.Should().Be(command.Title);
-            createdTestEvent.Date.Should().BeCloseTo(command.Date, 1000);
+            createdTestEvent.Date.Should().BeCloseTo(command.Date, new TimeSpan(0,0,1));
             createdTestEvent.Description.Should().Be(command.Description);
             createdTestEvent.Category.Should().Be(command.Category);
             createdTestEvent.City.Should().Be(command.City);
             createdTestEvent.Venue.Should().Be(command.Venue);
-            createdTestEvent.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdTestEvent.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringCreatingEventTestCases
@@ -86,7 +86,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

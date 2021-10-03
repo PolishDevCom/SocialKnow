@@ -10,7 +10,10 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.CreateAdditionalInfo
         public string InfoName { get; set; }
         public TypeOfField TypeOfField { get; set; }
 
-        public CreateAdditionalInfoDefinitionCommand() { }
+        public CreateAdditionalInfoDefinitionCommand()
+        {
+        }
+
         public CreateAdditionalInfoDefinitionCommand(AdditionalInfoDefinitionCreateOrEditDto additionalInfoDefinitionCreateOrEditDto)
         {
             Id = additionalInfoDefinitionCreateOrEditDto.Id;

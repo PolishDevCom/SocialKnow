@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Articles.Commands
 {
-
     using static Testing;
 
     public class DeleteTestValueTest : TestBase
@@ -23,7 +22,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

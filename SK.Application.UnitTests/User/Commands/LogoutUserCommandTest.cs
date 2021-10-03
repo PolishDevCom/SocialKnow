@@ -4,9 +4,6 @@ using Moq;
 using NUnit.Framework;
 using SK.Application.Common.Interfaces;
 using SK.Application.User.Commands.LogoutUser;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

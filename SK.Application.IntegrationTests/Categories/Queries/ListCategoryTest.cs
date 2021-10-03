@@ -5,8 +5,6 @@ using SK.Application.Categories.Queries.ListCategory;
 using SK.Application.Common.Models;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Categories.Queries

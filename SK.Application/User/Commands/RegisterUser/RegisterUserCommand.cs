@@ -10,7 +10,10 @@ namespace SK.Application.User.Commands.RegisterUser
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public RegisterUserCommand() {}
+        public RegisterUserCommand()
+        {
+        }
+
         public RegisterUserCommand(RegisterUserDto registerCredentials)
         {
             Username = registerCredentials.Username;

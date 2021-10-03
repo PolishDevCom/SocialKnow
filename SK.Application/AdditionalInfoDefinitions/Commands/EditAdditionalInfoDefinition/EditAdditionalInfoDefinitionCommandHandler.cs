@@ -35,7 +35,7 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDe
             {
                 return additionalInfoDefinition.Id;
             }
-            throw new RestException(HttpStatusCode.BadRequest, new { AdditionalInfoDefinition = _localizer["AdditionalInfoDefinitionSaveError"]});
+            throw new RestException(HttpStatusCode.BadRequest, new { AdditionalInfoDefinition = _localizer["AdditionalInfoDefinitionSaveError"] });
         }
     }
 }

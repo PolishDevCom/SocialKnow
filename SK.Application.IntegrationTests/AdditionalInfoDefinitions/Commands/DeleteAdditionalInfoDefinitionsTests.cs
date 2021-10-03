@@ -23,7 +23,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

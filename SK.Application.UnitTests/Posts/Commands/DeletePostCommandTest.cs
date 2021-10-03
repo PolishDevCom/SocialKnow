@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Posts;
 using SK.Application.Posts.Commands.DeletePost;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,9 +57,9 @@ namespace SK.Application.UnitTests.Posts.Commands
             DeletePostCommandHandler deletePostCommandHandler = new DeletePostCommandHandler(context.Object, stringLocalizer.Object);
             DeletePostCommand deletePostCommand = new DeletePostCommand(id);
 
-            Func<Task> act = async() => await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
+            Func<Task> act = async () => await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -76,7 +74,7 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             Func<Task> act = async () => await deletePostCommandHandler.Handle(deletePostCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

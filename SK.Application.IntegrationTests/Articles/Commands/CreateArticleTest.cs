@@ -42,7 +42,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             createdArticle.Image.Should().BeNull();
             createdArticle.Content.Should().Be(articleToCreate.Content);
             createdArticle.CreatedBy.Should().Be(loggedUser);
-            createdArticle.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdArticle.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0, 0, 1));
         }
 
         private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringCreatingArticleTestCases
@@ -76,7 +76,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

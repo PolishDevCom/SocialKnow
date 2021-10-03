@@ -6,13 +6,12 @@ using SK.Application.Tags.Commands.CreateTag;
 using SK.Application.Tags.Commands.DeleteTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Tags.Commands
 {
     using static Testing;
+
     public class DeleteTagTest : TestBase
     {
         [Test]
@@ -44,7 +43,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

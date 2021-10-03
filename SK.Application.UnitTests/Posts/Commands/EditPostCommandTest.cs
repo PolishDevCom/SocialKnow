@@ -12,8 +12,6 @@ using SK.Application.Posts.Commands;
 using SK.Application.Posts.Commands.EditPost;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,7 +32,7 @@ namespace SK.Application.UnitTests.Posts.Commands
             dbSetPost = new Mock<DbSet<Post>>();
             context = new Mock<IApplicationDbContext>();
             stringLocalizer = new Mock<IStringLocalizer<PostsResource>>();
-         
+
             post = new Post { Id = id };
             postDto = new Faker<PostEditDto>("en")
                 .RuleFor(p => p.Body, f => f.Random.String(10))
@@ -66,9 +64,9 @@ namespace SK.Application.UnitTests.Posts.Commands
             EditPostCommandHandler editPostCommandHandler = new EditPostCommandHandler(context.Object, stringLocalizer.Object);
             EditPostCommand editPostCommand = new EditPostCommand(postDto);
 
-            Func<Task> act = async() => await editPostCommandHandler.Handle(editPostCommand, new CancellationToken());
+            Func<Task> act = async () => await editPostCommandHandler.Handle(editPostCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -83,7 +81,7 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             Func<Task> act = async () => await editPostCommandHandler.Handle(editPostCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using SK.Application.Common.Behaviours;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace SK.Application

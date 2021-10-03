@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SK.Infrastructure.Security
 {
-    public class IsDiscussionOwnerRequirement : IAuthorizationRequirement {}
+    public class IsDiscussionOwnerRequirement : IAuthorizationRequirement { }
 
     public class IsDiscussionOwnerRequirementHandler : AuthorizationHandler<IsDiscussionOwnerRequirement>
     {
@@ -37,7 +37,7 @@ namespace SK.Infrastructure.Security
                 .FirstOrDefaultAsync(e => e.Id == discussionId).Result;
 
             if (foundDiscussion.CreatedBy == currentUsername)
-            context.Succeed(requirement);
+                context.Succeed(requirement);
 
             return Task.CompletedTask;
         }

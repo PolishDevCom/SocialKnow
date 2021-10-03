@@ -17,7 +17,6 @@ using SK.Application.Common.Interfaces;
 using SK.Domain.Entities;
 using SK.Infrastructure;
 using SK.Infrastructure.Photos;
-using SK.Infrastructure.Security;
 using SK.Persistence;
 using System;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ namespace SK.API
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IConfiguration configuration)
         {
@@ -88,7 +87,7 @@ namespace SK.API
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -124,7 +123,6 @@ namespace SK.API
             {
                 options.ConstraintMap.Add("culture", typeof(LanguageRouteConstraint));
             });
-
 
             services.AddControllers(options =>
                 options.Filters.Add(new ApiExceptionFilter()));

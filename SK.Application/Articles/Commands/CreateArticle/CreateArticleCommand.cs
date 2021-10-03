@@ -12,7 +12,11 @@ namespace SK.Application.Articles.Commands.CreateArticle
         public string Image { get; set; }
         public string Abstract { get; set; }
         public string Content { get; set; }
-        public CreateArticleCommand() {}
+
+        public CreateArticleCommand()
+        {
+        }
+
         public CreateArticleCommand(ArticleCreateOrEditDto request)
         {
             Id = request.Id;

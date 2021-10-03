@@ -10,8 +10,6 @@ using SK.Application.Common.Resources.Tags;
 using SK.Application.Tags.Commands.DeleteTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,7 +57,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await deleteTagCommandHandler.Handle(deleteTagCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -73,7 +71,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await deleteTagCommandHandler.Handle(deleteTagCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

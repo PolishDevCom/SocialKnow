@@ -291,7 +291,6 @@ namespace SK.Persistence
                 context.AdditionalInfoDefinitions.AddRange(additionalInfos);
                 await context.SaveChangesAsync();
             }
-
         }
 
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
@@ -327,6 +326,5 @@ namespace SK.Persistence
                 await userManager.AddToRoleAsync(janeUser, IdentityRoles.Standard.ToString());
             }
         }
-
     }
 }

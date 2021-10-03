@@ -7,7 +7,11 @@ namespace SK.Application.Photos.Commands.AddPhoto
     public class AddPhotoCommand : IRequest<Photo>
     {
         public IFormFile File { get; set; }
-        public AddPhotoCommand() {}
+
+        public AddPhotoCommand()
+        {
+        }
+
         public AddPhotoCommand(IFormFile newFile)
         {
             File = newFile;

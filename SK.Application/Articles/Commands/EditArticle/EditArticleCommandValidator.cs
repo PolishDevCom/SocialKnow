@@ -7,6 +7,7 @@ namespace SK.Application.Articles.Commands.EditArticle
     public class EditArticleCommandValidator : AbstractValidator<EditArticleCommand>
     {
         private readonly IStringLocalizer<ArticlesResource> _localizer;
+
         public EditArticleCommandValidator(IStringLocalizer<ArticlesResource> localizer)
         {
             _localizer = localizer;

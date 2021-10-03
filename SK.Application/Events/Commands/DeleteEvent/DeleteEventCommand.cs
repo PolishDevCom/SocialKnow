@@ -7,7 +7,10 @@ namespace SK.Application.Events.Commands.DeleteEvent
     {
         public Guid Id { get; set; }
 
-        public DeleteEventCommand(){}
+        public DeleteEventCommand()
+        {
+        }
+
         public DeleteEventCommand(Guid id)
         {
             Id = id;

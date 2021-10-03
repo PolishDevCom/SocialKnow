@@ -7,6 +7,7 @@ namespace SK.Application.Articles.Commands.CreateArticle
     public class CreateArticleCommandValidator : AbstractValidator<CreateArticleCommand>
     {
         private readonly IStringLocalizer<ArticlesResource> _localizer;
+
         public CreateArticleCommandValidator(IStringLocalizer<ArticlesResource> localizer)
         {
             _localizer = localizer;

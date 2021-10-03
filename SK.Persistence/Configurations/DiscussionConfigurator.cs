@@ -4,7 +4,7 @@ using SK.Domain.Entities;
 
 namespace SK.Persistence.Configurations
 {
-    class DiscussionConfigurator : IEntityTypeConfiguration<Discussion>
+    internal class DiscussionConfigurator : IEntityTypeConfiguration<Discussion>
     {
         public void Configure(EntityTypeBuilder<Discussion> builder)
         {

@@ -57,7 +57,7 @@ namespace SK.Application.UnitTests.AdditionalInfoDefinitions.Commands
 
             Func<Task> act = async () => await deleteAdditionalInfoDefinitionCommandHandler.Handle(deleteAdditionalInfoDefinitionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace SK.Application.UnitTests.AdditionalInfoDefinitions.Commands
 
             Func<Task> act = async () => await deleteAdditionalInfoDefinitionCommandHandler.Handle(deleteAdditionalInfoDefinitionCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

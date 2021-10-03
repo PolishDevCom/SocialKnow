@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SK.Application.Discussions.Queries.ListDiscussion
 {
-    public class ListDiscussionQuery : IRequest<PagedResponse<List<DiscussionDto>>> 
+    public class ListDiscussionQuery : IRequest<PagedResponse<List<DiscussionDto>>>
     {
         public PaginationFilter Filter { get; set; }
         public string Path { get; set; }

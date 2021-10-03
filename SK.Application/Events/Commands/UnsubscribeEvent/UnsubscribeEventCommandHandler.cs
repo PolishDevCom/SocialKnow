@@ -49,7 +49,6 @@ namespace SK.Application.Events.Commands.UnsubscribeEvent
                 return Unit.Value;
             }
             throw new RestException(HttpStatusCode.BadRequest, new { Event = _localizer["EventSaveError"] });
-
         }
     }
 }

@@ -20,9 +20,9 @@ namespace SK.Application.Photos.Commands.AddPhoto
         private readonly IStringLocalizer<PhotosResource> _localizer;
 
         public AddPhotoCommandHandler(
-            IApplicationDbContext context, 
-            ICurrentUserService currentUserService, 
-            IPhotoService photoService, 
+            IApplicationDbContext context,
+            ICurrentUserService currentUserService,
+            IPhotoService photoService,
             IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;

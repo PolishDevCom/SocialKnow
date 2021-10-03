@@ -23,7 +23,6 @@ namespace SK.Application.User.Commands.AddRoleToUser
             _identityService = identityService;
             _roleManager = roleManager;
             _localizer = localizer;
-
         }
 
         public async Task<Result> Handle(AddRoleToUserCommand request, CancellationToken cancellationToken)

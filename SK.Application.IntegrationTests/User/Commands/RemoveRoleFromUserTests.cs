@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.User.Commands
 {
     using static Testing;
+
     public class RemoveRoleFromUserTests : TestBase
     {
         [Test]
@@ -36,7 +37,6 @@ namespace SK.Application.IntegrationTests.User.Commands
                 Role = "Premium",
                 Username = user.Username
             };
-
 
             //act
             await SendAsync(removeRoleCommand);
@@ -70,7 +70,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(removeRoleCommand)).Should().Throw<RestException>();
+                SendAsync(removeRoleCommand)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(removeRoleCommand)).Should().Throw<NotFoundException>();
+                SendAsync(removeRoleCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Discussions.Commands
 {
     using static Testing;
+
     public class UnpinDiscussionTest : TestBase
     {
         [Test]
@@ -39,7 +40,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             //assert
             unpinnedDiscussion.Should().NotBeNull();
             unpinnedDiscussion.IsPinned.Should().Be(false);
-            unpinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            unpinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             unpinnedDiscussion.LastModifiedBy.Should().Be(loggedUser);
         }
 
@@ -51,7 +52,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(unpinCommand)).Should().Throw<NotFoundException>();
+                SendAsync(unpinCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -76,7 +77,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(unpinCommand)).Should().Throw<RestException>();
+                SendAsync(unpinCommand)).Should().ThrowAsync<RestException>();
         }
     }
 }

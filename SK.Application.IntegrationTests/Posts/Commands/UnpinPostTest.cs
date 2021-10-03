@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Posts.Commands
 {
     using static Testing;
+
     public class UnpinPostTest : TestBase
     {
         [Test]
@@ -46,7 +47,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
             //assert
             unpinnedPost.Should().NotBeNull();
             unpinnedPost.IsPinned.Should().Be(false);
-            unpinnedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            unpinnedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
             unpinnedPost.LastModifiedBy.Should().Be(loggedUser);
         }
 
@@ -58,7 +59,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(pinCommand)).Should().Throw<NotFoundException>();
+                SendAsync(pinCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -91,7 +92,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(unpinCommand)).Should().Throw<RestException>();
+                SendAsync(unpinCommand)).Should().ThrowAsync<RestException>();
         }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.User.Commands
 {
-
     using static Testing;
+
     public class DeleteUserTests : TestBase
     {
         [Test]
@@ -51,7 +51,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deleteCommand)).Should().Throw<RestException>();
+                SendAsync(deleteCommand)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deleteCommand)).Should().Throw<NotFoundException>();
+                SendAsync(deleteCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

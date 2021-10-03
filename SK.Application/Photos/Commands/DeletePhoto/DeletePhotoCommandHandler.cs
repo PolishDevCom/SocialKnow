@@ -20,9 +20,9 @@ namespace SK.Application.Photos.Commands.DeletePhoto
         private readonly IStringLocalizer<PhotosResource> _localizer;
 
         public DeletePhotoCommandHandler(
-            IApplicationDbContext context, 
-            ICurrentUserService currentUserService, 
-            IPhotoService photoService, 
+            IApplicationDbContext context,
+            ICurrentUserService currentUserService,
+            IPhotoService photoService,
             IStringLocalizer<PhotosResource> localizer)
         {
             _context = context;
@@ -44,7 +44,7 @@ namespace SK.Application.Photos.Commands.DeletePhoto
                 throw new RestException(HttpStatusCode.BadRequest, new { Photo = _localizer["PhotoDeleteMainPhotoError"] });
             }
 
-            var result = _photoService.DeletePhoto(photo.Id) ?? throw new RestException(HttpStatusCode.BadRequest, new { Photo = _localizer["PhotoDeletError"] }); 
+            var result = _photoService.DeletePhoto(photo.Id) ?? throw new RestException(HttpStatusCode.BadRequest, new { Photo = _localizer["PhotoDeletError"] });
 
             user.Photos.Remove(photo);
 

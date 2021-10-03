@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace SK.Application.Articles.Queries.ListArticle
-{ 
+{
     public class ListArticleQueryHandler : IRequestHandler<ListArticleQuery, PagedResponse<List<ArticleDto>>>
     {
         private readonly IPaginationService<Article, ArticleDto> _paginationService;

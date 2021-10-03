@@ -7,6 +7,7 @@ namespace SK.Application.AdditionalInfoDefinitions.Commands.EditAdditionalInfoDe
     public class EditAdditionalInfoDefinitionCommandValidator : AbstractValidator<EditAdditionalInfoDefinitionCommand>
     {
         private readonly IStringLocalizer<AdditionalInfoDefinitionsResource> _localizer;
+
         public EditAdditionalInfoDefinitionCommandValidator(IStringLocalizer<AdditionalInfoDefinitionsResource> localizer)
         {
             _localizer = localizer;

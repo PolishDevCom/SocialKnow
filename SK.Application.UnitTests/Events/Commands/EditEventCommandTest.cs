@@ -12,8 +12,6 @@ using SK.Application.Events.Commands;
 using SK.Application.Events.Commands.EditEvent;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -67,9 +65,9 @@ namespace SK.Application.UnitTests.Events.Commands
             EditEventCommandHandler editEventCommandHandler = new EditEventCommandHandler(context.Object, stringLocalizer.Object, mapper.Object);
             EditEventCommand editEventCommand = new EditEventCommand(eventDto);
 
-            Func<Task> act = async() => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
+            Func<Task> act = async () => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -85,7 +83,7 @@ namespace SK.Application.UnitTests.Events.Commands
 
             Func<Task> act = async () => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

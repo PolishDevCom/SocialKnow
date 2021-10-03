@@ -75,7 +75,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(new UnsubscribeEventCommand() { Id = Guid.NewGuid() })).Should().Throw<NotFoundException>();
+                SendAsync(new UnsubscribeEventCommand() { Id = Guid.NewGuid() })).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(new UnsubscribeEventCommand() { Id = createdEventId })).Should().Throw<RestException>();
+                SendAsync(new UnsubscribeEventCommand() { Id = createdEventId })).Should().ThrowAsync<RestException>();
         }
     }
 }

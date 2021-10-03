@@ -33,7 +33,7 @@ namespace SK.Application.User.Queries.LoginUser
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return new User
                 {

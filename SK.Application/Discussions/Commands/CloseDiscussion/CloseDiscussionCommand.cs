@@ -7,7 +7,10 @@ namespace SK.Application.Discussions.Commands.CloseDiscussion
     {
         public Guid Id { get; set; }
 
-        public CloseDiscussionCommand() { }
+        public CloseDiscussionCommand()
+        {
+        }
+
         public CloseDiscussionCommand(Guid id)
         {
             Id = id;

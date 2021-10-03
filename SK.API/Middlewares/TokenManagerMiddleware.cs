@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SK.Application.Common.Interfaces;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 

@@ -36,6 +36,5 @@ namespace SK.Application.Articles.Commands.EditArticle
             }
             throw new RestException(HttpStatusCode.BadRequest, new { Article = _localizer["ArticleSaveError"] });
         }
-
     }
 }

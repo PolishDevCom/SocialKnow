@@ -7,6 +7,7 @@ namespace SK.Application.Common.Interfaces
     public interface IIdentityService
     {
         Task<AppUser> GetUserByUsernameAsync(string username);
+
         Task<AppUser> GetUserByEmailAsync(string email);
 
         Task<(Result Result, string UserId)> CreateUserAsync(AppUser user, string password);
@@ -14,7 +15,7 @@ namespace SK.Application.Common.Interfaces
         Task<Result> DeleteUserAsync(string userId);
 
         Task<Result> AddRoleToUserAsync(AppUser user, string role);
+
         Task<Result> RemoveRoleFromUserAsync(AppUser user, string role);
     }
 }
-

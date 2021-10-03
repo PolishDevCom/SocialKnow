@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.User.Commands
 {
-
     using static Testing;
+
     public class AddRoleToUserTests : TestBase
     {
         [Test]
@@ -62,7 +62,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(addRoleCommand)).Should().Throw<RestException>();
+                SendAsync(addRoleCommand)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(addRoleCommand)).Should().Throw<NotFoundException>();
+                SendAsync(addRoleCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

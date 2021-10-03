@@ -10,8 +10,6 @@ using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Categories;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,7 +57,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await deleteCategoryCommandHandler.Handle(deleteCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -73,7 +71,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await deleteCategoryCommandHandler.Handle(deleteCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

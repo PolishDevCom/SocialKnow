@@ -11,8 +11,6 @@ using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Articles;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -66,7 +64,7 @@ namespace SK.Application.UnitTests.Articles.Commands.CreateArticle
 
             Func<Task> act = async () => await createArticleCommandHandler.Handle(createArticleCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

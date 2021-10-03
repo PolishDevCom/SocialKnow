@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SK.Application.Events.Queries.ListEvent
 {
-    public class ListEventQuery : IRequest<PagedResponse<List<EventDto>>> 
+    public class ListEventQuery : IRequest<PagedResponse<List<EventDto>>>
     {
         public PaginationFilter Filter { get; set; }
         public string Path { get; set; }

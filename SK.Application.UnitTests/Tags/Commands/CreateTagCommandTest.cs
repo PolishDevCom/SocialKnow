@@ -11,8 +11,6 @@ using SK.Application.Tags.Commands;
 using SK.Application.Tags.Commands.CreateTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -66,7 +64,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await createTagCommandHandler.Handle(createTagCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

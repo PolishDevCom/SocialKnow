@@ -10,11 +10,8 @@ using SK.Application.Categories.Commands.EditCategory;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Categories;
-using SK.Application.Tags.Commands.EditTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -71,7 +68,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await editCategoryCommandHandler.Handle(editCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -85,7 +82,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await editCategoryCommandHandler.Handle(editCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

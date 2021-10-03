@@ -64,7 +64,7 @@ namespace SK.Application.UnitTests.AdditionalInfoDefinitions.Commands
 
             Func<Task> act = async () => await createAdditionalInfoDefinitionCommandHandler.Handle(createAdditionalInfoDefinitionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

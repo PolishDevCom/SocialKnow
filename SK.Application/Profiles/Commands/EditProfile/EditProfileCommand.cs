@@ -12,7 +12,11 @@ namespace SK.Application.Profiles.Commands.EditProfile
         public int Age { get; set; }
         public string City { get; set; }
         public string ShortBio { get; set; }
-        public EditProfileCommand() {}
+
+        public EditProfileCommand()
+        {
+        }
+
         public EditProfileCommand(ProfileCreateOrEditDto profileCreateOrEditDto)
         {
             Nickname = profileCreateOrEditDto.Nickname;

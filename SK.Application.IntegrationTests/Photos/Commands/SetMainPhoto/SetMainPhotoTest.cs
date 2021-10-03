@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Photos.Commands.SetMainPhoto
 {
     using static Testing;
+
     public class SetMainPhotoTest : TestBase
     {
         [Test]
@@ -63,8 +64,7 @@ namespace SK.Application.IntegrationTests.Photos.Commands.SetMainPhoto
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(setMainPhotoCommand)).Should().Throw<NotFoundException>();
-
+                SendAsync(setMainPhotoCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

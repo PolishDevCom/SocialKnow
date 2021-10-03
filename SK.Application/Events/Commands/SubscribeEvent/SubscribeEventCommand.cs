@@ -7,7 +7,10 @@ namespace SK.Application.Events.Commands.SubscribeEvent
     {
         public Guid Id { get; set; }
 
-        public SubscribeEventCommand() {}
+        public SubscribeEventCommand()
+        {
+        }
+
         public SubscribeEventCommand(Guid id)
         {
             Id = id;

@@ -9,11 +9,8 @@ using SK.Application.Categories.Commands.CreateCategory;
 using SK.Application.Common.Exceptions;
 using SK.Application.Common.Interfaces;
 using SK.Application.Common.Resources.Categories;
-using SK.Application.Tags.Commands.CreateTag;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -67,7 +64,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await createCategoryCommandHandler.Handle(createCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

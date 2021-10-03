@@ -13,6 +13,7 @@ namespace SK.Infrastructure.Services
         {
             _baseUri = baseUri;
         }
+
         public Uri GetPageUri(PaginationFilter filter, string route)
         {
             var _enpointUri = new Uri(string.Concat(_baseUri, route));

@@ -6,13 +6,12 @@ using SK.Application.Categories.Commands.DeleteCategory;
 using SK.Application.Common.Exceptions;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SK.Application.IntegrationTests.Categories.Commands
 {
     using static Testing;
+
     public class DeleteCategoryTest : TestBase
     {
         [Test]
@@ -44,7 +43,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.Posts.Commands
 {
     using static Testing;
+
     public class DeletePostTest : TestBase
     {
         [Test]
@@ -22,7 +23,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deletepostCommand)).Should().Throw<NotFoundException>();
+                SendAsync(deletepostCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

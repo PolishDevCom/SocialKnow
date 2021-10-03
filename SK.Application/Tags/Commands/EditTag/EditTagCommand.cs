@@ -2,8 +2,6 @@
 using SK.Application.Common.Mapping;
 using SK.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SK.Application.Tags.Commands.EditTag
 {
@@ -11,7 +9,11 @@ namespace SK.Application.Tags.Commands.EditTag
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public EditTagCommand() {}
+
+        public EditTagCommand()
+        {
+        }
+
         public EditTagCommand(TagCreateOrEditDto tagCreateOrEditDto)
         {
             Id = tagCreateOrEditDto.Id;

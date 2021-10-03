@@ -14,7 +14,11 @@ namespace SK.Application.Events.Commands.EditEvent
         public DateTime? Date { get; set; }
         public string City { get; set; }
         public string Venue { get; set; }
-        public EditEventCommand() { }
+
+        public EditEventCommand()
+        {
+        }
+
         public EditEventCommand(EventCreateOrEditDto request)
         {
             Id = request.Id;

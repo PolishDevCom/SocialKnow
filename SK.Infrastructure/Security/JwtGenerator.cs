@@ -25,6 +25,7 @@ namespace SK.Infrastructure.Security
             _userManager = userManager;
             _options = options;
         }
+
         public async Task<string> CreateToken(AppUser user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);

@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentValidation.TestHelper;
 using NUnit.Framework;
 using SK.Application.Common.Exceptions;
 using SK.Application.User.Commands.RegisterUser;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 namespace SK.Application.IntegrationTests.User.Commands
 {
     using static Testing;
+
     public class RegisterUserTests : TestBase
     {
         [Test]
@@ -62,7 +62,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command2)).Should().Throw<RestException>();
+                SendAsync(command2)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command2)).Should().Throw<RestException>();
+                SendAsync(command2)).Should().ThrowAsync<RestException>();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SK.Application.Articles.Queries.ListArticle
 {
-    public class ListArticleQuery : IRequest<PagedResponse<List<ArticleDto>>> 
+    public class ListArticleQuery : IRequest<PagedResponse<List<ArticleDto>>>
     {
         public PaginationFilter Filter { get; set; }
         public string Path { get; set; }
@@ -15,6 +15,5 @@ namespace SK.Application.Articles.Queries.ListArticle
             Filter = filter;
             Path = path;
         }
-
     }
 }

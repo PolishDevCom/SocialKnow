@@ -20,11 +20,12 @@ namespace SK.Application.Events.Queries.DetailsEvent
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<EventDto> Handle(DetailsEventQuery request, CancellationToken cancellationToken)
         {
             return await _context.Events
                 .ProjectTo<EventDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(e => e.Id == request.Id) 
+                .FirstOrDefaultAsync(e => e.Id == request.Id)
                 ??
                 throw new NotFoundException(nameof(Event), request.Id);
         }

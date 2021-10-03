@@ -5,7 +5,6 @@ using NUnit.Framework.Internal;
 using SK.Application.Articles.Commands;
 using SK.Application.Articles.Commands.CreateArticle;
 using SK.Application.Articles.Commands.EditArticle;
-using SK.Application.Articles.Queries;
 using SK.Application.Common.Exceptions;
 using SK.Domain.Entities;
 using System;
@@ -46,7 +45,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             var command = new EditArticleCommand(articleToModify);
             await SendAsync(command);
 
-            var modifiedArticle= await FindByGuidAsync<Article>(articleId);
+            var modifiedArticle = await FindByGuidAsync<Article>(articleId);
 
             //assert
             modifiedArticle.Id.Should().Be(articleToModify.Id);
@@ -55,7 +54,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             modifiedArticle.Image.Should().BeNull();
             modifiedArticle.Content.Should().Be(articleToModify.Content);
             modifiedArticle.LastModifiedBy.Should().Be(loggedUser);
-            modifiedArticle.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            modifiedArticle.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(0,0,1));
         }
 
         private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringUpdateArticleTestCases
@@ -89,7 +88,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
 
         [Test]
@@ -106,7 +105,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

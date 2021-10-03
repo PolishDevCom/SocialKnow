@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SK.Infrastructure.Security
 {
-    public class IsEventHostRequirement : IAuthorizationRequirement {}
+    public class IsEventHostRequirement : IAuthorizationRequirement { }
 
     public class IsEventHostRequirementHandler : AuthorizationHandler<IsEventHostRequirement>
     {
@@ -31,14 +31,14 @@ namespace SK.Infrastructure.Security
         {
             var currentUsername = _httpContextAccessor.HttpContext.User?.Claims?.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var eventId = Guid.Parse(_httpContextAccessor.HttpContext.Request.RouteValues.SingleOrDefault(x => x.Key == "id").Value.ToString());
-            var foundEvent =  _context.Events
+            var foundEvent = _context.Events
                 .ProjectTo<EventDto>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(e => e.Id == eventId).Result;
             var host = foundEvent.UserEvents.FirstOrDefault(x => x.IsHost);
 
             if (host?.Username == currentUsername)
-            context.Succeed(requirement);
-            
+                context.Succeed(requirement);
+
             return Task.CompletedTask;
         }
     }

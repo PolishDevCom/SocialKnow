@@ -7,6 +7,7 @@ namespace SK.Application.Events.Commands.CreateEvent
     public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
     {
         private readonly IStringLocalizer<EventsResource> _localizer;
+
         public CreateEventCommandValidator(IStringLocalizer<EventsResource> localizer)
         {
             _localizer = localizer;

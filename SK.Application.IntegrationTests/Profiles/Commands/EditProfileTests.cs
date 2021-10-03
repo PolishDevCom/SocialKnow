@@ -3,13 +3,8 @@ using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using SK.Application.Common.Exceptions;
-using SK.Application.Events.Commands.CreateEvent;
-using SK.Application.Events.Commands.EditEvent;
 using SK.Application.Profiles.Commands.EditProfile;
-using SK.Application.User.Commands.RegisterUser;
-using SK.Domain.Entities;
 using SK.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,7 +53,7 @@ namespace SK.Application.IntegrationTests.Profiles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringEditingProfileTestCases
@@ -89,7 +84,7 @@ namespace SK.Application.IntegrationTests.Profiles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

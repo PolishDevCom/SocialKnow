@@ -1,14 +1,11 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using SK.Application.Common.Exceptions;
 using SK.Application.Common.Helpers;
 using SK.Domain.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SK.Application.UnitTests.Common.Helpers
-{ 
+{
     public class ConvertHelperTests
     {
         [Test]
