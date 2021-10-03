@@ -65,7 +65,7 @@ namespace SK.Application.UnitTests.User.Commands
 
             Func<Task> act = async () => await removeRoleFromUserCommandHandler.Handle(removeRoleFromUserCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace SK.Application.UnitTests.User.Commands
 
             Func<Task> act = async () => await removeRoleFromUserCommandHandler.Handle(removeRoleFromUserCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

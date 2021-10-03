@@ -238,7 +238,7 @@ namespace SK.Application.IntegrationTests.Discussions.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<NotFoundException>();
+                SendAsync(query)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

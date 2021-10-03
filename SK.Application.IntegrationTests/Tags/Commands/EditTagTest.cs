@@ -37,7 +37,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
             modifiedTag.Id.Should().Be(tagToModify.Id);
             modifiedTag.Title.Should().Be(tagToModify.Title);
             modifiedTag.LastModifiedBy.Should().Be(loggedUser);
-            modifiedTag.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            modifiedTag.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<Common.Exceptions.ValidationException>();
+            act.Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
 
         private async Task<Guid> CreateTag()

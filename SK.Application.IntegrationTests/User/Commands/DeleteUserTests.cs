@@ -51,7 +51,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deleteCommand)).Should().Throw<RestException>();
+                SendAsync(deleteCommand)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deleteCommand)).Should().Throw<NotFoundException>();
+                SendAsync(deleteCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

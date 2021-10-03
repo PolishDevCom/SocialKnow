@@ -71,7 +71,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await editCategoryCommandHandler.Handle(editCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await editCategoryCommandHandler.Handle(editCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

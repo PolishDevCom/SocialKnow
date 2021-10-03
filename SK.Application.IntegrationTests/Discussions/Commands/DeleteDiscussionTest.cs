@@ -23,7 +23,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deleteDiscussioncommand)).Should().Throw<NotFoundException>();
+                SendAsync(deleteDiscussioncommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

@@ -70,7 +70,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(removeRoleCommand)).Should().Throw<RestException>();
+                SendAsync(removeRoleCommand)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace SK.Application.IntegrationTests.User.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(removeRoleCommand)).Should().Throw<NotFoundException>();
+                SendAsync(removeRoleCommand)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

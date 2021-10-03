@@ -36,7 +36,7 @@ namespace SK.Application.IntegrationTests.Profiles.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<NotFoundException>();
+                SendAsync(query)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

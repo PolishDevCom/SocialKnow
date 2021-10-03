@@ -58,7 +58,7 @@ namespace SK.Application.IntegrationTests.Profiles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringEditingProfileTestCases
@@ -89,7 +89,7 @@ namespace SK.Application.IntegrationTests.Profiles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

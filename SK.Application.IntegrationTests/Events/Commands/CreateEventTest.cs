@@ -37,12 +37,12 @@ namespace SK.Application.IntegrationTests.Events.Commands
             createdTestEvent.Should().NotBeNull();
             createdTestEvent.Id.Should().Be(command.Id);
             createdTestEvent.Title.Should().Be(command.Title);
-            createdTestEvent.Date.Should().BeCloseTo(command.Date, 1000);
+            createdTestEvent.Date.Should().BeCloseTo(command.Date, new TimeSpan(1000));
             createdTestEvent.Description.Should().Be(command.Description);
             createdTestEvent.Category.Should().Be(command.Category);
             createdTestEvent.City.Should().Be(command.City);
             createdTestEvent.Venue.Should().Be(command.Venue);
-            createdTestEvent.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdTestEvent.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringCreatingEventTestCases
@@ -86,7 +86,7 @@ namespace SK.Application.IntegrationTests.Events.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

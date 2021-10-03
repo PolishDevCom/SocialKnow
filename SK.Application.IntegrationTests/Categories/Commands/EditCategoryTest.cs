@@ -37,7 +37,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
             modifiedCategory.Id.Should().Be(categoryToModify.Id);
             modifiedCategory.Title.Should().Be(categoryToModify.Title);
             modifiedCategory.LastModifiedBy.Should().Be(loggedUser);
-            modifiedCategory.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            modifiedCategory.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<Common.Exceptions.ValidationException>();
+            act.Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
 
         private async Task<Guid> CreateCategory()

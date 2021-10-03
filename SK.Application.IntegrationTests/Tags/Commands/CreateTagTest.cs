@@ -33,7 +33,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
             createdTag.Id.Should().Be(createdId);
             createdTag.Title.Should().Be(tagToCreate.Title);
             createdTag.CreatedBy.Should().Be(loggedUser);
-            createdTag.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdTag.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace SK.Application.IntegrationTests.Tags.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<Common.Exceptions.ValidationException>();
+            act.Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

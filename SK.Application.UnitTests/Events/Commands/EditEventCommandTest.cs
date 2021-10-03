@@ -69,7 +69,7 @@ namespace SK.Application.UnitTests.Events.Commands
 
             Func<Task> act = async() => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace SK.Application.UnitTests.Events.Commands
 
             Func<Task> act = async () => await editEventCommandHandler.Handle(editEventCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

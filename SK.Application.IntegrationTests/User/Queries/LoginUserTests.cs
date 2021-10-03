@@ -51,7 +51,7 @@ namespace SK.Application.IntegrationTests.User.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<ValidationException>();
+                SendAsync(query)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace SK.Application.IntegrationTests.User.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<ValidationException>();
+                SendAsync(query)).Should().ThrowAsync<ValidationException>();
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace SK.Application.IntegrationTests.User.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<RestException>();
+                SendAsync(query)).Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace SK.Application.IntegrationTests.User.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<RestException>();
+                SendAsync(query)).Should().ThrowAsync<RestException>();
         }
     }
 }

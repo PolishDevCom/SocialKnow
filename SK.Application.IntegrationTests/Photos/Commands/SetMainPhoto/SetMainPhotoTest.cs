@@ -63,7 +63,7 @@ namespace SK.Application.IntegrationTests.Photos.Commands.SetMainPhoto
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(setMainPhotoCommand)).Should().Throw<NotFoundException>();
+                SendAsync(setMainPhotoCommand)).Should().ThrowAsync<NotFoundException>();
 
         }
     }

@@ -34,7 +34,7 @@ namespace SK.Application.IntegrationTests.Photos.Commands.DeletePhoto
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deletePhotoCommand)).Should().Throw<NotFoundException>();
+                SendAsync(deletePhotoCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace SK.Application.IntegrationTests.Photos.Commands.DeletePhoto
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deletePhotoCommand)).Should().Throw<RestException>();
+                SendAsync(deletePhotoCommand)).Should().ThrowAsync<RestException>();
         }
     }
 }

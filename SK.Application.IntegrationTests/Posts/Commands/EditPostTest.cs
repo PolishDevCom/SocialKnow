@@ -46,7 +46,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
             editedPost.Id.Should().Be(editCommand.Id);
             editedPost.Body.Should().Be(editCommand.Body);
             editedPost.IsPinned.Should().Be(false);
-            editedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            editedPost.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             editedPost.LastModifiedBy.Should().Be(loggedUser);
         }
 
@@ -60,7 +60,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(editCommand)).Should().Throw<NotFoundException>();
+                SendAsync(editCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(editCommand)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(editCommand)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

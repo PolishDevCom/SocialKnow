@@ -39,7 +39,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             //assert
             openedDiscussion.Should().NotBeNull();
             openedDiscussion.IsClosed.Should().Be(false);
-            openedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            openedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             openedDiscussion.LastModifiedBy.Should().Be(loggedUser);
         }
 
@@ -51,7 +51,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(openCommand)).Should().Throw<NotFoundException>();
+                SendAsync(openCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(openCommand)).Should().Throw<RestException>();
+                SendAsync(openCommand)).Should().ThrowAsync<RestException>();
         }
     }
 }

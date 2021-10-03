@@ -52,7 +52,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
             result.Image.Should().BeNull();
             result.Content.Should().Be(detailedArticle.Content);
             result.CreatedBy.Should().Be("scott101@localhost");
-            result.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            result.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace SK.Application.IntegrationTests.Articles.Queries
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(query)).Should().Throw<NotFoundException>();
+                SendAsync(query)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

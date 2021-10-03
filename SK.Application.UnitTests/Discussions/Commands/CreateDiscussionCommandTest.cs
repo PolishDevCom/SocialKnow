@@ -79,7 +79,7 @@ namespace SK.Application.UnitTests.Discussions.Commands
 
             Func<Task> act = async () => await createDiscussionCommandHandler.Handle(createDiscussionCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

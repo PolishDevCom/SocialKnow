@@ -66,7 +66,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await createTagCommandHandler.Handle(createTagCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

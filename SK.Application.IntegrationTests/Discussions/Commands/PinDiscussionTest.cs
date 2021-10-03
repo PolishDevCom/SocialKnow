@@ -35,7 +35,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             //assert
             pinnedDiscussion.Should().NotBeNull();
             pinnedDiscussion.IsPinned.Should().Be(true);
-            pinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            pinnedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             pinnedDiscussion.LastModifiedBy.Should().Be(loggedUser);
         }
 
@@ -47,7 +47,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(pinCommand)).Should().Throw<NotFoundException>();
+                SendAsync(pinCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(pinCommand)).Should().Throw<RestException>();
+                SendAsync(pinCommand)).Should().ThrowAsync<RestException>();
         }
     }
 }

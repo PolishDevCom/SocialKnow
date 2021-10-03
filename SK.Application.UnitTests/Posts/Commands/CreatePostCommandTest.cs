@@ -74,7 +74,7 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace SK.Application.UnitTests.Posts.Commands
 
             Func<Task> act = async () => await createPostCommandHandler.Handle(createPostCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

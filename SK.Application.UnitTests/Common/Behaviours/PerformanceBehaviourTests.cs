@@ -1,4 +1,5 @@
-﻿using FluentAssertions.Common;
+﻿using FluentAssertions;
+using FluentAssertions.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -68,7 +69,15 @@ namespace SK.Application.UnitTests.Common.Behaviours
                 Content = "Article Content"
             }, 
             new CancellationToken(), _responseShort.Object);
-            _logger.Object.IsSameOrEqualTo(null);
+            _logger.Verify(
+            l => l.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => true),
+                It.IsAny<Exception>(),
+                It.Is<Func<It.IsAnyType, Exception, string>>((v, t) => true)),
+                Times.Never
+            );
         }
     }
 }

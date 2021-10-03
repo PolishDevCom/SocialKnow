@@ -34,7 +34,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
             createdAdditionalInfoDefinition.InfoType.Should().Be("string");
             createdAdditionalInfoDefinition.InfoName.Should().Be(additionalInfoDefinitionToCreate.InfoName);
             createdAdditionalInfoDefinition.CreatedBy.Should().Be(loggedUser);
-            createdAdditionalInfoDefinition.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdAdditionalInfoDefinition.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringCreatingAdditionalInfoDefinitionTestCases
@@ -62,7 +62,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<Common.Exceptions.ValidationException>();
+            act.Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

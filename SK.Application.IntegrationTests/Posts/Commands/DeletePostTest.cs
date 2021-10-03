@@ -22,7 +22,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(deletepostCommand)).Should().Throw<NotFoundException>();
+                SendAsync(deletepostCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         [Test]

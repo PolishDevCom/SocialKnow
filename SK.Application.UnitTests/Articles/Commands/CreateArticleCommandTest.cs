@@ -66,7 +66,7 @@ namespace SK.Application.UnitTests.Articles.Commands.CreateArticle
 
             Func<Task> act = async () => await createArticleCommandHandler.Handle(createArticleCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

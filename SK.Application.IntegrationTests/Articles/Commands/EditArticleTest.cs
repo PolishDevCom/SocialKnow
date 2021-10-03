@@ -55,7 +55,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
             modifiedArticle.Image.Should().BeNull();
             modifiedArticle.Content.Should().Be(articleToModify.Content);
             modifiedArticle.LastModifiedBy.Should().Be(loggedUser);
-            modifiedArticle.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            modifiedArticle.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         private static IEnumerable<TestCaseData> ShouldRequireFieldAndThrowValidationExceptionDuringUpdateArticleTestCases
@@ -89,7 +89,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace SK.Application.IntegrationTests.Articles.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }

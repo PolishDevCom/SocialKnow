@@ -59,7 +59,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await deleteTagCommandHandler.Handle(deleteTagCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace SK.Application.UnitTests.Tags.Commands
 
             Func<Task> act = async () => await deleteTagCommandHandler.Handle(deleteTagCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

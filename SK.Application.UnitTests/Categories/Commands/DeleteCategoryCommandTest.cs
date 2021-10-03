@@ -59,7 +59,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await deleteCategoryCommandHandler.Handle(deleteCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await deleteCategoryCommandHandler.Handle(deleteCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

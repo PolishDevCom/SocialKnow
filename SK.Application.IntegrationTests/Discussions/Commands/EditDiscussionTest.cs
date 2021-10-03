@@ -48,7 +48,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             editedDiscussion.Description.Should().Be(editCommand.Description);
             editedDiscussion.IsClosed.Should().Be(false);
             editedDiscussion.IsPinned.Should().Be(false);
-            editedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            editedDiscussion.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             editedDiscussion.LastModifiedBy.Should().Be(loggedUser);
             editedDiscussion.Category.Id.Should().Be(categoryId);
         }
@@ -64,7 +64,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(editCommand)).Should().Throw<NotFoundException>();
+                SendAsync(editCommand)).Should().ThrowAsync<NotFoundException>();
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringEditingDiscussionTestCases
@@ -102,7 +102,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(editCommand)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(editCommand)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

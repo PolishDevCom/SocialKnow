@@ -44,7 +44,7 @@ namespace SK.Application.IntegrationTests.Categories.Commands
 
             Func<Task> act = async () => await SendAsync(command);
 
-            act.Should().Throw<NotFoundException>();
+            act.Should().ThrowAsync<NotFoundException>();
         }
     }
 }

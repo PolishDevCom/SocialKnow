@@ -40,7 +40,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
             discussionPostsList.Last().Id.Should().Be(createPostCommand.Id);
             discussionPostsList.Last().Body.Should().Be(createPostCommand.Body);
             discussionPostsList.Last().IsPinned.Should().Be(false);
-            discussionPostsList.Last().Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            discussionPostsList.Last().Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             discussionPostsList.Last().CreatedBy.Should().Be(loggedUser);
 
         }
@@ -67,7 +67,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(createPostCommand)).Should().Throw<NotFoundException>();
+                SendAsync(createPostCommand)).Should().ThrowAsync<NotFoundException>();
 
         }
 
@@ -94,7 +94,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(createPostCommand)).Should().Throw<RestException>();
+                SendAsync(createPostCommand)).Should().ThrowAsync<RestException>();
         }
 
         private static IEnumerable<TestCaseData> ShouldThrowValidationExceptionDuringCreatingPostTestCases
@@ -122,7 +122,7 @@ namespace SK.Application.IntegrationTests.Posts.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(createPostCommand)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(createPostCommand)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

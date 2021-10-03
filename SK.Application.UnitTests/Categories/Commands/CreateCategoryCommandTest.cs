@@ -67,7 +67,7 @@ namespace SK.Application.UnitTests.Categories.Commands
 
             Func<Task> act = async () => await createCategoryCommandHandler.Handle(createCategoryCommand, new CancellationToken());
 
-            act.Should().Throw<RestException>();
+            act.Should().ThrowAsync<RestException>();
         }
     }
 }

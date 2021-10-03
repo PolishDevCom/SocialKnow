@@ -44,7 +44,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
             createdDiscussion.Description.Should().Be(createDiscussionCommand.Description);
             createdDiscussion.IsClosed.Should().Be(false);
             createdDiscussion.IsPinned.Should().Be(false);
-            createdDiscussion.Created.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            createdDiscussion.Created.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
             createdDiscussion.CreatedBy.Should().Be(loggedUser);
             createdDiscussion.Category.Id.Should().Be(categoryId);
 
@@ -83,7 +83,7 @@ namespace SK.Application.IntegrationTests.Discussions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
     }
 }

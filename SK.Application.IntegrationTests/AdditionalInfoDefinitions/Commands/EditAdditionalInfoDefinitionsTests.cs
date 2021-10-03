@@ -47,7 +47,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
             modifiedAdditionalInfoDefinition.InfoName.Should().Be(additionalInfoDefinitionToModify.InfoName);
             modifiedAdditionalInfoDefinition.InfoType.Should().Be("int");
             modifiedAdditionalInfoDefinition.LastModifiedBy.Should().Be(loggedUser);
-            modifiedAdditionalInfoDefinition.LastModified.Should().BeCloseTo(DateTime.UtcNow, 1000);
+            modifiedAdditionalInfoDefinition.LastModified.Should().BeCloseTo(DateTime.UtcNow, new TimeSpan(1000));
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<Common.Exceptions.ValidationException>();
+                SendAsync(command)).Should().ThrowAsync<Common.Exceptions.ValidationException>();
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace SK.Application.IntegrationTests.AdditionalInfoDefinitions.Commands
 
             //assert
             FluentActions.Invoking(() =>
-                SendAsync(command)).Should().Throw<NotFoundException>();
+                SendAsync(command)).Should().ThrowAsync<NotFoundException>();
         }
     }
 }
