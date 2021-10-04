@@ -31,4 +31,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run tests
-      run: dotnet test ~/home/runner/SocialKnow/SK.Application.UnitTests
+      run: dotnet test --filter FullyQualifiedName\!~IntegrationTests
