@@ -2,13 +2,12 @@ name: .NET
 
 on:
   push:
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -17,10 +16,14 @@ jobs:
         dotnet-version: 5.0.100
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
-    - name: Build with dotnet
-      run: dotnet build --configuration Release SocialKnow.sln
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
       
   test:
+  
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -39,5 +42,12 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Install dotnet ef
+      run: dotnet tool install --global dotnet-ef
     - name: Run tests
       run: dotnet test SocialKnow.sln --configuration Release
+      env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
