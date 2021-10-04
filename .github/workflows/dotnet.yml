@@ -47,7 +47,7 @@ jobs:
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
     - name: Run tests
-      run: dotnet test SocialKnow.sln --configuration Release
+      run: dotnet test
       env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
