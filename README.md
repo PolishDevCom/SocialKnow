@@ -3,6 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![Pulls][pulls-shield]][pulls-url]
+![example workflow](https://github.com/PolishDevCom/SocialKnow/actions/workflows/dotnet.yml/badge.svg)
 
 <!-- PROJECT LOGO -->
 <br />
