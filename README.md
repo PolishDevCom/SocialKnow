@@ -52,16 +52,16 @@ It is a web application project that is a social networking site with a knowledg
 The application has been clearly divided into the backend and frontend parts. The backend is implemented using .NET Core and the frontend is carried out using the React library.
 
 Backend
-* [.NET5](https://docs.microsoft.com/pl-pl/dotnet/core/dotnet-five)
+* [.NET6](https://docs.microsoft.com/pl-pl/dotnet/core/whats-new/dotnet-6)
 * [PostgreSQL](https://www.postgresql.org/)
 * [Redis](https://redis.io/)
 * [Entity Framework Core](https://docs.microsoft.com/en-US/ef/core/)
-* [ASP.NET Core Identity](https://docs.microsoft.com/pl-pl/aspnet/core/security/authentication/?view=aspnetcore-5.0)
+* [ASP.NET Core Identity](https://docs.microsoft.com/pl-pl/aspnet/core/security/authentication/?view=aspnetcore-6.0)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [FluentValidation](https://fluentvalidation.net/)
 * [AutoMapper](https://automapper.org/)
 * [CloudinaryDotNet](https://cloudinary.com/)
-* [Swashbuckle](https://docs.microsoft.com/en-US/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio)
+* [Swashbuckle](https://docs.microsoft.com/en-US/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
 * [NUnit](https://nunit.org/)
 * [Moq](https://github.com/Moq/moq4/wiki/Quickstart)
 * [Bogus](https://github.com/bchavez/Bogus)
