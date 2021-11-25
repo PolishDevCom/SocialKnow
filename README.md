@@ -85,7 +85,7 @@ Currently, an MVP (Minimal Value Project) is being created, where the backend al
 To get a local copy up and running follow these simple steps:
 
 * Download the latest stable version from the download tab and unzip it to your folder
-* Open the solution in Visual Studio 2019. 
+* Open the solution in Visual Studio 2022. 
 * Clean solution.
 * In `appsettings.json` change PostgreSQL DB connection string:
 
